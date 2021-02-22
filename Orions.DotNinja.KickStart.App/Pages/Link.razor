@@ -1,0 +1,31 @@
+﻿@page "/link"
+@layout AppLayout
+@inherits DotNinjaComponent
+
+<LinkForm Values=@_values
+		  ValueAdded=@OnValueAdded
+		  ValueRemoved=@OnValueRemoved>
+
+</LinkForm>
+
+@code {
+
+	private readonly List<LinkVm> _values = new List<LinkVm>
+	{
+		new LinkVm("www.facebook.com", "https://www.facebook.com/nasaearth/"),
+		new LinkVm("www.twitter.com", "https://twitter.com/NASA"),
+		new LinkVm("www.youtube.com", "https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ")
+
+	};
+
+	public async Task OnValueAdded(LinkVm link)
+	{
+		_values.Add(link);
+	}
+
+	public async Task OnValueRemoved(LinkVm link)
+	{
+		_values.Remove(link);
+	}
+
+}

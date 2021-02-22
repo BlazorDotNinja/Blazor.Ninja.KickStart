@@ -1,0 +1,66 @@
+﻿@page "/nav"
+@inherits DotNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="dotninja-page-container">
+	<Navigation Title="DotNinja"
+				IconCssClass="fas fa-user-ninja fa-sm"
+				Items=@GetNavigationItems()>
+	</Navigation>
+
+</div>
+
+@code
+{
+	private List<NavigationItemVm> GetNavigationItems()
+	{
+		var items = new List<NavigationItemVm>();
+
+		var item = new NavigationItemVm
+		{
+			IconCssClass = "fa fa-dashboard fa-sm",
+			Label = "Dashboard",
+			TargetUrl = "/dashboard",
+		};
+		items.Add(item);
+
+		// Projects
+		item = new NavigationItemVm
+		{
+			IconCssClass = "fas fa-project-diagram fa-sm",
+			Label = "Projects"
+		};
+		items.Add(item);
+
+		item = new NavigationItemVm
+		{
+			IconCssClass = "fas fa-th-list fa-sm",
+			ParentLabel = "Projects",
+			Label = "Manage",
+			TargetUrl = "/projects",
+			//IsSelected = true
+		};
+		items.Add(item);
+
+		item = new NavigationItemVm
+		{
+			IconCssClass = "fas fa-user-plus fa-sm",
+			ParentLabel = "Projects",
+			Label = "Invite",
+			TargetUrl = "/invite"
+		};
+		items.Add(item);
+
+		item = new NavigationItemVm
+		{
+			IconCssClass = "fas fa-chart-bar fa-sm",
+			ParentLabel = "Projects",
+			Label = "Reports",
+			TargetUrl = "/reports"
+		};
+		items.Add(item);
+
+		return items;
+	}
+}

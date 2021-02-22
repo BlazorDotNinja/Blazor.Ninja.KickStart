@@ -1,0 +1,29 @@
+﻿@page "/forgot"
+@layout AppLayout
+@inherits DotNinjaComponent
+
+<div class="dotninja-page-container">
+	<h3>Need help with your password?</h3>
+	<ForgotForm Done=@OnDone></ForgotForm>
+</div>
+
+@code{
+
+	private void OnDone(bool wasUserInputNeeded)
+	{
+		var uri = "/";
+
+		var values = new Dictionary<string, object>
+	{
+			{ "header", "Loading" },
+			{ "text", "You have changed your password! We're now loading the home view for you." },
+			{ "wasUserInputNeeded", wasUserInputNeeded }
+		};
+
+		uri = NavigationManager.AddQueryStringParams(uri, values);
+
+		NavigationManager.NavigateTo(uri);
+	}
+}
+
+

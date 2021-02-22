@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Orions.DotNinja.KickStart.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GeoFeatureGroupController.cs" />
+    <Compile Remove="OwlPhotoController.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Orions.DotNinja.Sdk.AspNetCore" Version="1.8.9" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Orions.DotNinja.KickStart.Common\Orions.DotNinja.KickStart.Common.csproj" />
+  </ItemGroup>
+
+</Project>

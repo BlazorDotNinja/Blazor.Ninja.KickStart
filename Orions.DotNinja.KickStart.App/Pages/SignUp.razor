@@ -1,0 +1,27 @@
+﻿@page "/signup"
+@layout AppLayout
+@inherits DotNinjaComponent
+
+<div class="dotninja-page-container">
+	<h2>Sign up</h2>
+	<SignUpForm LogInUri="/login" Done=@OnDone></SignUpForm>
+</div>
+
+@code{
+
+	private void OnDone(bool wasUserInputNeeded)
+	{
+		var uri = "/";
+
+		var values = new Dictionary<string, object>
+{
+			{ "header", "Loading" },
+			{ "text", "You are in! We're now setting up your account." },
+			{ "wasUserInputNeeded", wasUserInputNeeded }
+		};
+
+		uri = NavigationManager.AddQueryStringParams(uri, values);
+
+		NavigationManager.NavigateTo(uri);
+	}
+}
