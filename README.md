@@ -52,4 +52,4 @@ To use the Map Form component, provide a Google API key:
 * Orions.DotNinja.KickStart.ServerApp > Pages > _Host.cshtml
 * Orions.DotNinja.KickStart.WasmApp > wwwroot > index.html
 
-**Happy coding!** 
+##Happy coding!
