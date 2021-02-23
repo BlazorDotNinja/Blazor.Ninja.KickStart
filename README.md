@@ -25,7 +25,7 @@ App realms hold resources such as apps, roles, document data and binary objects 
 5. Generate an app token. 
 Providing a token is how your app authenticates against DotNinja' BaaS.
 
-![Generate Token](https://portal.blazor.ninja/images/screenshots/create-token.png)
+![Generate Token](https://portal.blazor.ninja/images/screenshots/create-app-token.png)
 
 6. Paste your app's token into the Program.cs files of the projects below:
   * Orions.DotNinja.KickStart.ServerApp
