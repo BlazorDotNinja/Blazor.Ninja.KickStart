@@ -11,13 +11,21 @@ To run DotNinja you need a DotNinja app. Follow the steps below to set up your a
 2. Create a company for your app.
 Companies hold resources such as app realms and people together. 
 
+![Create Company](https://portal.blazor.ninja/images/screenshots/create-company.png)
+
 3. Create an app realm for your app.
 App realms hold resources such as apps, roles, document data and binary objects together. 
 
+![Create App Realm](https://portal.blazor.ninja/images/screenshots/create-app-realm.png)
+
 4. Create an app. 
 
-5. Create an app token. 
+![Create App](https://portal.blazor.ninja/images/screenshots/create-app.png)
+
+5. Generate an app token. 
 Providing a token is how your app authenticates against DotNinja' BaaS.
+
+![Generate Token](https://portal.blazor.ninja/images/screenshots/create-token.png)
 
 6. Paste your app's token into the Program.cs files of the projects below:
   * Orions.DotNinja.KickStart.ServerApp
