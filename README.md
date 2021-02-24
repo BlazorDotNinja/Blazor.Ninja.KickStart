@@ -2,7 +2,8 @@
 
 DotNinja is OrionsWave's SDK for crafting fast user experiences for web. DotNinja works on top of ASP.NET Core and supports Blazor Server and Blazor WebAssembly and comes with its own BaaS.  
 
-You can find an demo of the SDK here: [kickstart.blazor.ninja](https://kickstart.blazor.ninja)
+You can find a demo of the SDK here: [kickstart.blazor.ninja](https://kickstart.blazor.ninja)
+
 ## Set up a DotNinja App
 
 To run DotNinja you need a DotNinja app. Follow the steps below to set up your app:
