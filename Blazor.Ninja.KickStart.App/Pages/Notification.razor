@@ -1,0 +1,8 @@
+@page "/notification"
+@inherits DotNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="dotninja-page-container">
+	<MessageList Limit=10></MessageList>
+</div>

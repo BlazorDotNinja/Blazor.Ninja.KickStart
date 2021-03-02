@@ -1,0 +1,28 @@
+@page "/phone"
+@layout AppLayout
+@inherits DotNinjaComponent
+
+<PhoneForm Values=@_values1
+           ValueAdded=@OnValue1Added
+           ValueRemoved=@OnValue1Removed>
+</PhoneForm>
+
+@code {
+
+	private readonly List<string> _values1 = new List<string>
+	{
+		"+1 202 226 8000",
+		"+1 202 456 1111",
+		"+1 800 642 7676"
+	};
+
+	public async Task OnValue1Added(string value)
+	{
+		_values1.Add(value);
+	}
+
+	public async Task OnValue1Removed(string value)
+	{
+		_values1.Remove(value);
+	}
+}

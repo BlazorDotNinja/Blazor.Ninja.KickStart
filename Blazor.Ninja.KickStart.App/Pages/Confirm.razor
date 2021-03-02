@@ -1,0 +1,30 @@
+@page "/confirm"
+@layout AppLayout
+@inherits DotNinjaComponent
+@attribute [UserContextRequired]
+
+<div class="dotninja-page-container">
+	<h2>Confirm your account</h2>
+	<ConfirmForm Done=@OnDone></ConfirmForm>
+</div>
+
+@code{
+
+	private void OnDone(bool wasUserInputNeeded)
+	{
+		var uri = "/";
+
+		var values = new Dictionary<string, object>
+	{
+			{ "header", "Loading" },
+			{ "text", "Thanks for confirming your account! We're now loading the home view for you." },
+			{ "wasUserInputNeeded", wasUserInputNeeded }
+		};
+
+		uri = NavigationManager.AddQueryStringParams(uri, values);
+
+		NavigationManager.NavigateTo(uri);
+	}
+}
+
+

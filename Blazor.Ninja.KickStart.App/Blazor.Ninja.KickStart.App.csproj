@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Blazor.Ninja.KickStart.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GeoFeatureGroupController.cs" />
+    <Compile Remove="OwlPhotoController.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="BlazorDotNinja.Sdk.AspNetCore" Version="1.9.0-preview.19" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.Ninja.KickStart.Common\Blazor.Ninja.KickStart.Common.csproj" />
+  </ItemGroup>
+
+</Project>

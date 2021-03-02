@@ -1,0 +1,26 @@
+@page "/logout"
+@inherits DotNinjaComponent
+@layout AppLayout
+
+<div class="dotninja-page-container">
+	<h2>Log out</h2>
+	<div class="dotninja-flashing"></div>
+</div>
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+		var userProxy = ProxyFactory.GetUserProxy<GenericUser>(token);
+
+		await userProxy.LogOutAsync();
+
+		await Task.Delay(1500);
+
+		await ResetUserAsync();
+
+		NavigationManager.NavigateTo("/");
+	}
+}

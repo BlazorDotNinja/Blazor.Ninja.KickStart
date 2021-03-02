@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>4f2242d1-d3a2-400f-9ee8-ca6fed7136e3</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.Ninja.KickStart.Controllers\Blazor.Ninja.KickStart.Controllers.csproj" />
+    <ProjectReference Include="..\Blazor.Ninja.KickStart.WasmApp\Blazor.Ninja.KickStart.WasmApp.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,127 @@
+@page "/"
+@layout AppLayout
+@using Blazor.Ninja.Common.Data.System
+@inherits DotNinjaComponent
+
+<div class="dotninja-page-container">
+	@if (!string.IsNullOrWhiteSpace(_header))
+	{
+		<h2>
+			@_header
+		</h2>
+	}
+
+	@if (_linkVm == null)
+	{
+		if (!string.IsNullOrWhiteSpace(_text))
+		{
+			<p>
+				@_text
+			</p>
+		}
+
+		<div class="dotninja-flashing"></div>
+	}
+	else
+	{
+		<div class="dotninja-form-container">
+			<button @onclick="OnClick" class="btn-primary">@_linkVm.Label</button>
+		</div>
+	}
+</div>
+
+@code{
+	private string _header = "Welcome to Kickstart App";
+	private bool _wasUserInputNeeded;
+	private string _text;
+	private string _targetUri;
+	private LinkVm _linkVm;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		// get header
+		if (NavigationManager.TryGetFromQueryString("header", out string header))
+		{
+			_header = header;
+		}
+
+		// get text
+		_text = null;
+		if (NavigationManager.TryGetFromQueryString("text", out string text))
+		{
+			_text = text;
+		}
+
+		// get whether user input was needed
+		_wasUserInputNeeded = false;
+		if (NavigationManager.TryGetFromQueryString("wasUserInputNeeded", out bool wasUserInputNeeded))
+		{
+			_wasUserInputNeeded = wasUserInputNeeded;
+		}
+
+		// get navigate to uri
+		_targetUri = "/dashboard";
+		if (NavigationManager.TryGetFromQueryString("targetUri", out string targetUri))
+		{
+			_targetUri = targetUri;
+		}
+
+		var themeFeature = ConfigurationProxy.GetFeature<ThemeFeature>();
+		var theme = themeFeature.GetTheme();
+
+		if (await HasUserContextAsync())
+		{
+			try
+			{
+				var token = await GetUserTokenAsync();
+
+				var userProxy = ProxyFactory.GetUserProxy<GenericUser>(token);
+
+				var user = await userProxy.GetAsync();
+				if (user != null)
+				{
+					await SetUserAsync(user);
+
+					if (user.HasThemeId)
+					{
+						var userTheme = themeFeature.GetTheme(user.ThemeId);
+						if (userTheme != null) theme = userTheme;
+					}
+
+					await SetThemeAsync(theme);
+
+					if (_wasUserInputNeeded) await Task.Delay(3 * 1000);
+
+					if (await userProxy.IsConfirmationPendingAsync()) _targetUri = "/confirm";
+
+					NavigationManager.NavigateTo(_targetUri);
+
+					return;
+				}
+			}
+			catch
+			{
+				// ignored
+			}
+
+			await ResetUserAsync();
+		}
+
+		await SetThemeAsync(theme);
+
+		_linkVm = new LinkVm
+		{
+			Label = "Start here",
+			Target = "/signup"
+		};
+	}
+
+	private void OnClick()
+	{
+		NavigationManager.NavigateTo(_linkVm.Target);
+	}
+}
+
+
