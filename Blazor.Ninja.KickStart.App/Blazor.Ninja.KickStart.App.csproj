@@ -12,7 +12,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="BlazorDotNinja.Sdk.AspNetCore" Version="1.9.0-preview.19" />
+    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.9.0-preview.20" />
   </ItemGroup>
 
 
