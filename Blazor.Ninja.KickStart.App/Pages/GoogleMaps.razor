@@ -1,9 +1,9 @@
 @page "/google-maps"
 @layout AppLayout
 @using Blazor.Ninja.KickStart.Common
-@inherits DotNinjaComponent
+@inherits BlazorNinjaComponent
 
-<div class="dotninja-page-container">
+<div class="blazor-ninja-page-container">
 	@if (_isInitialized)
 	{
 		<GoogleMapsForm @ref="_mapForm"

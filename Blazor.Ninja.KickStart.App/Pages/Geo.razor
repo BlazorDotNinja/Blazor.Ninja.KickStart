@@ -1,8 +1,8 @@
 @page "/geo"
 @layout AppLayout
-@inherits DotNinjaComponent
+@inherits BlazorNinjaComponent
 
-<div class="dotninja-page-container">
+<div class="blazor-ninja-page-container">
 	<AddressForm Countries=@_countries
 	             Regions=@_regions
 	             Cities=@_cities
@@ -10,7 +10,7 @@
 	             CountryChanged=@OnCountryChangedAsync
 	             RegionChanged=@OnRegionChangedAsync>
 	</AddressForm>
-	<div class="dotninja-form-container">
+	<div class="blazor-ninja-form-container">
 		<button type="button" class="btn-primary" @onclick="@OnSubmit">Submit</button>
 	</div>
 </div>
@@ -36,14 +36,14 @@
 		if (_address != null && _address.HasCountry)
 		{
 			var country = _countries.FirstOrDefault(it => string.Equals(it.Name, _address.Country, StringComparison.InvariantCultureIgnoreCase));
-			if (country == null) throw ExceptionBuilder.GetInstance(DotNinjaStatusCode.NotFound, "");
+			if (country == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "");
 			_regions = await _proxy.GetRegionsAsync(country.Id);
 		}
 
 		if (_address != null && _address.HasRegion)
 		{
 			var region = _regions.FirstOrDefault(it => string.Equals(it.Name, _address.Region, StringComparison.InvariantCultureIgnoreCase));
-			if (region == null) throw ExceptionBuilder.GetInstance(DotNinjaStatusCode.NotFound, "");
+			if (region == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "");
 
 			_cities = await _proxy.GetCitiesAsync(region.Id);
 		}

@@ -1,10 +1,10 @@
 @page "/nav"
-@inherits DotNinjaComponent
+@inherits BlazorNinjaComponent
 @layout UserContextLayout
 @attribute [UserContextRequired]
 
-<div class="dotninja-page-container">
-	<Navigation Title="DotNinja"
+<div class="blazor-ninja-page-container">
+	<Navigation Title="BlazorNinja"
 				IconCssClass="fa fa-code fa-sm"
 				Items=@GetNavigationItems()>
 	</Navigation>

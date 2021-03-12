@@ -1,9 +1,9 @@
 @using System.Threading
-@inherits DotNinjaLayoutComponent
+@inherits BlazorNinjaLayoutComponent
 @layout Layout
 @implements IDisposable
 
-<div class="dotninja-header">
+<div class="blazor-ninja-header">
 	<nav>
 		<h2>Kickstart App</h2>
 		<div class="img-container">
@@ -19,11 +19,11 @@
 	</nav>
 </div>
 
-<div class="dotninja-main">
+<div class="blazor-ninja-main">
 	@Body
 </div>
 
-<div class="dotninja-footer">
+<div class="blazor-ninja-footer">
 	<nav>
 		<a href="/dashboard" class="@GetCssClass("/dashboard")" onclick="@GetOnclickHandler("/dashboard")">
 			<i class="fa fa-home"></i>

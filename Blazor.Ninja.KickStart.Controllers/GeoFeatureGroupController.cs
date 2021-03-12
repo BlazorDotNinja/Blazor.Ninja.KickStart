@@ -96,7 +96,7 @@ namespace Blazor.Ninja.KickStart.Controllers
 				var proxy = _proxyFactory.GetAppContextDataProxy<GeoFeatureGroup>();
 
 				var group = await proxy.GetAsync(id, cancellationToken: cts);
-				if (group == null) throw ExceptionBuilder.GetInstance(DotNinjaStatusCode.NotFound, "item");
+				if (group == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "item");
 
 				var features = new List<MapFeatureVm>();
 

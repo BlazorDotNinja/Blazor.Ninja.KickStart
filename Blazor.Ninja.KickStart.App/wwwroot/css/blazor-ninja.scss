@@ -1,4 +1,4 @@
-@import "dotninja-root";
+@import "blazor-ninja-root";
 
 * {
 	box-sizing: border-box;
@@ -110,7 +110,7 @@ a:hover {
 	visibility: hidden;
 }
 
-.dotninja-container {
+.blazor-ninja-container {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -121,7 +121,7 @@ a:hover {
 	color: var(--text-color);
 }
 
-.dotninja-header {
+.blazor-ninja-header {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -133,7 +133,7 @@ a:hover {
 	color: var(--header-text-color);
 }
 
-.dotninja-header nav {
+.blazor-ninja-header nav {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -143,24 +143,24 @@ a:hover {
 	max-width: var(--header-navigation-max-width);
 }
 
-.dotninja-header nav a {
+.blazor-ninja-header nav a {
 	color: var(--link-text-color);
 }
 
-.dotninja-header nav a:hover {
+.blazor-ninja-header nav a:hover {
 	color: var(--link-hovered-text-color);
 }
 
-.dotninja-header nav a.selected {
+.blazor-ninja-header nav a.selected {
 	color: var(--link-selected-text-color);
 	cursor: default;
 }
 
-.dotninja-header nav h2 {
+.blazor-ninja-header nav h2 {
 	margin: 0;
 }
 
-.dotninja-header nav .img-container {
+.blazor-ninja-header nav .img-container {
 	display: flex;
 	width: 3rem;
 	height: 3rem;
@@ -172,11 +172,11 @@ a:hover {
 	border-radius: 2rem;
 }
 
-.dotninja-header nav img {
+.blazor-ninja-header nav img {
 	width: 100%;
 }
 
-.dotninja-main {
+.blazor-ninja-main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -185,7 +185,7 @@ a:hover {
 	height: 100%;
 }
 
-.dotninja-footer {
+.blazor-ninja-footer {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -197,7 +197,7 @@ a:hover {
 	color: var(--footer-text-color);
 }
 
-.dotninja-footer nav {
+.blazor-ninja-footer nav {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -207,7 +207,7 @@ a:hover {
 	max-width: var(--footer-navigation-max-width);
 }
 
-.dotninja-footer nav a {
+.blazor-ninja-footer nav a {
 	color: var(--footer-text-color);
 	display: flex;
 	flex-direction: row;
@@ -215,16 +215,16 @@ a:hover {
 	text-decoration: none;
 }
 
-.dotninja-footer nav a.selected {
+.blazor-ninja-footer nav a.selected {
 	color: var(--link-selected-text-color);
 	cursor: default;
 }
 
-.dotninja-footer nav i {
+.blazor-ninja-footer nav i {
 	font-size: 2rem;
 }
 
-.dotninja-footer nav span {
+.blazor-ninja-footer nav span {
 	font-weight: bold;
 	font-size: 0.8rem;
 	background-color: var(--footer-notification-background-color);
@@ -238,7 +238,7 @@ a:hover {
 
 // Shared
 ///////////////////////////////////////////////////////////
-.dotninja-page-container {
+.blazor-ninja-page-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -248,16 +248,16 @@ a:hover {
 	padding: 0.5rem;
 }
 
-.dotninja-page-container h2, h3 {
+.blazor-ninja-page-container h2, h3 {
 	margin-bottom: 3rem;
 }
 
-.dotninja-page-container p {
+.blazor-ninja-page-container p {
 	text-align: center;
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-form-container {
+.blazor-ninja-form-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -266,12 +266,12 @@ a:hover {
 	max-width: var(--form-max-width);
 }
 
-.dotninja-form-container p {
+.blazor-ninja-form-container p {
 	text-align: center;
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-form-container form {
+.blazor-ninja-form-container form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -279,22 +279,22 @@ a:hover {
 	width: 100%;
 }
 
-.dotninja-form-container input {
+.blazor-ninja-form-container input {
 	margin-bottom: 1.5rem;
 	text-align: center;
 }
 
-.dotninja-form-container button {
+.blazor-ninja-form-container button {
 	margin-bottom: 1rem;
 }
 
-.dotninja-form-container a {
+.blazor-ninja-form-container a {
 	margin-top: 2rem;
 	text-align: center;
 	text-decoration: none;
 }
 
-.dotninja-field-container {
+.blazor-ninja-field-container {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -305,7 +305,7 @@ a:hover {
 //////////////////////////////////////////////////////////
 // Modal
 /////////////////////////////////////////////////////////
-.dotninja-modal {
+.blazor-ninja-modal {
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -318,7 +318,7 @@ a:hover {
 	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
-.dotninja-modal .dotninja-modal-content {
+.blazor-ninja-modal .blazor-ninja-modal-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -331,19 +331,19 @@ a:hover {
 	border-radius: 0.5rem;
 }
 
-.dotninja-modal .dotninja-modal-content p {
+.blazor-ninja-modal .blazor-ninja-modal-content p {
 	width: 100%;
 	font-size: 0.8rem;
 }
 
-.dotninja-modal .dotninja-modal-content .dotninja-modal-command {
+.blazor-ninja-modal .blazor-ninja-modal-content .blazor-ninja-modal-command {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
 }
 
-.dotninja-modal .dotninja-modal-content .dotninja-modal-command button {
+.blazor-ninja-modal .blazor-ninja-modal-content .blazor-ninja-modal-command button {
 	font-size: 0.8rem;
 	width: 100px;
 	margin-bottom: unset;
@@ -352,14 +352,14 @@ a:hover {
 	margin-right: 1rem;
 }
 
-.dotninja-modal .dotninja-modal-content .dotninja-modal-command button:last-child {
+.blazor-ninja-modal .blazor-ninja-modal-content .blazor-ninja-modal-command button:last-child {
 	margin-right: 0;
 }
 
 ///////////////////////////////////////////////////////////
 // Menu
 ///////////////////////////////////////////////////////////
-.dotninja-context-menu {
+.blazor-ninja-context-menu {
 	display: flex;
 	flex-direction: column;
 	position: absolute;
@@ -370,7 +370,7 @@ a:hover {
 	min-width: 150px;
 }
 
-.dotninja-context-menu button {
+.blazor-ninja-context-menu button {
 	padding: 0.5rem;
 	border: none;
 	border-bottom: 1px solid #333;
@@ -382,18 +382,18 @@ a:hover {
 	border-radius: 0;
 }
 
-.dotninja-context-menu button:hover {
+.blazor-ninja-context-menu button:hover {
 	background-color: #ccc;
 }
 
-.dotninja-context-menu button:last-child {
+.blazor-ninja-context-menu button:last-child {
 	border-bottom: 0;
 }
 
 ///////////////////////////////////////////////////////////
 // Navigation
 ///////////////////////////////////////////////////////////
-.dotninja-navigation {
+.blazor-ninja-navigation {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--navigation-background-color);
@@ -405,7 +405,7 @@ a:hover {
 	width: 2rem;
 }
 
-.dotninja-navigation > .header {
+.blazor-ninja-navigation > .header {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -414,28 +414,28 @@ a:hover {
 	overflow: hidden;
 }
 
-.dotninja-navigation > .header > i {
+.blazor-ninja-navigation > .header > i {
 	min-width: 1rem;
 	font-size: 1rem;
 	display: inline-block;
 	text-align: center;
 }
 
-.dotninja-navigation > .header > span {
+.blazor-ninja-navigation > .header > span {
 	margin-left: 0.5rem;
 	font-size: 1rem;
 	font-weight: 500;
 }
 
-.dotninja-navigation > .items {
+.blazor-ninja-navigation > .items {
 	flex: 1;
 }
 
-.dotninja-navigation > .items > .group {
+.blazor-ninja-navigation > .items > .group {
 	overflow: hidden;
 }
 
-.dotninja-navigation .item {
+.blazor-ninja-navigation .item {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -445,15 +445,15 @@ a:hover {
 	color: var(--navigation-text-color);
 }
 
-.dotninja-navigation .item:hover {
+.blazor-ninja-navigation .item:hover {
 	color: var(--navigation-hovered-text-color);
 }
 
-.dotninja-navigation .selected {
+.blazor-ninja-navigation .selected {
 	color: var(--navigation-hovered-text-color);
 }
 
-.dotninja-navigation .item > a {
+.blazor-ninja-navigation .item > a {
 	margin: 0 0.6rem;
 	font-size: 1rem;
 	color: inherit;
@@ -462,7 +462,7 @@ a:hover {
 	white-space: nowrap;
 }
 
-.dotninja-navigation .item > span {
+.blazor-ninja-navigation .item > span {
 	margin: 0 0.5rem;
 	font-size: 1rem;
 	color: inherit;
@@ -470,34 +470,34 @@ a:hover {
 	white-space: nowrap;
 }
 
-.dotninja-navigation .item > i {
+.blazor-ninja-navigation .item > i {
 	display: inline-block;
 	text-align: center;
 	color: inherit;
 	line-height: 1rem;
 }
 
-.dotninja-navigation .item > i:last-child {
+.blazor-ninja-navigation .item > i:last-child {
 	margin-right: 0.6rem;
 }
 
-.dotninja-navigation .item > .fa-chevron-right {
+.blazor-ninja-navigation .item > .fa-chevron-right {
 	font-size: 0.7rem;
 }
 
-.dotninja-navigation .item > .fa-chevron-up {
+.blazor-ninja-navigation .item > .fa-chevron-up {
 	font-size: 0.7rem;
 }
 
-.dotninja-navigation .item > .fa-chevron-down {
+.blazor-ninja-navigation .item > .fa-chevron-down {
 	font-size: 0.7rem;
 }
 
-.dotninja-navigation .child {
+.blazor-ninja-navigation .child {
 	padding: 0.5rem 0.5rem 0.5rem 1.5rem;
 }
 
-.dotninja-navigation > .footer {
+.blazor-ninja-navigation > .footer {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
@@ -505,7 +505,7 @@ a:hover {
 	color: var(--navigation-text-color);
 }
 
-.dotninja-navigation > .footer > i {
+.blazor-ninja-navigation > .footer > i {
 	min-width: 1rem;
 	font-size: 1rem;
 	display: inline-block;
@@ -517,39 +517,39 @@ a:hover {
 ///////////////////////////////////////////////////////////
 // Sign up page
 ///////////////////////////////////////////////////////////
-.dotninja-signup-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-signup-form-container {
+	@extend .blazor-ninja-form-container;
 }
 ///////////////////////////////////////////////////////////
 // Confirm page
 ///////////////////////////////////////////////////////////
-.dotninja-confirm-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-confirm-form-container {
+	@extend .blazor-ninja-form-container;
 }
 ///////////////////////////////////////////////////////////
 // Login up page
 ///////////////////////////////////////////////////////////
-.dotninja-login-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-login-form-container {
+	@extend .blazor-ninja-form-container;
 }
 ///////////////////////////////////////////////////////////
 // Forgot page
 ///////////////////////////////////////////////////////////
-.dotninja-forgot-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-forgot-form-container {
+	@extend .blazor-ninja-form-container;
 }
 
 ///////////////////////////////////////////////////////////
 // Dashboard page
 ///////////////////////////////////////////////////////////
-.dotninja-dashboard-page-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-dashboard-page-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: row;
 	flex-wrap: wrap;
 	max-width: 600px;
 }
 
-.dotninja-dashboard-page-container a {
+.blazor-ninja-dashboard-page-container a {
 	color: var(--text-color);
 	border: 1px solid var(--border-color);
 	text-decoration: none;
@@ -560,19 +560,19 @@ a:hover {
 	border-radius: 0.5rem;
 }
 
-.dotninja-dashboard-page-container a:hover {
+.blazor-ninja-dashboard-page-container a:hover {
 	border-color: var(--highlight-border-color);
 }
 
 ///////////////////////////////////////////////////////////
 // Theme page
 ///////////////////////////////////////////////////////////
-.dotninja-theme-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-theme-form-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: column;
 }
 
-.dotninja-theme-form-container .themes {
+.blazor-ninja-theme-form-container .themes {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -581,7 +581,7 @@ a:hover {
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-theme-form-container .theme {
+.blazor-ninja-theme-form-container .theme {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -594,18 +594,18 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-theme-form-container .selected {
+.blazor-ninja-theme-form-container .selected {
 	border: 2px solid var(--highlight-border-color);
 }
 
-.dotninja-theme-form-container .theme-img-container {
+.blazor-ninja-theme-form-container .theme-img-container {
 	background-color: var(--img-background-color);
 	position: relative;
 	width: 100%;
 	padding-top: 150%; /* 2:3 Aspect Ratio */
 }
 
-.dotninja-theme-form-container .theme-img-container img {
+.blazor-ninja-theme-form-container .theme-img-container img {
 	width: 100%;
 	position: absolute;
 	top: 0;
@@ -615,18 +615,18 @@ a:hover {
 	text-align: center;
 }
 
-.dotninja-theme-form-container span {
+.blazor-ninja-theme-form-container span {
 	display: none;
 }
 ///////////////////////////////////////////////////////////
 // Menu page
 ///////////////////////////////////////////////////////////
-.dotninja-menu-page-container {
-	@extend .dotninja-page-container;
+.blazor-ninja-menu-page-container {
+	@extend .blazor-ninja-page-container;
 	justify-content: start;
 }
 
-.dotninja-menu-page-container a {
+.blazor-ninja-menu-page-container a {
 	display: inline-block;
 	width: 100%;
 	padding: 0.8rem;
@@ -638,7 +638,7 @@ a:hover {
 ///////////////////////////////////////////////////////////
 // Notifications page
 ///////////////////////////////////////////////////////////
-.dotninja-message-list-container {
+.blazor-ninja-message-list-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -647,7 +647,7 @@ a:hover {
 	margin-bottom: 1rem;
 }
 
-.dotninja-message-list-container .item {
+.blazor-ninja-message-list-container .item {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -663,46 +663,46 @@ a:hover {
 	max-width: var(--list-item-max-width);
 }
 
-.dotninja-message-list-container .sent {
+.blazor-ninja-message-list-container .sent {
 	background-color: var(--notification-sent-background-color);
 }
 
-.dotninja-message-list-container .clickable {
+.blazor-ninja-message-list-container .clickable {
 	cursor: pointer;
 }
 
-.dotninja-message-list-container p {
+.blazor-ninja-message-list-container p {
 	margin-bottom: 0;
 	text-align: left;
 }
 
-.dotninja-message-list-container a.delete {
+.blazor-ninja-message-list-container a.delete {
 	cursor: pointer;
 	font-weight: bold;
 	color: var(--notification--delete-icon-color);
 	padding: 5px 10px;
 }
 
-.dotninja-message-list-container button {
+.blazor-ninja-message-list-container button {
 	margin-top: 1rem;
 	align-self: center;
 }
 ///////////////////////////////////////////////////////////
 // Postboarding
 ///////////////////////////////////////////////////////////
-.dotninja-postboarding-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-postboarding-form-container {
+	@extend .blazor-ninja-form-container;
 }
 
-.dotninja-postboarding-form-container textarea {
+.blazor-ninja-postboarding-form-container textarea {
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-postboarding-form-container .photourl-container {
+.blazor-ninja-postboarding-form-container .photourl-container {
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-postboarding-form-container .photourl-container .img-container {
+.blazor-ninja-postboarding-form-container .photourl-container .img-container {
 	display: flex;
 	width: 200px;
 	height: 200px;
@@ -714,29 +714,29 @@ a:hover {
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-postboarding-form-container img {
+.blazor-ninja-postboarding-form-container img {
 	width: 100%;
 }
 
-.dotninja-postboarding-form-container input[type=file] {
+.blazor-ninja-postboarding-form-container input[type=file] {
 	display: none;
 }
 ///////////////////////////////////////////////////////////
 // Map
 ///////////////////////////////////////////////////////////
-.dotninja-map-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-map-form-container {
+	@extend .blazor-ninja-form-container;
 	width: 100%;
 	height: 100%;
 	max-width: 100%;
 }
 
-.dotninja-map-form-container .map {
+.blazor-ninja-map-form-container .map {
 	width: 100%;
 	height: 100%;
 }
 // Map View Menu
-.dotninja-map-view-menu-container {
+.blazor-ninja-map-view-menu-container {
 	display: flex;
 	flex-direction: row;
 	margin-top: 1.5rem;
@@ -746,11 +746,11 @@ a:hover {
 	border-bottom-left-radius: 0.5rem;
 }
 
-.dotninja-map-view-menu-container:hover {
+.blazor-ninja-map-view-menu-container:hover {
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.dotninja-map-view-menu-container img {
+.blazor-ninja-map-view-menu-container img {
 	width: 2.5rem;
 	height: 2.5rem;
 	border-radius: 0.5rem;
@@ -758,26 +758,26 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-map-view-menu-container img.roadmap {
+.blazor-ninja-map-view-menu-container img.roadmap {
 	margin-right: 0.5rem;
 }
 
-.dotninja-map-view-menu-container img.selected {
+.blazor-ninja-map-view-menu-container img.selected {
 	border: solid 1px #ec7156;
 }
 // Map Toggle Option
-.dotninja-map-toggle-option-container {
+.blazor-ninja-map-toggle-option-container {
 	margin-top: 1.5rem;
 	background-color: rgba(0, 0, 0, 0.4);
 	border-top-left-radius: 0.5rem;
 	border-bottom-left-radius: 0.5rem;
 }
 
-.dotninja-map-toggle-option-container:hover {
+.blazor-ninja-map-toggle-option-container:hover {
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.dotninja-map-toggle-option-container i {
+.blazor-ninja-map-toggle-option-container i {
 	width: 3rem;
 	height: 3rem;
 	color: #ddd;
@@ -787,22 +787,22 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-map-toggle-option-container i.on {
+.blazor-ninja-map-toggle-option-container i.on {
 	color: #ec7156;
 }
 // Map Back Button
-.dotninja-map-back-button-container {
+.blazor-ninja-map-back-button-container {
 	margin-top: 1.5rem;
 	background-color: rgba(0, 0, 0, 0.4);
 	border-top-right-radius: 0.5rem;
 	border-bottom-right-radius: 0.5rem;
 }
 
-.dotninja-map-back-button-container:hover {
+.blazor-ninja-map-back-button-container:hover {
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.dotninja-map-back-button-container i {
+.blazor-ninja-map-back-button-container i {
 	width: 3rem;
 	height: 3rem;
 	color: #ddd;
@@ -812,7 +812,7 @@ a:hover {
 	cursor: pointer;
 }
 // Map Drawing Menu
-.dotninja-map-drawing-menu-container {
+.blazor-ninja-map-drawing-menu-container {
 	display: flex;
 	flex-direction: column;
 	margin-top: 1.5rem;
@@ -822,7 +822,7 @@ a:hover {
 	border-bottom-left-radius: 0.5rem;
 }
 
-.dotninja-map-drawing-menu-container i {
+.blazor-ninja-map-drawing-menu-container i {
 	width: 3rem;
 	height: 3rem;
 	color: #ddd;
@@ -832,23 +832,23 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-map-drawing-menu-container i:hover {
+.blazor-ninja-map-drawing-menu-container i:hover {
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.dotninja-map-drawing-menu-container i:first-child {
+.blazor-ninja-map-drawing-menu-container i:first-child {
 	border-top-left-radius: 0.5rem;
 }
 
-.dotninja-map-drawing-menu-container i:last-child {
+.blazor-ninja-map-drawing-menu-container i:last-child {
 	border-bottom-left-radius: 0.5rem;
 }
 
-.dotninja-map-drawing-menu-container i.on {
+.blazor-ninja-map-drawing-menu-container i.on {
 	color: #ec7156;
 }
 
-.dotninja-map-button-container {
+.blazor-ninja-map-button-container {
 	display: flex;
 	flex-direction: row;
 	margin-top: 1.5rem;
@@ -858,7 +858,7 @@ a:hover {
 	border-top-right-radius: 0.5rem;
 }
 
-.dotninja-map-button-container button {
+.blazor-ninja-map-button-container button {
 	font-size: 0.8rem;
 	width: 100px;
 	margin-bottom: unset;
@@ -867,16 +867,16 @@ a:hover {
 	margin-right: 1rem;
 }
 
-.dotninja-map-button-container button.delete {
+.blazor-ninja-map-button-container button.delete {
 	background-color: #fc1b2b;
 	border-color: #fc1b2b;
 }
 
-.dotninja-map-button-container button:last-child {
+.blazor-ninja-map-button-container button:last-child {
 	margin-right: 0;
 }
 
-.dotninja-map-delete-vertex-button {
+.blazor-ninja-map-delete-vertex-button {
 	position: absolute;
 	z-index: 1000;
 	background-color: red;
@@ -890,7 +890,7 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-map-flashing-container {
+.blazor-ninja-map-flashing-container {
 	display: flex;
 	min-width: 120px;
 	justify-content: center;
@@ -902,7 +902,7 @@ a:hover {
 ///////////////////////////////////////////////////////////
 // Error
 //////////////////////////////////////////////////////////
-.dotninja-error {
+.blazor-ninja-error {
 	color: var(--error-text-color);
 	font-size: var(--error-font-size);
 	font-weight: var(--error-font-weight);
@@ -910,25 +910,25 @@ a:hover {
 	text-align: center;
 }
 
-.dotninja-error-center {
-	@extend .dotninja-error;
+.blazor-ninja-error-center {
+	@extend .blazor-ninja-error;
 	margin: 1.5rem;
 }
 
-.dotninja-error-form {
-	@extend .dotninja-error;
+.blazor-ninja-error-form {
+	@extend .blazor-ninja-error;
 	margin-bottom: 1.5rem;
 }
 //////////////////////////////////////////////////////////
 // Tag Instance
 //////////////////////////////////////////////////////////
-.dotninja-taginstance-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-taginstance-form-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: column;
 	border: solid 1px var(--border-color);
 }
 
-.dotninja-taginstance-form-container div {
+.blazor-ninja-taginstance-form-container div {
 	display: flex;
 	flex-direction: row;
 	justify-content: start;
@@ -939,15 +939,15 @@ a:hover {
 	padding-bottom: 0.5rem;
 }
 
-.dotninja-taginstance-form-container div:last-child {
+.blazor-ninja-taginstance-form-container div:last-child {
 	border: none;
 }
 
-.dotninja-taginstance-form-container label {
+.blazor-ninja-taginstance-form-container label {
 	margin: 0.5rem 0 0 0.5rem;
 }
 
-.dotninja-taginstance-form-container span {
+.blazor-ninja-taginstance-form-container span {
 	margin: 0.5rem 0 0 0.5rem;
 	padding: 0.5rem 1rem;
 	font-size: 0.8rem;
@@ -956,12 +956,12 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-taginstance-form-container .top span {
+.blazor-ninja-taginstance-form-container .top span {
 	background-color: #D97600;
 	font-weight: 400;
 }
 
-.dotninja-taginstance-form-container input {
+.blazor-ninja-taginstance-form-container input {
 	text-align: left;
 	margin: 0.5rem 0 0 0.5rem;
 	font-size: 0.8rem;
@@ -970,7 +970,7 @@ a:hover {
 	line-height: unset;
 }
 
-.dotninja-taginstance-form-container button {
+.blazor-ninja-taginstance-form-container button {
 	margin: 0.5rem 0 0 0.5rem;
 	font-size: 0.8rem;
 	width: unset;
@@ -981,11 +981,11 @@ a:hover {
 	cursor: pointer;
 }
 
-.dotninja-taginstance-form-container input:focus {
+.blazor-ninja-taginstance-form-container input:focus {
 	outline: none;
 }
 
-.dotninja-taginstance-form-container datalist option {
+.blazor-ninja-taginstance-form-container datalist option {
 	background-color: white;
 }
 
@@ -995,31 +995,31 @@ input::-webkit-calendar-picker-indicator {
 //////////////////////////////////////////////////////////
 // Link
 ///////////////////////////////////////////////////////////
-.dotninja-link-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-link-form-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: column;
 	border: solid 1px var(--border-color);
 	padding-bottom: 0.5rem;
 }
 
-.dotninja-link-form-container div {
+.blazor-ninja-link-form-container div {
 	width: 100%;
 	padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.dotninja-link-form-container input {
+.blazor-ninja-link-form-container input {
 	width: 100%;
 	text-align: left;
 	font-size: 0.8rem;
 	margin: unset;
 }
 
-.dotninja-link-form-container a {
+.blazor-ninja-link-form-container a {
 	text-align: left;
 	font-size: 0.8rem;
 }
 
-.dotninja-link-form-container i {
+.blazor-ninja-link-form-container i {
 	cursor: pointer;
 	margin-left: 0.5rem;
 	font-size: 0.8rem;
@@ -1027,31 +1027,31 @@ input::-webkit-calendar-picker-indicator {
 //////////////////////////////////////////////////////////
 // Phone
 ///////////////////////////////////////////////////////////
-.dotninja-phone-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-phone-form-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: column;
 	border: solid 1px var(--border-color);
 	padding-bottom: 0.5rem;
 }
 
-.dotninja-phone-form-container div {
+.blazor-ninja-phone-form-container div {
 	width: 100%;
 	padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.dotninja-phone-form-container input {
+.blazor-ninja-phone-form-container input {
 	width: 100%;
 	text-align: left;
 	font-size: 0.8rem;
 	margin: unset;
 }
 
-.dotninja-phone-form-container span {
+.blazor-ninja-phone-form-container span {
 	text-align: left;
 	font-size: 0.8rem;
 }
 
-.dotninja-phone-form-container i {
+.blazor-ninja-phone-form-container i {
 	cursor: pointer;
 	margin-left: 0.5rem;
 	font-size: 0.8rem;
@@ -1059,31 +1059,31 @@ input::-webkit-calendar-picker-indicator {
 //////////////////////////////////////////////////////////
 // Email
 ///////////////////////////////////////////////////////////
-.dotninja-email-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-email-form-container {
+	@extend .blazor-ninja-form-container;
 	flex-direction: column;
 	border: solid 1px var(--border-color);
 	padding-bottom: 0.5rem;
 }
 
-.dotninja-email-form-container div {
+.blazor-ninja-email-form-container div {
 	width: 100%;
 	padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-.dotninja-email-form-container input {
+.blazor-ninja-email-form-container input {
 	width: 100%;
 	text-align: left;
 	font-size: 0.8rem;
 	margin: unset;
 }
 
-.dotninja-email-form-container a {
+.blazor-ninja-email-form-container a {
 	text-align: left;
 	font-size: 0.8rem;
 }
 
-.dotninja-email-form-container i {
+.blazor-ninja-email-form-container i {
 	cursor: pointer;
 	margin-left: 0.5rem;
 	font-size: 0.8rem;
@@ -1091,14 +1091,14 @@ input::-webkit-calendar-picker-indicator {
 //////////////////////////////////////////////////////////
 // Image
 ///////////////////////////////////////////////////////////
-.dotninja-image-container {
+.blazor-ninja-image-container {
 	width: 100%;
 	border: solid 1px var(--border-color);
 	border-radius: 0.3rem;
 	position: relative;
 }
 
-.dotninja-image-container div {
+.blazor-ninja-image-container div {
 	color: var(--border-color);
 	font-size: 5rem;
 	font-weight: 200;
@@ -1112,7 +1112,7 @@ input::-webkit-calendar-picker-indicator {
 	display: block;
 }
 
-.dotninja-image-container img {
+.blazor-ninja-image-container img {
 	width: 100%;
 	opacity: 0;
 	border-radius: 0.3rem;
@@ -1120,62 +1120,62 @@ input::-webkit-calendar-picker-indicator {
 	transition-duration: 1s;
 }
 
-.dotninja-image-container-ready div {
+.blazor-ninja-image-container-ready div {
 	opacity: 0;
 }
 
-.dotninja-image-container-ready img {
+.blazor-ninja-image-container-ready img {
 	opacity: 1;
 }
 
-.dotninja-image-form-container {
-	@extend .dotninja-form-container;
+.blazor-ninja-image-form-container {
+	@extend .blazor-ninja-form-container;
 	border: solid 1px var(--border-color);
 }
 
-.dotninja-image-form-container div.dotninja-image-form-command {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-command {
 	width: 100%;
 	padding: 0.4rem 0.4rem 0 0.4rem;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-command input[type=file] {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-command input[type=file] {
 	display: none;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-command label {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-command label {
 	width: 100%;
 	font-size: 0.8rem;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-content {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-content {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
 	padding: 0.2rem;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column {
 	display: flex;
 	flex-direction: column;
 	width: 33.33%;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column div.image {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column div.image {
 	width: 100%;
 	padding: 0.2rem;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column div.image:hover {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column div.image:hover {
 	filter: brightness(75%);
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column div.image img {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column div.image img {
 	width: 100%;
 	display: block;
 	cursor: pointer;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column div.image i {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column div.image i {
 	display: none;
 	position: absolute;
 	top: 0.4rem;
@@ -1187,23 +1187,23 @@ input::-webkit-calendar-picker-indicator {
 	color: #fff;
 }
 
-.dotninja-image-form-container div.dotninja-image-form-column div.image:hover i {
+.blazor-ninja-image-form-container div.blazor-ninja-image-form-column div.image:hover i {
 	display: block;
 }
 
-.dotninja-image-form-container .dotninja-flashing-form {
+.blazor-ninja-image-form-container .blazor-ninja-flashing-form {
 	margin-top: 1.5rem;
 	margin-bottom: 1.3rem;
 }
 
-.dotninja-image-form-container .dotninja-image-container {
+.blazor-ninja-image-form-container .blazor-ninja-image-container {
 	border: none;
 }
 
-.dotninja-image-form-modal {
+.blazor-ninja-image-form-modal {
 }
 
-.dotninja-image-form-modal .dotninja-image-form-modal-content {
+.blazor-ninja-image-form-modal .blazor-ninja-image-form-modal-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -1212,7 +1212,7 @@ input::-webkit-calendar-picker-indicator {
 	max-height: 80%;
 }
 
-.dotninja-image-form-modal .dotninja-image-form-modal-content i {
+.blazor-ninja-image-form-modal .blazor-ninja-image-form-modal-content i {
 	display: block;
 	position: absolute;
 	padding: 0.2rem 0.3rem;
@@ -1223,17 +1223,17 @@ input::-webkit-calendar-picker-indicator {
 	z-index: 1000;
 }
 
-.dotninja-image-form-modal .dotninja-image-form-modal-content i.fa-close {
+.blazor-ninja-image-form-modal .blazor-ninja-image-form-modal-content i.fa-close {
 	top: 1.4rem;
 	right: 1.4rem;
 }
 
-.dotninja-image-form-modal .dotninja-image-form-modal-content i.fa-trash {
+.blazor-ninja-image-form-modal .blazor-ninja-image-form-modal-content i.fa-trash {
 	bottom: 1.4rem;
 	right: 1.4rem;
 }
 
-.dotninja-image-form-modal img {
+.blazor-ninja-image-form-modal img {
 	cursor: pointer;
 	transition-property: unset;
 	transition-duration: unset;
@@ -1241,29 +1241,29 @@ input::-webkit-calendar-picker-indicator {
 ///////////////////////////////////////////////////////////
 // Address
 ///////////////////////////////////////////////////////////
-.dotninja-address-form {
-	@extend .dotninja-form-container;
+.blazor-ninja-address-form {
+	@extend .blazor-ninja-form-container;
 }
 
-.dotninja-address-form .row {
+.blazor-ninja-address-form .row {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
 }
 
-.dotninja-address-form input {
+.blazor-ninja-address-form input {
 	flex: 1;
 	margin-right: 1.5rem;
 }
 
-.dotninja-address-form .row input:last-of-type {
+.blazor-ninja-address-form .row input:last-of-type {
 	margin-right: 0;
 }
 ///////////////////////////////////////////////////////////
 // Flashing
 ///////////////////////////////////////////////////////////
-.dotninja-flashing {
+.blazor-ninja-flashing {
 	position: relative;
 	width: 16px;
 	height: 16px;
@@ -1274,19 +1274,19 @@ input::-webkit-calendar-picker-indicator {
 	animation-delay: .5s;
 }
 
-.dotninja-flashing-form {
-	@extend .dotninja-flashing;
+.blazor-ninja-flashing-form {
+	@extend .blazor-ninja-flashing;
 	margin-bottom: 1.5rem;
 }
 
-.dotninja-flashing::before, .dotninja-flashing::after {
+.blazor-ninja-flashing::before, .blazor-ninja-flashing::after {
 	content: '';
 	display: inline-block;
 	position: absolute;
 	top: 0;
 }
 
-.dotninja-flashing::before {
+.blazor-ninja-flashing::before {
 	left: -20px;
 	width: 16px;
 	height: 16px;
@@ -1297,7 +1297,7 @@ input::-webkit-calendar-picker-indicator {
 	animation-delay: 0s;
 }
 
-.dotninja-flashing::after {
+.blazor-ninja-flashing::after {
 	left: 20px;
 	width: 16px;
 	height: 16px;

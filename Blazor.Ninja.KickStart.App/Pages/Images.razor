@@ -1,6 +1,6 @@
 @page "/images"
 @layout AppLayout
-@inherits DotNinjaComponent
+@inherits BlazorNinjaComponent
 @using Blazor.Ninja.Common
 @using Blazor.Ninja.Common.Net.Http
 
@@ -26,7 +26,7 @@
 	{
 		await base.OnInitializedAsync();
 
-		if (_form != null) _form.State = DotNinjaComponentState.Loading;
+		if (_form != null) _form.State = BlazorNinjaComponentState.Loading;
 
 		var token = await GetContextTokenAsync();
 
@@ -46,12 +46,12 @@
 			_images = GetVm(items);
 		}
 
-		if (_form != null) _form.State = DotNinjaComponentState.WaitingForInput;
+		if (_form != null) _form.State = BlazorNinjaComponentState.WaitingForInput;
 	}
 
 	public async Task OnImagesAdded(ImageForm.ImagesAddedEventArgs args)
 	{
-		_form.State = DotNinjaComponentState.Working;
+		_form.State = BlazorNinjaComponentState.Working;
 
 		foreach (var value in args.Images)
 		{
@@ -76,12 +76,12 @@
 			StateHasChanged();
 		}
 
-		_form.State = DotNinjaComponentState.WaitingForInput;
+		_form.State = BlazorNinjaComponentState.WaitingForInput;
 	}
 
 	public async Task OnImageRemoved(string id)
 	{
-		_form.State = DotNinjaComponentState.Working;
+		_form.State = BlazorNinjaComponentState.Working;
 
 		await _owlProxy.DeleteAsync(id);
 
@@ -91,7 +91,7 @@
 
 		_images.RemoveAll(it => it.Id == id);
 
-		_form.State = DotNinjaComponentState.WaitingForInput;
+		_form.State = BlazorNinjaComponentState.WaitingForInput;
 
 		await InvokeAsync(StateHasChanged);
 	}

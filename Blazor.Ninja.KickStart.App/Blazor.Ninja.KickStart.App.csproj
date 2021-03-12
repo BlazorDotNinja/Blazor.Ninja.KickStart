@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,7 +12,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.9.0-preview.20" />
+    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.9.5" />
   </ItemGroup>
 
 

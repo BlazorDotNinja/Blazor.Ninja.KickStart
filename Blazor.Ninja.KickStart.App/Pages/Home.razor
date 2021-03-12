@@ -1,9 +1,9 @@
 @page "/"
 @layout AppLayout
 @using Blazor.Ninja.Common.Data.System
-@inherits DotNinjaComponent
+@inherits BlazorNinjaComponent
 
-<div class="dotninja-page-container">
+<div class="blazor-ninja-page-container">
 	@if (!string.IsNullOrWhiteSpace(_header))
 	{
 		<h2>
@@ -20,11 +20,11 @@
 			</p>
 		}
 
-		<div class="dotninja-flashing"></div>
+		<div class="blazor-ninja-flashing"></div>
 	}
 	else
 	{
-		<div class="dotninja-form-container">
+		<div class="blazor-ninja-form-container">
 			<button @onclick="OnClick" class="btn-primary">@_linkVm.Label</button>
 		</div>
 	}

@@ -196,7 +196,7 @@ namespace Blazor.Ninja.KickStart.Common
 
 			if (feature == null) feature = Features.FirstOrDefault(it => it.Id == featureId);
 
-			if (feature == null) throw ExceptionBuilder.GetInstance(DotNinjaStatusCode.NotFound, "feature");
+			if (feature == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "feature");
 
 			return feature;
 		}
@@ -218,7 +218,7 @@ namespace Blazor.Ninja.KickStart.Common
 				found = count > 0;
 			}
 
-			if (!found) throw ExceptionBuilder.GetInstance(DotNinjaStatusCode.NotFound, "feature");
+			if (!found) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "feature");
 		}
 	}
 }
