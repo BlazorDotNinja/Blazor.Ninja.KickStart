@@ -20,4 +20,26 @@
     <ProjectReference Include="..\Blazor.Ninja.KickStart.Common\Blazor.Ninja.KickStart.Common.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\blazor-ninja.css">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>blazor-ninja.scss</DependentUpon>
+    </Content>
+    <Content Update="wwwroot\css\blazor-ninja.scss">
+      <Generator>SassTranspiler</Generator>
+      <LastGenOutput>blazor-ninja.css</LastGenOutput>
+    </Content>
+    <Content Update="wwwroot\css\kickstart.css">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>kickstart.scss</DependentUpon>
+    </Content>
+    <Content Update="wwwroot\css\kickstart.scss">
+      <Generator>SassTranspiler</Generator>
+      <LastGenOutput>kickstart.css</LastGenOutput>
+    </Content>
+  </ItemGroup>
+
 </Project>

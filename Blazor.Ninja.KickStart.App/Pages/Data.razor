@@ -1,0 +1,102 @@
+@page "/data"
+@layout AppLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page-container">
+    <div class="kickstart-project-form">
+        <input type="text" @bind="@_item.Label"  @onkeydown="@OnEnterAsync" placeholder="Project name" required="required" disabled="@(!IsWaitingForInput())"/>
+        <button @onclick="@OnCreateAsync" class="btn btn-primary">Create</button>
+    </div>
+    
+    @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
+    {
+        <div class="blazor-ninja-flashing"></div>    
+    }
+    
+    <div class="kickstart-project-list-container">
+        @foreach (var item in _items)
+        {
+            <div>
+                <span>@item.Label</span> <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    private IDataProxy<Project> _proxy;
+
+    private List<Project> _items = new List<Project>();
+
+    private Project _item = new Project();
+
+    private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var token = await GetContextTokenAsync();
+        _proxy = ProxyFactory.GetDataProxy<Project>(token);
+
+        _items = await LoadAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+
+    public async Task OnEnterAsync(KeyboardEventArgs e)
+    {
+        if (e.Code != "Enter" && e.Code == "NumpadEnter") return;
+
+        await OnCreateAsync();
+    }
+
+    private async Task OnCreateAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_item.Label)) return;
+
+        _state = BlazorNinjaComponentState.Working;
+
+        await _proxy.CreateAsync(_item);
+
+        _item = new Project();
+
+        _items = await LoadAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+
+        StateHasChanged();
+    }
+
+    private async Task OnDeleteAsync(string id)
+    {
+        _state = BlazorNinjaComponentState.Working;
+
+        await _proxy.DeleteAsync(id);
+
+        _items = await LoadAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+
+        StateHasChanged();
+    }
+
+    private async Task<List<Project>> LoadAsync()
+    {
+        var frame = await _proxy.GetFrameAsync(
+            Filter<Project>.Empty,
+            0,
+            int.MaxValue,
+            Builders<Project>.Sort.Descending(it => it.Created));
+
+        return frame.Items;
+    }
+
+    private bool IsWaitingForInput()
+    {
+        return _state == BlazorNinjaComponentState.WaitingForInput;
+    }
+
+}

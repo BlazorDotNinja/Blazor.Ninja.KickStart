@@ -1,0 +1,52 @@
+﻿@import "blazor-ninja.scss";
+
+
+// Data
+.kickstart-project-form {
+    @extend .blazor-ninja-form-container;
+    flex-direction: row;
+}
+
+.kickstart-project-form > input {
+    margin-bottom: unset;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.kickstart-project-form > button {
+    margin-bottom: unset;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    width: 150px;
+}
+
+.blazor-ninja-flashing {
+    margin-top: 1rem;
+}
+
+.kickstart-project-list-container {
+    width: 100%;
+    max-width: var(--form-max-width);
+}
+
+.kickstart-project-list-container > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.kickstart-project-list-container > div > span {
+    display: inline-block;
+    font-size: 0.9rem;
+    width: var(--element-width);
+    padding: var(--element-padding);
+    line-height: var(--element-line-height);
+    border: 1px solid var(--border-color);
+}
+
+.kickstart-project-list-container > div > button {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    width: 150px;
+}

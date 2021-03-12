@@ -336,7 +336,7 @@ a:hover {
   text-align: center;
   margin-bottom: 1.5rem; }
 
-.blazor-ninja-form-container, .blazor-ninja-signup-form-container, .blazor-ninja-confirm-form-container, .blazor-ninja-login-form-container, .blazor-ninja-forgot-form-container, .blazor-ninja-dashboard-page-container, .blazor-ninja-theme-form-container, .blazor-ninja-postboarding-form-container, .blazor-ninja-map-form-container, .blazor-ninja-taginstance-form-container, .blazor-ninja-link-form-container, .blazor-ninja-phone-form-container, .blazor-ninja-email-form-container, .blazor-ninja-image-form-container, .blazor-ninja-address-form {
+.blazor-ninja-form-container, .blazor-ninja-signup-form-container, .blazor-ninja-confirm-form-container, .blazor-ninja-login-form-container, .blazor-ninja-forgot-form-container, .blazor-ninja-dashboard-page-container, .blazor-ninja-theme-form-container, .blazor-ninja-postboarding-form-container, .blazor-ninja-map-form-container, .blazor-ninja-taginstance-form-container, .blazor-ninja-link-form-container, .blazor-ninja-phone-form-container, .blazor-ninja-email-form-container, .blazor-ninja-image-form-container, .blazor-ninja-address-form, .kickstart-project-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -344,25 +344,25 @@ a:hover {
   width: 100%;
   max-width: var(--form-max-width); }
 
-.blazor-ninja-form-container p, .blazor-ninja-signup-form-container p, .blazor-ninja-confirm-form-container p, .blazor-ninja-login-form-container p, .blazor-ninja-forgot-form-container p, .blazor-ninja-dashboard-page-container p, .blazor-ninja-theme-form-container p, .blazor-ninja-postboarding-form-container p, .blazor-ninja-map-form-container p, .blazor-ninja-taginstance-form-container p, .blazor-ninja-link-form-container p, .blazor-ninja-phone-form-container p, .blazor-ninja-email-form-container p, .blazor-ninja-image-form-container p, .blazor-ninja-address-form p {
+.blazor-ninja-form-container p, .blazor-ninja-signup-form-container p, .blazor-ninja-confirm-form-container p, .blazor-ninja-login-form-container p, .blazor-ninja-forgot-form-container p, .blazor-ninja-dashboard-page-container p, .blazor-ninja-theme-form-container p, .blazor-ninja-postboarding-form-container p, .blazor-ninja-map-form-container p, .blazor-ninja-taginstance-form-container p, .blazor-ninja-link-form-container p, .blazor-ninja-phone-form-container p, .blazor-ninja-email-form-container p, .blazor-ninja-image-form-container p, .blazor-ninja-address-form p, .kickstart-project-form p {
   text-align: center;
   margin-bottom: 1.5rem; }
 
-.blazor-ninja-form-container form, .blazor-ninja-signup-form-container form, .blazor-ninja-confirm-form-container form, .blazor-ninja-login-form-container form, .blazor-ninja-forgot-form-container form, .blazor-ninja-dashboard-page-container form, .blazor-ninja-theme-form-container form, .blazor-ninja-postboarding-form-container form, .blazor-ninja-map-form-container form, .blazor-ninja-taginstance-form-container form, .blazor-ninja-link-form-container form, .blazor-ninja-phone-form-container form, .blazor-ninja-email-form-container form, .blazor-ninja-image-form-container form, .blazor-ninja-address-form form {
+.blazor-ninja-form-container form, .blazor-ninja-signup-form-container form, .blazor-ninja-confirm-form-container form, .blazor-ninja-login-form-container form, .blazor-ninja-forgot-form-container form, .blazor-ninja-dashboard-page-container form, .blazor-ninja-theme-form-container form, .blazor-ninja-postboarding-form-container form, .blazor-ninja-map-form-container form, .blazor-ninja-taginstance-form-container form, .blazor-ninja-link-form-container form, .blazor-ninja-phone-form-container form, .blazor-ninja-email-form-container form, .blazor-ninja-image-form-container form, .blazor-ninja-address-form form, .kickstart-project-form form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%; }
 
-.blazor-ninja-form-container input, .blazor-ninja-signup-form-container input, .blazor-ninja-confirm-form-container input, .blazor-ninja-login-form-container input, .blazor-ninja-forgot-form-container input, .blazor-ninja-dashboard-page-container input, .blazor-ninja-theme-form-container input, .blazor-ninja-postboarding-form-container input, .blazor-ninja-map-form-container input, .blazor-ninja-taginstance-form-container input, .blazor-ninja-link-form-container input, .blazor-ninja-phone-form-container input, .blazor-ninja-email-form-container input, .blazor-ninja-image-form-container input, .blazor-ninja-address-form input {
+.blazor-ninja-form-container input, .blazor-ninja-signup-form-container input, .blazor-ninja-confirm-form-container input, .blazor-ninja-login-form-container input, .blazor-ninja-forgot-form-container input, .blazor-ninja-dashboard-page-container input, .blazor-ninja-theme-form-container input, .blazor-ninja-postboarding-form-container input, .blazor-ninja-map-form-container input, .blazor-ninja-taginstance-form-container input, .blazor-ninja-link-form-container input, .blazor-ninja-phone-form-container input, .blazor-ninja-email-form-container input, .blazor-ninja-image-form-container input, .blazor-ninja-address-form input, .kickstart-project-form input {
   margin-bottom: 1.5rem;
   text-align: center; }
 
-.blazor-ninja-form-container button, .blazor-ninja-signup-form-container button, .blazor-ninja-confirm-form-container button, .blazor-ninja-login-form-container button, .blazor-ninja-forgot-form-container button, .blazor-ninja-dashboard-page-container button, .blazor-ninja-theme-form-container button, .blazor-ninja-postboarding-form-container button, .blazor-ninja-map-form-container button, .blazor-ninja-taginstance-form-container button, .blazor-ninja-link-form-container button, .blazor-ninja-phone-form-container button, .blazor-ninja-email-form-container button, .blazor-ninja-image-form-container button, .blazor-ninja-address-form button {
+.blazor-ninja-form-container button, .blazor-ninja-signup-form-container button, .blazor-ninja-confirm-form-container button, .blazor-ninja-login-form-container button, .blazor-ninja-forgot-form-container button, .blazor-ninja-dashboard-page-container button, .blazor-ninja-theme-form-container button, .blazor-ninja-postboarding-form-container button, .blazor-ninja-map-form-container button, .blazor-ninja-taginstance-form-container button, .blazor-ninja-link-form-container button, .blazor-ninja-phone-form-container button, .blazor-ninja-email-form-container button, .blazor-ninja-image-form-container button, .blazor-ninja-address-form button, .kickstart-project-form button {
   margin-bottom: 1rem; }
 
-.blazor-ninja-form-container a, .blazor-ninja-signup-form-container a, .blazor-ninja-confirm-form-container a, .blazor-ninja-login-form-container a, .blazor-ninja-forgot-form-container a, .blazor-ninja-dashboard-page-container a, .blazor-ninja-theme-form-container a, .blazor-ninja-postboarding-form-container a, .blazor-ninja-map-form-container a, .blazor-ninja-taginstance-form-container a, .blazor-ninja-link-form-container a, .blazor-ninja-phone-form-container a, .blazor-ninja-email-form-container a, .blazor-ninja-image-form-container a, .blazor-ninja-address-form a {
+.blazor-ninja-form-container a, .blazor-ninja-signup-form-container a, .blazor-ninja-confirm-form-container a, .blazor-ninja-login-form-container a, .blazor-ninja-forgot-form-container a, .blazor-ninja-dashboard-page-container a, .blazor-ninja-theme-form-container a, .blazor-ninja-postboarding-form-container a, .blazor-ninja-map-form-container a, .blazor-ninja-taginstance-form-container a, .blazor-ninja-link-form-container a, .blazor-ninja-phone-form-container a, .blazor-ninja-email-form-container a, .blazor-ninja-image-form-container a, .blazor-ninja-address-form a, .kickstart-project-form a {
   margin-top: 2rem;
   text-align: center;
   text-decoration: none; }
@@ -1158,3 +1158,43 @@ input::-webkit-calendar-picker-indicator {
     background-color: var(--flashing-dark-dot-color); }
   50%, 100% {
     background-color: var(--flashing-light-dot-color); } }
+
+.kickstart-project-form {
+  flex-direction: row; }
+
+.kickstart-project-form > input {
+  margin-bottom: unset;
+  text-align: left;
+  font-size: 0.9rem; }
+
+.kickstart-project-form > button {
+  margin-bottom: unset;
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  width: 150px; }
+
+.blazor-ninja-flashing, .blazor-ninja-flashing-form {
+  margin-top: 1rem; }
+
+.kickstart-project-list-container {
+  width: 100%;
+  max-width: var(--form-max-width); }
+
+.kickstart-project-list-container > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 1rem; }
+
+.kickstart-project-list-container > div > span {
+  display: inline-block;
+  font-size: 0.9rem;
+  width: var(--element-width);
+  padding: var(--element-padding);
+  line-height: var(--element-line-height);
+  border: 1px solid var(--border-color); }
+
+.kickstart-project-list-container > div > button {
+  font-size: 0.9rem;
+  margin-left: 1rem;
+  width: 150px; }
