@@ -1,10 +1,11 @@
 @page "/data"
 @layout AppLayout
+@using System.Diagnostics
 @inherits BlazorNinjaComponent
 
 <div class="blazor-ninja-page-container">
     <div class="kickstart-project-form">
-        <input type="text" @bind="@_item.Label"  @onkeydown="@OnEnterAsync" placeholder="Project name" required="required" disabled="@(!IsWaitingForInput())"/>
+        <input type="text" @bind="@_item.Label" @bind:event="oninput" @onkeydown="@OnEnterAsync" placeholder="Project name" required="required" disabled="@(!IsWaitingForInput())"/>
         <button @onclick="@OnCreateAsync" class="btn btn-primary">Create</button>
     </div>
     
@@ -16,9 +17,9 @@
     <div class="kickstart-project-list-container">
         @foreach (var item in _items)
         {
-            <div>
-                <span>@item.Label</span> <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
-            </div>
+	        <div>
+		        <span>@item.Label</span> <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
+	        </div>
         }
     </div>
 </div>
@@ -48,14 +49,14 @@
 
     public async Task OnEnterAsync(KeyboardEventArgs e)
     {
-        if (e.Code != "Enter" && e.Code == "NumpadEnter") return;
+        if (e.Code != "Enter" && e.Code != "NumpadEnter") return;
 
         await OnCreateAsync();
     }
 
     private async Task OnCreateAsync()
     {
-        if (string.IsNullOrWhiteSpace(_item.Label)) return;
+	    if (string.IsNullOrWhiteSpace(_item.Label)) return;
 
         _state = BlazorNinjaComponentState.Working;
 
