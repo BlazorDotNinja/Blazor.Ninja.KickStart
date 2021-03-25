@@ -27,3 +27,15 @@ var ContextMenu = function () {
 }
 
 window.contextMenu = new ContextMenu();
+
+var BlazorNinjaElement = function () {
+	this.focus = function (elementId) {
+		var element = document.getElementById(elementId);
+		if (!element) return;
+		if (element instanceof HTMLElement) element.focus();
+	}
+}
+
+window.blazorNinja = {};
+window.blazorNinja.element = new BlazorNinjaElement();
+

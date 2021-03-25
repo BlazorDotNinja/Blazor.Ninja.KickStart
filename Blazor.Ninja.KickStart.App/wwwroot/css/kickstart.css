@@ -1171,7 +1171,7 @@ input::-webkit-calendar-picker-indicator {
   margin-bottom: unset;
   margin-left: 1rem;
   font-size: 0.9rem;
-  width: 150px; }
+  max-width: 100px; }
 
 .blazor-ninja-flashing, .blazor-ninja-flashing-form {
   margin-top: 1rem; }
@@ -1186,15 +1186,18 @@ input::-webkit-calendar-picker-indicator {
   width: 100%;
   margin-top: 1rem; }
 
-.kickstart-project-list-container > div > span {
-  display: inline-block;
-  font-size: 0.9rem;
-  width: var(--element-width);
-  padding: var(--element-padding);
-  line-height: var(--element-line-height);
-  border: 1px solid var(--border-color); }
+.kickstart-project-list-container > div > input {
+  /*display: inline-block;
+    font-size: 0.9rem;
+    width: var(--element-width);
+    padding: var(--element-padding);
+    line-height: var(--element-line-height);
+    border: 1px solid var(--border-color);*/
+  margin-bottom: unset;
+  text-align: left;
+  font-size: 0.9rem; }
 
 .kickstart-project-list-container > div > button {
   font-size: 0.9rem;
   margin-left: 1rem;
-  width: 150px; }
+  max-width: 100px; }
