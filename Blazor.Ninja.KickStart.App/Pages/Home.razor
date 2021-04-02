@@ -67,7 +67,7 @@
 			_targetUri = targetUri;
 		}
 
-		var themeFeature = ConfigurationProxy.GetFeature<ThemeFeature>();
+		var themeFeature = ProxyFactory.GetConfigurationProxy().GetFeature<ThemeFeature>();
 		var theme = themeFeature.GetTheme();
 
 		if (await HasUserContextAsync())

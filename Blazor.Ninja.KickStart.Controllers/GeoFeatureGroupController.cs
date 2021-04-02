@@ -37,7 +37,7 @@ namespace Blazor.Ninja.KickStart.Controllers
 		{
 			try
 			{
-				var proxy = _proxyFactory.GetAppContextDataProxy<GeoFeatureGroup>();
+				var proxy = _proxyFactory.GetDataProxy<GeoFeatureGroup>();
 
 				var polygon = JsonConvert.DeserializeObject<GeoPolygon>(json);
 
@@ -93,7 +93,7 @@ namespace Blazor.Ninja.KickStart.Controllers
 		{
 			try
 			{
-				var proxy = _proxyFactory.GetAppContextDataProxy<GeoFeatureGroup>();
+				var proxy = _proxyFactory.GetDataProxy<GeoFeatureGroup>();
 
 				var group = await proxy.GetAsync(id, cancellationToken: cts);
 				if (group == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "item");
@@ -143,7 +143,7 @@ namespace Blazor.Ninja.KickStart.Controllers
 		{
 			try
 			{
-				var proxy = _proxyFactory.GetAppContextDataProxy<GeoFeatureGroup>();
+				var proxy = _proxyFactory.GetDataProxy<GeoFeatureGroup>();
 
 				var polygon = JsonConvert.DeserializeObject<GeoPolygon>(json);
 

@@ -33,7 +33,6 @@ namespace Blazor.Ninja.KickStart.ServerApp
 			services.AddStorage();
 
 			services.AddSingleton(Program.ProxyFactory);
-			services.AddSingleton(Program.ConfigurationProxy);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -32,7 +32,7 @@ namespace Blazor.Ninja.KickStart.Controllers
 		{
 			try
 			{
-				var proxy = _proxyFactory.GetAppContextContentProxy("OwlPhoto");
+				var proxy = _proxyFactory.GetContentProxy("OwlPhoto");
 
 				var content = await proxy.GetAsync(id);
 				var data = await proxy.DownloadDataAsync(id, 0, int.MaxValue);

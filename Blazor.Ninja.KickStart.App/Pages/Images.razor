@@ -29,7 +29,7 @@
 
 		var token = await GetContextTokenAsync();
 
-		_owlProxy = ProxyFactory.GetDataProxy<GenericIdDataObject>(token, "Owl");
+		_owlProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Owl");
 
 		_owlPhotoProxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
 

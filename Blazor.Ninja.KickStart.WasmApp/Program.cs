@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 using Blazor.Ninja.Client.Http;
-using Blazor.Ninja.Common.Client;
 using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Factories;
 using Blazor.Ninja.Common.Meta;
@@ -34,15 +33,14 @@ namespace Blazor.Ninja.KickStart.WasmApp
 			var proxyFactory = new HttpProxyFactory(apiUrl, appToken);
 			builder.Services.AddSingleton<IProxyFactory>(proxyFactory);
 
-			var configurationProxy = new HttpConfigurationProxy(apiUrl, appToken);
 			await Task.WhenAll(new List<Task>
 			{
-				Task.Run(async () => await configurationProxy.GetNamespaceAsync(UserNamespace.Label)),
-				Task.Run(async () => await configurationProxy.GetFeatureAsync<OnboardingFeature>()),
-				Task.Run(async () => await configurationProxy.GetFeatureAsync<PostboardingFeature>()),
-				Task.Run(async () => await configurationProxy.GetFeatureAsync<ThemeFeature>())
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetNamespaceAsync(UserNamespace.Label)),
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<OnboardingFeature>()),
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<PostboardingFeature>()),
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<ThemeFeature>()),
+				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>())
 			});
-			builder.Services.AddSingleton<IConfigurationProxy>(configurationProxy);
 			
 			await builder.Build().RunAsync();
 		}
