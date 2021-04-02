@@ -1,0 +1,15 @@
+﻿@page "/todotasks"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="kickstart-todo-task-list-page-container">
+	<div class="header">
+		<a href="/todotask" class="btn btn-primary">Add New</a>
+	</div>
+
+	<ToDoTaskList Limit="10" RefreshInterval="30"></ToDoTaskList>
+</div>
+
+@code {
+}

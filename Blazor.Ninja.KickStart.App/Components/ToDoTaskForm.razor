@@ -1,0 +1,110 @@
+@inherits BlazorNinjaComponent
+
+<div class="kickstart-todo-task-form-container">
+
+	@if (Model == null || Model.State == BlazorNinjaComponentState.Loading)
+	{
+		<div class="blazor-ninja-flashing"></div>
+	}
+	else if (Model.State == BlazorNinjaComponentState.LoadFailed)
+	{
+		@if (HasMessage)
+		{
+			<div class="blazor-ninja-error-center">
+				@Message
+			</div>
+		}
+		<button type="button"
+				class="btn-secondary"
+				@onclick="@OnRetryClickedAsync">
+			Retry
+		</button>
+	}
+	else
+	{
+		<EditForm Model="@Model" OnValidSubmit="@Model.SaveAsync">
+
+			<InputText id="title"
+					   @bind-Value="Model.Item.Title"
+					   placeholder="Enter to-do title"
+					   autofocus="@true"
+					   disabled="@Model.IsNotWaitingForInput" />
+
+			<textarea @bind="@Model.Item.Body"
+					  placeholder="Enter to-do description"
+					  rows=5
+					  disabled="@Model.IsNotWaitingForInput">
+			</textarea>
+
+			<div class="date">
+				<span @onclick="OnDueDateClicked">@Model.GetDateLabel()</span>
+				@if (_showCalendar)
+				{
+					<SfCalendar TValue="DateTime?" Value="@Model.Item.DueDate">
+						<CalendarEvents TValue="DateTime?" ValueChange="@OnDueDateChanged"></CalendarEvents>
+					</SfCalendar>
+				}
+			</div>
+
+			@if (Model.State == BlazorNinjaComponentState.Working)
+			{
+				<div class="blazor-ninja-flashing-form"></div>
+			}
+
+			@if (HasMessage)
+			{
+				<div class="blazor-ninja-error-form">
+					@Message
+				</div>
+			}
+
+			<button type="submit" class="btn-primary">
+				Save
+			</button>
+
+		</EditForm>
+	}
+
+</div>
+
+@code {
+
+	private bool _showCalendar;
+
+	private ToDoTaskFormVm Model
+	{
+		get => SuperModel as ToDoTaskFormVm;
+		set => SuperModel = value;
+	}
+
+	[Parameter]
+	public string ItemId { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		Model = new ToDoTaskFormVm(token);
+		Model.Done += OnDone;
+
+		await Model.LoadAsync();
+	}
+
+	private void OnDone(object sender, Tuple<bool, ToDoTask> args)
+	{
+		RaiseDone(args.Item1);
+	}
+
+	private void OnDueDateClicked()
+	{
+		_showCalendar = !_showCalendar;
+	}
+
+	private void OnDueDateChanged(ChangedEventArgs<DateTime?> args)
+	{
+		_showCalendar = !_showCalendar;
+		if (args.Value.HasValue) Model.Item.DueDate = args.Value.Value.Date;
+	}
+}

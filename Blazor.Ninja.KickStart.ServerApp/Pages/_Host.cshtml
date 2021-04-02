@@ -15,14 +15,28 @@
 	<base href="~/" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="_content/Blazor.Ninja.KickStart.App/css/kickstart.css" />
+	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
 </head>
 <body>
 	<script type="text/javascript">
 		function setTheme(cssClass) {
-			var body = document.body;
+			const body = document.body;
 
 			body.classList = [];
 			if (cssClass) body.classList.add(cssClass);
+
+			if (cssClass === "dark") {
+				const head = document.getElementsByTagName("HEAD")[0];
+
+				const link = document.createElement("link");
+
+				link.rel = "stylesheet";
+
+				link.type = "text/css";
+				link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
+
+				head.appendChild(link);
+			}
 		}
 
 		var theme = window.localStorage.getItem("Theme");

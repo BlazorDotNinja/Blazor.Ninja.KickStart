@@ -3,53 +3,146 @@
 
 // Data
 .kickstart-project-form {
-    @extend .blazor-ninja-form-container;
-    flex-direction: row;
+	@extend .blazor-ninja-form-container;
+	flex-direction: row;
 }
 
 .kickstart-project-form > input {
-    margin-bottom: unset;
-    text-align: left;
-    font-size: 0.9rem;
+	margin-bottom: unset;
+	text-align: left;
+	font-size: 0.9rem;
 }
 
 .kickstart-project-form > button {
-    margin-bottom: unset;
-    margin-left: 1rem;
-    font-size: 0.9rem;
-    max-width: 100px;
+	margin-bottom: unset;
+	margin-left: 1rem;
+	font-size: 0.9rem;
+	max-width: 100px;
 }
 
 .blazor-ninja-flashing {
-    margin-top: 1rem;
+	margin-top: 1rem;
 }
 
 .kickstart-project-list-container {
-    width: 100%;
-    max-width: var(--form-max-width);
+	width: 100%;
+	max-width: var(--form-max-width);
 }
 
 .kickstart-project-list-container > div {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1rem;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-top: 1rem;
 }
 
 .kickstart-project-list-container > div > input {
-    /*display: inline-block;
-    font-size: 0.9rem;
-    width: var(--element-width);
-    padding: var(--element-padding);
-    line-height: var(--element-line-height);
-    border: 1px solid var(--border-color);*/
-    margin-bottom: unset;
-    text-align: left;
-    font-size: 0.9rem;
+	margin-bottom: unset;
+	text-align: left;
+	font-size: 0.9rem;
 }
 
 .kickstart-project-list-container > div > button {
-    font-size: 0.9rem;
-    margin-left: 1rem;
-    max-width: 100px;
+	font-size: 0.9rem;
+	margin-left: 1rem;
+	max-width: 100px;
+}
+
+
+// ToDo List
+.kickstart-todo-task-list-page-container {
+	@extend .blazor-ninja-page-container;
+	max-width: 600px;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.kickstart-todo-task-list-page-container > .header > a {
+	text-decoration: none;
+	max-width: 262px;
+	min-width: 252px;
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-list-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.kickstart-todo-task-list-container .e-gridheader {
+	display: none;
+}
+
+.kickstart-todo-task-list-container .e-gridcontent input {
+	display: inline-block;
+	width: unset;
+	margin: unset;
+	line-height: 1rem;
+}
+
+.kickstart-todo-task-list-container .e-gridcontent label {
+	display: inline-block;
+	width: unset;
+	margin: unset;
+	line-height: 1rem;
+}
+
+// ToDo Page
+.kickstart-todo-task-form-page-container {
+	@extend .blazor-ninja-page-container;
+}
+
+.kickstart-todo-task-form-container {
+	@extend .blazor-ninja-form-container;
+	width: 100%;
+	max-width: 600px;
+}
+
+.kickstart-todo-task-form-container > form > input {
+	text-align: left;
+}
+
+.kickstart-todo-task-form-container > form > textarea {
+	text-align: left;
+}
+
+.kickstart-todo-task-form-container > form > .date {
+	margin: var(--element-margin);
+	width: var(--element-width);
+	max-width: 262px;
+}
+
+.kickstart-todo-task-form-container > form > .date > span {
+	display: block;
+	cursor: pointer;
+	background-clip: padding-box;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	padding: var(--element-padding);
+	font-weight: var(--element-font-weight);
+	font-size: 0.9rem;
+	line-height: var(--element-line-height);
+	color: var(--input-text-color);
+	background-color: var(--background-color);
+	border: 1px solid var(--border-color);
+	cursor: pointer;
+	width: 100%;
+}
+
+.kickstart-todo-task-form-container > form > input {
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-form-container > form > textarea {
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-form-container > form > button {
+	font-size: 0.9rem;
+	max-width: 262px;
 }

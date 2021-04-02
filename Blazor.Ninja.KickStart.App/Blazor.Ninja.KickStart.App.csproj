@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.9.26" />
+    <PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
   </ItemGroup>
 
 
@@ -40,11 +41,6 @@
       <Generator>SassTranspiler</Generator>
       <LastGenOutput>kickstart.css</LastGenOutput>
     </Content>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Components\" />
   </ItemGroup>
 
 </Project>

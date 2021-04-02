@@ -39,3 +39,11 @@ var BlazorNinjaElement = function () {
 window.blazorNinja = {};
 window.blazorNinja.element = new BlazorNinjaElement();
 
+window.goBack = function() {
+	window.history.go(-1);
+};
+
+window.canGoBack = function() {
+	return history.length > 1;
+};
+

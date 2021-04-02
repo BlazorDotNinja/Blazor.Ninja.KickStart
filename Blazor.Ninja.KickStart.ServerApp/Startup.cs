@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazor.Ninja.KickStart.Controllers;
+using Syncfusion.Blazor;
 
 namespace Blazor.Ninja.KickStart.ServerApp
 {
@@ -33,6 +34,8 @@ namespace Blazor.Ninja.KickStart.ServerApp
 			services.AddStorage();
 
 			services.AddSingleton(Program.ProxyFactory);
+
+			services.AddSyncfusionBlazor();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

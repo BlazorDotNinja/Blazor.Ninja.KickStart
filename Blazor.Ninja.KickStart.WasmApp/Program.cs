@@ -11,6 +11,7 @@ using Blazor.Ninja.Client.Http;
 using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Factories;
 using Blazor.Ninja.Common.Meta;
+using Syncfusion.Blazor;
 
 namespace Blazor.Ninja.KickStart.WasmApp
 {
@@ -42,6 +43,8 @@ namespace Blazor.Ninja.KickStart.WasmApp
 				Task.Run(async () => await proxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>())
 			});
 			
+			builder.Services.AddSyncfusionBlazor();
+
 			await builder.Build().RunAsync();
 		}
 	}
