@@ -40,7 +40,7 @@
 				<GridColumn>
 					<Template>
 						@{
-							var task = (context as ToDoTask);
+							var task = (ToDoTask)context;
 							var inverseStatusId = Model.GetInverseStatusId(task.StatusId);
 							<input type="checkbox" 
 							       checked="@Model.IsResolved(task.StatusId)" 
@@ -54,7 +54,7 @@
 				<GridColumn TextAlign="TextAlign.Right">
 					<Template>
 						@{
-							var task = (context as ToDoTask);
+							var task = (ToDoTask)context;
 							<span>@Model.GetDateLabel(task.DueDate)</span>
 						}
 					</Template>
