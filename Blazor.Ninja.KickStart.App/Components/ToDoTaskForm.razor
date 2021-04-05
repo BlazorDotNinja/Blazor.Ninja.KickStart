@@ -37,13 +37,8 @@
 			</textarea>
 
 			<div class="date">
-				<span @onclick="OnDueDateClicked">@Model.GetDateLabel()</span>
-				@if (_showCalendar)
-				{
-					<SfCalendar TValue="DateTime?" Value="@Model.Item.DueDate">
-						<CalendarEvents TValue="DateTime?" ValueChange="@OnDueDateChanged"></CalendarEvents>
-					</SfCalendar>
-				}
+				<SfDatePicker TValue="DateTime?" @bind-Value="@Model.Item.DueDate" Placeholder="Choose a Date">
+				</SfDatePicker>
 			</div>
 
 			@if (Model.State == BlazorNinjaComponentState.Working)
