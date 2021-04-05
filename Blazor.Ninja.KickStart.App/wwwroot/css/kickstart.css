@@ -1256,3 +1256,6 @@ input::-webkit-calendar-picker-indicator {
 .kickstart-todo-task-form-container > form > button {
   font-size: 0.9rem;
   max-width: 262px; }
+
+.sf-license-warning {
+  display: none !important; }
