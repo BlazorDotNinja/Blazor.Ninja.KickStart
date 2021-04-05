@@ -92,6 +92,10 @@
 	line-height: 1rem;
 }
 
+.kickstart-todo-task-list-container .e-gridcontent .past-due {
+	color: var(--error-text-color);
+}
+
 // ToDo Page
 .kickstart-todo-task-form-page-container {
 	@extend .blazor-ninja-page-container;
@@ -113,25 +117,6 @@
 
 .kickstart-todo-task-form-container > form > .date {
 	margin: var(--element-margin);
-	width: var(--element-width);
-	max-width: 262px;
-}
-
-.kickstart-todo-task-form-container > form > .date > span {
-	display: block;
-	cursor: pointer;
-	background-clip: padding-box;
-	border-radius: .25rem;
-	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-	padding: var(--element-padding);
-	font-weight: var(--element-font-weight);
-	font-size: 0.9rem;
-	line-height: var(--element-line-height);
-	color: var(--input-text-color);
-	background-color: var(--background-color);
-	border: 1px solid var(--border-color);
-	cursor: pointer;
-	width: 100%;
 }
 
 .kickstart-todo-task-form-container > form > input {
