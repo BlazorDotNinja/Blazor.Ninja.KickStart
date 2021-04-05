@@ -55,7 +55,7 @@
 					<Template>
 						@{
 							var task = (ToDoTask)context;
-							<span>@Model.GetDateLabel(task.DueDate)</span>
+							<span class="@GetDueDateCssClass(task.DueDate)">@Model.GetDateLabel(task.DueDate)</span>
 						}
 					</Template>
 				</GridColumn>
@@ -127,9 +127,13 @@
 		await Model.LoadMoreAsync();
 	}
 
-	private string GetCssClass(ToDoTask item)
+	private string GetDueDateCssClass(DateTime? dueDate)
 	{
-		return "todo-task";
+		if (!dueDate.HasValue) return default;
+
+		if (dueDate.Value.Date >= DateTime.Now.Date) return default;
+
+		return "past-due";
 	}
 
 	private async Task ChangedStatusAsync(string taskId, string statusId)
