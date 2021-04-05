@@ -10,15 +10,15 @@ namespace Blazor.Ninja.KickStart.App.Vm
 	{
 		public string GetDateLabel(DateTime? value)
 		{
-			if (!value.HasValue) return "None";
+			if (!value.HasValue) return "";
 
-			if (value.Value.Date == DateTime.Today.Date) return "due today";
+			if (value.Value.Date == DateTime.Today.Date) return "today";
 
-			if (value.Value.Date == DateTime.Today.Date.AddDays(1)) return "due tomorrow";
+			if (value.Value.Date == DateTime.Today.Date.AddDays(1)) return "tomorrow";
 
-			if (value.Value.Date.Year == DateTime.Today.Year) return "due on " + value.Value.ToLocalTime().ToString("MMMM d");
+			if (value.Value.Date.Year == DateTime.Today.Year) return value.Value.ToLocalTime().ToString("MMMM d");
 
-			return "due on " + value.Value.ToLocalTime().Date.ToString("MMMM d, yyyy");
+			return value.Value.ToLocalTime().Date.ToString("MMMM d, yyyy");
 		}
 
 		public string GetInverseStatusId(string statusId)
