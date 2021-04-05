@@ -91,15 +91,4 @@
 	{
 		RaiseDone(args.Item1);
 	}
-
-	private void OnDueDateClicked()
-	{
-		_showCalendar = !_showCalendar;
-	}
-
-	private void OnDueDateChanged(ChangedEventArgs<DateTime?> args)
-	{
-		_showCalendar = !_showCalendar;
-		if (args.Value.HasValue) Model.Item.DueDate = args.Value.Value.Date;
-	}
 }
