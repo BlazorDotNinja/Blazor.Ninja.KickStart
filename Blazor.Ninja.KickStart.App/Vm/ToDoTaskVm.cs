@@ -16,9 +16,9 @@ namespace Blazor.Ninja.KickStart.App.Vm
 
 			if (value.Value.Date == DateTime.Today.Date.AddDays(1)) return "due tomorrow";
 
-			if (value.Value.Date.Year == DateTime.Today.Year) return "due on " + value.Value.ToString("MMMM d");
+			if (value.Value.Date.Year == DateTime.Today.Year) return "due on " + value.Value.ToLocalTime().ToString("MMMM d");
 
-			return "due on " + value.Value.Date.ToString("MMMM d, yyyy");
+			return "due on " + value.Value.ToLocalTime().Date.ToString("MMMM d, yyyy");
 		}
 
 		public string GetInverseStatusId(string statusId)
