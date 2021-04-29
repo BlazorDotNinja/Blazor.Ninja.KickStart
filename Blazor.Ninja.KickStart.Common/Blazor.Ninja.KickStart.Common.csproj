@@ -6,7 +6,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Blazor.Ninja.Common" Version="1.9.26" />
+    <PackageReference Include="Blazor.Ninja.Common" Version="1.10.2" />
   </ItemGroup>
 
 </Project>

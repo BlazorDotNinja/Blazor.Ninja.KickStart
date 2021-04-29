@@ -327,7 +327,8 @@ a:hover {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 0.5rem; }
+  padding: 0.5rem;
+  background-color: var(--background-color); }
 
 .blazor-ninja-page-container h2, .blazor-ninja-menu-page-container h2, .kickstart-todo-task-list-page-container h2, .kickstart-todo-task-form-page-container h2, h3 {
   margin-bottom: 3rem; }
@@ -359,20 +360,79 @@ a:hover {
   margin-bottom: 1.5rem;
   text-align: center; }
 
+.blazor-ninja-form-container textarea, .blazor-ninja-signup-form-container textarea, .blazor-ninja-confirm-form-container textarea, .blazor-ninja-login-form-container textarea, .blazor-ninja-forgot-form-container textarea, .blazor-ninja-dashboard-page-container textarea, .blazor-ninja-theme-form-container textarea, .blazor-ninja-postboarding-form-container textarea, .blazor-ninja-map-form-container textarea, .blazor-ninja-taginstance-form-container textarea, .blazor-ninja-link-form-container textarea, .blazor-ninja-phone-form-container textarea, .blazor-ninja-email-form-container textarea, .blazor-ninja-image-form-container textarea, .blazor-ninja-address-form textarea, .kickstart-project-form textarea, .kickstart-todo-task-form-container textarea {
+  margin-bottom: 1.5rem;
+  text-align: center; }
+
 .blazor-ninja-form-container button, .blazor-ninja-signup-form-container button, .blazor-ninja-confirm-form-container button, .blazor-ninja-login-form-container button, .blazor-ninja-forgot-form-container button, .blazor-ninja-dashboard-page-container button, .blazor-ninja-theme-form-container button, .blazor-ninja-postboarding-form-container button, .blazor-ninja-map-form-container button, .blazor-ninja-taginstance-form-container button, .blazor-ninja-link-form-container button, .blazor-ninja-phone-form-container button, .blazor-ninja-email-form-container button, .blazor-ninja-image-form-container button, .blazor-ninja-address-form button, .kickstart-project-form button, .kickstart-todo-task-form-container button {
-  margin-bottom: 1rem; }
+  margin-top: 1.5rem; }
 
 .blazor-ninja-form-container a, .blazor-ninja-signup-form-container a, .blazor-ninja-confirm-form-container a, .blazor-ninja-login-form-container a, .blazor-ninja-forgot-form-container a, .blazor-ninja-dashboard-page-container a, .blazor-ninja-theme-form-container a, .blazor-ninja-postboarding-form-container a, .blazor-ninja-map-form-container a, .blazor-ninja-taginstance-form-container a, .blazor-ninja-link-form-container a, .blazor-ninja-phone-form-container a, .blazor-ninja-email-form-container a, .blazor-ninja-image-form-container a, .blazor-ninja-address-form a, .kickstart-project-form a, .kickstart-todo-task-form-container a {
   margin-top: 2rem;
   text-align: center;
   text-decoration: none; }
 
+.blazor-ninja-form-container input[type=file], .blazor-ninja-signup-form-container input[type=file], .blazor-ninja-confirm-form-container input[type=file], .blazor-ninja-login-form-container input[type=file], .blazor-ninja-forgot-form-container input[type=file], .blazor-ninja-dashboard-page-container input[type=file], .blazor-ninja-theme-form-container input[type=file], .blazor-ninja-postboarding-form-container input[type=file], .blazor-ninja-map-form-container input[type=file], .blazor-ninja-taginstance-form-container input[type=file], .blazor-ninja-link-form-container input[type=file], .blazor-ninja-phone-form-container input[type=file], .blazor-ninja-email-form-container input[type=file], .blazor-ninja-image-form-container input[type=file], .blazor-ninja-address-form input[type=file], .kickstart-project-form input[type=file], .kickstart-todo-task-form-container input[type=file] {
+  display: none; }
+
+.blazor-ninja-form-container .img-container, .blazor-ninja-signup-form-container .img-container, .blazor-ninja-confirm-form-container .img-container, .blazor-ninja-login-form-container .img-container, .blazor-ninja-forgot-form-container .img-container, .blazor-ninja-dashboard-page-container .img-container, .blazor-ninja-theme-form-container .img-container, .blazor-ninja-postboarding-form-container .img-container, .blazor-ninja-map-form-container .img-container, .blazor-ninja-taginstance-form-container .img-container, .blazor-ninja-link-form-container .img-container, .blazor-ninja-phone-form-container .img-container, .blazor-ninja-email-form-container .img-container, .blazor-ninja-image-form-container .img-container, .blazor-ninja-address-form .img-container, .kickstart-project-form .img-container, .kickstart-todo-task-form-container .img-container {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 7rem;
+  margin-bottom: 1.5rem; }
+
+.blazor-ninja-form-container img, .blazor-ninja-signup-form-container img, .blazor-ninja-confirm-form-container img, .blazor-ninja-login-form-container img, .blazor-ninja-forgot-form-container img, .blazor-ninja-dashboard-page-container img, .blazor-ninja-theme-form-container img, .blazor-ninja-postboarding-form-container img, .blazor-ninja-map-form-container img, .blazor-ninja-taginstance-form-container img, .blazor-ninja-link-form-container img, .blazor-ninja-phone-form-container img, .blazor-ninja-email-form-container img, .blazor-ninja-image-form-container img, .blazor-ninja-address-form img, .kickstart-project-form img, .kickstart-todo-task-form-container img {
+  width: 100%; }
+
 .blazor-ninja-field-container {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  margin-bottom: 1.5rem; }
+
+.blazor-ninja-field-container > input {
+  display: inline-block;
+  margin: unset;
+  margin-left: 0.5rem; }
+
+.blazor-ninja-field-container > input:first-child {
+  margin: unset; }
+
+.blazor-ninja-field-container > input[type=checkbox] {
+  width: unset; }
+
+.blazor-ninja-field-container > input[type=number] {
+  width: unset; }
+
+.blazor-ninja-field-container > label {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: var(--element-font-weight);
+  font-size: var(--element-font-size);
+  line-height: var(--element-line-height); }
+
+.blazor-ninja-field-container > select {
+  display: inline-block;
+  margin: unset; }
+
+.blazor-ninja-field-container > .hour {
+  width: 4rem; }
+
+.blazor-ninja-field-container > .minute {
+  width: 4rem; }
+
+.blazor-ninja-field-container > .second {
+  width: 4rem; }
+
+.blazor-ninja-field-container > .period {
+  width: 4rem; }
 
 .blazor-ninja-modal {
   position: fixed;

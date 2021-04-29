@@ -246,6 +246,7 @@ a:hover {
 	width: 100%;
 	height: 100%;
 	padding: 0.5rem;
+	background-color: var(--background-color);
 }
 
 .blazor-ninja-page-container h2, h3 {
@@ -284,8 +285,13 @@ a:hover {
 	text-align: center;
 }
 
+.blazor-ninja-form-container textarea {
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
 .blazor-ninja-form-container button {
-	margin-bottom: 1rem;
+	margin-top: 1.5rem;
 }
 
 .blazor-ninja-form-container a {
@@ -294,12 +300,81 @@ a:hover {
 	text-decoration: none;
 }
 
+.blazor-ninja-form-container input[type=file] {
+	display: none;
+}
+
+.blazor-ninja-form-container .img-container {
+	display: flex;
+	width: 200px;
+	height: 200px;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	border: 1px solid var(--border-color);
+	border-radius: 7rem;
+	margin-bottom: 1.5rem;
+}
+
+.blazor-ninja-form-container img {
+	width: 100%;
+}
+
 .blazor-ninja-field-container {
 	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.blazor-ninja-field-container > input {
+	display: inline-block;
+	margin: unset;
+	margin-left: 0.5rem;
+}
+
+.blazor-ninja-field-container > input:first-child {
+	margin: unset;
+}
+
+.blazor-ninja-field-container > input[type=checkbox] {
+	width: unset;
+}
+
+.blazor-ninja-field-container > input[type=number] {
+	width: unset;
+}
+
+.blazor-ninja-field-container > label {
+	display: inline-block;
+	margin-left: 0.5rem;
+	font-weight: var(--element-font-weight);
+	font-size: var(--element-font-size);
+	line-height: var(--element-line-height);
+}
+
+.blazor-ninja-field-container > select {
+	display: inline-block;
+	margin: unset;
+}
+
+.blazor-ninja-field-container > .hour {
+	width: 4rem;
+}
+
+.blazor-ninja-field-container > .minute {
+	width: 4rem;
+}
+
+.blazor-ninja-field-container > .second {
+	width: 4rem;
+}
+
+.blazor-ninja-field-container > .period {
+	width: 4rem;
+	
 }
 
 //////////////////////////////////////////////////////////
