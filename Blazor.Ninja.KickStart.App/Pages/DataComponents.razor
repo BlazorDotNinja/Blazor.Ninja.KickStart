@@ -1,0 +1,40 @@
+﻿@page "/datacomponents"
+@layout AppLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page-container">
+	<DataForm NamespaceLabel="Project"
+	          ItemId=@_itemId
+	          FieldLabels=@(new List<string> {
+		                      "Label", 
+		                      "Email", 
+		                      "Password", 
+		                      "Phone", 
+		                      "Url", 
+		                      "Paragraph", 
+		                      "Integer", 
+		                      "Double", 
+		                      "Boolean",
+		                      "Date",
+		                      "Time",
+		                      "DateTime",
+		                      "Option"
+	                      })>
+	</DataForm>
+</div>
+
+@code
+{
+	private string _itemId = "c714240d-762b-43cc-82af-201fc45246ff";
+	//private string _itemId = default;
+
+	private GenericIdDataObject GetItem()
+	{
+		var item = new GenericIdDataObject();
+		item.Set("Text", "Project 2");
+		item.Set("Email", "project2@oriosnwave.com");
+		item.Set("Date", new DateTime(2023, 11, 11));
+
+		return item;
+	}
+}
