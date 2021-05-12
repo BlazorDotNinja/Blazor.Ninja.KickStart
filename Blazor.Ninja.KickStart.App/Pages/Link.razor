@@ -1,12 +1,14 @@
 @page "/link"
-@layout AppLayout
+@layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-<LinkForm Values=@_values
-		  ValueAdded=@OnValueAdded
-		  ValueRemoved=@OnValueRemoved>
+<div class="blazor-ninja-page">
+	<LinkForm Values=@_values
+			  ValueAdded=@OnValueAdded
+			  ValueRemoved=@OnValueRemoved>
 
-</LinkForm>
+	</LinkForm>
+</div>
 
 @code {
 

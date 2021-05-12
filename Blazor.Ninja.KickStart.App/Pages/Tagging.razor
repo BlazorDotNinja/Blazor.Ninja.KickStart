@@ -1,9 +1,11 @@
 @page "/tagging"
-@layout AppLayout
+@layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-<TagInstanceForm GroupTag=@GroupTag Tags=@Tags TagInstances=@TagInstances PageSize=5 MaxCount=2>
-</TagInstanceForm>
+<div class="blazor-ninja-page">
+	<TagInstanceForm GroupTag=@GroupTag Tags=@Tags TagInstances=@TagInstances PageSize=5 MaxCount=2>
+	</TagInstanceForm>
+</div>
 
 @code {
 	private readonly Tag GroupTag = new Tag
@@ -18,9 +20,9 @@
 		new Tag { Id = Guid.NewGuid().ToString(), Label = "Beachfront" },
 		new Tag { Id = Guid.NewGuid().ToString(), Label = "Gated Community" },
 		new Tag { Id = Guid.NewGuid().ToString(), Label = "Golf Course" },
-		new Tag { Id = Guid.NewGuid().ToString(), Label = "Hillside" }, 
-		new Tag { Id = Guid.NewGuid().ToString(), Label = "Oceanfront" }, 
-		new Tag { Id = Guid.NewGuid().ToString(), Label = "Ranch" }, 
+		new Tag { Id = Guid.NewGuid().ToString(), Label = "Hillside" },
+		new Tag { Id = Guid.NewGuid().ToString(), Label = "Oceanfront" },
+		new Tag { Id = Guid.NewGuid().ToString(), Label = "Ranch" },
 		new Tag { Id = Guid.NewGuid().ToString(), Label = "Riverfront" }
 	};
 

@@ -10,9 +10,14 @@
     <Compile Remove="OwlPhotoController.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\..\..\..\..\Users\Diana\.nuget\packages\blazor.ninja.sdk.aspnetcore\1.11.0-preview.1\staticwebassets\css\blazor-ninja.css" Link="wwwroot\css\blazor-ninja.css" />
+    <Content Include="..\..\..\..\..\Users\Diana\.nuget\packages\blazor.ninja.sdk.aspnetcore\1.11.0-preview.1\staticwebassets\css\blazor-ninja.min.css" Link="wwwroot\css\blazor-ninja.min.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
-    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.10.2" />
+    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.11.0-preview.1" />
     <PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
   </ItemGroup>
 
@@ -23,15 +28,6 @@
 
 
   <ItemGroup>
-    <Content Update="wwwroot\css\blazor-ninja.css">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>blazor-ninja.scss</DependentUpon>
-    </Content>
-    <Content Update="wwwroot\css\blazor-ninja.scss">
-      <Generator>SassTranspiler</Generator>
-      <LastGenOutput>blazor-ninja.css</LastGenOutput>
-    </Content>
     <Content Update="wwwroot\css\kickstart.css">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

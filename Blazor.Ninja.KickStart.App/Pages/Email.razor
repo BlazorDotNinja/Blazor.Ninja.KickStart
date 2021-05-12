@@ -1,17 +1,19 @@
 @page "/email"
-@layout AppLayout
+@layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-<EmailForm Values=@_values
-		  ValueAdded=@OnValueAdded
-		  ValueRemoved=@OnValueRemoved>
+<div class="blazor-ninja-page">
+	<EmailForm Values=@_values
+			   ValueAdded=@OnValueAdded
+			   ValueRemoved=@OnValueRemoved>
+	</EmailForm>
+</div>
 
-</EmailForm>
 
 @code {
 
 	private readonly List<string> _values = new List<string>
-	{
+{
 		"joe@orionswave.com",
 		"diana@orionswave.com",
 		"nils@orionswave.com"

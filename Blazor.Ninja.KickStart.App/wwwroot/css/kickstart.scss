@@ -1,9 +1,42 @@
-﻿@import "blazor-ninja.scss";
+﻿// Dashboard
+.dashboard {
+	flex-direction: row;
+	flex-wrap: wrap;
+	max-width: 600px;
+}
 
+.dashboard a {
+	color: var(--text-color);
+	border: 1px solid var(--border-color);
+	text-decoration: none;
+	text-transform: lowercase;
+	padding: 1rem;
+	margin: 1rem;
+	min-width: 150px;
+	border-radius: 0.5rem;
+}
+
+.dashboard a:hover {
+	border-color: var(--highlight-border-color);
+}
+
+// Menu
+.menu-page {
+	justify-content: start;
+}
+
+.menu-page a {
+	display: inline-block;
+	width: 100%;
+	padding: 0.8rem;
+	text-decoration: none;
+	border-bottom: 1px solid var(--link-border-color);
+	line-height: var(--element-line-height);
+	font-weight: 500;
+}
 
 // Data
 .kickstart-project-form {
-	@extend .blazor-ninja-form-container;
 	flex-direction: row;
 }
 
@@ -48,11 +81,8 @@
 	max-width: 100px;
 }
 
-
 // ToDo List
 .kickstart-todo-task-list-page-container {
-	@extend .blazor-ninja-page-container;
-	max-width: 600px;
 	justify-content: flex-start;
 	align-items: center;
 }
@@ -98,11 +128,9 @@
 
 // ToDo Page
 .kickstart-todo-task-form-page-container {
-	@extend .blazor-ninja-page-container;
 }
 
 .kickstart-todo-task-form-container {
-	@extend .blazor-ninja-form-container;
 	width: 100%;
 	max-width: 600px;
 }

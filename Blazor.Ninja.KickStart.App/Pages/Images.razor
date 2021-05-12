@@ -1,136 +1,138 @@
 @page "/images"
-@layout AppLayout
+@layout UserContextLayout
 @using Blazor.Ninja.Common.Net.Http
 @inherits BlazorNinjaComponent
 
-<ImageForm @ref=@_form
-		   Images=@_images
-		   Columns=3
-		   ImagesAdded=@OnImagesAdded
-		   ImageRemoved=@OnImageRemoved>
-</ImageForm>
+	<div class="blazor-ninja-page">
+		<ImageForm @ref=@_form
+				   Images=@_images
+				   Columns=3
+				   ImagesAdded=@OnImagesAdded
+				   ImageRemoved=@OnImageRemoved>
+		</ImageForm>
+	</div>
 
 
-@code {
+	@code {
 
-	private IDataProxy<GenericIdDataObject> _owlProxy;
+		private IDataProxy<GenericIdDataObject> _owlProxy;
 
-	private IContentProxy _owlPhotoProxy;
+		private IContentProxy _owlPhotoProxy;
 
-	private List<ImageVm> _images = new List<ImageVm>();
+		private List<ImageVm> _images = new List<ImageVm>();
 
-	private ImageForm _form;
+		private ImageForm _form;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-
-		if (_form != null) _form.State = BlazorNinjaComponentState.Loading;
-
-		var token = await GetContextTokenAsync();
-
-		_owlProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Owl");
-
-		_owlPhotoProxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
-
-		var owlPage = await _owlProxy.GetPageAsync(Filter<GenericIdDataObject>.Empty, 0, int.MaxValue, SortOrder<GenericIdDataObject>.Empty);
-
-		var ids = owlPage.Items.Select(it => it.Id).ToList();
-
-		if (ids.Any())
+		protected override async Task OnInitializedAsync()
 		{
-			var items = await _owlPhotoProxy.GetAsync(ids);
-			items = items.Where(it => it != null).ToList();
+			await base.OnInitializedAsync();
 
-			_images = GetVm(items);
+			if (_form != null) _form.State = BlazorNinjaComponentState.Loading;
+
+			var token = await GetContextTokenAsync();
+
+			_owlProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Owl");
+
+			_owlPhotoProxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
+
+			var owlPage = await _owlProxy.GetPageAsync(Filter<GenericIdDataObject>.Empty, 0, int.MaxValue, SortOrder<GenericIdDataObject>.Empty);
+
+			var ids = owlPage.Items.Select(it => it.Id).ToList();
+
+			if (ids.Any())
+			{
+				var items = await _owlPhotoProxy.GetAsync(ids);
+				items = items.Where(it => it != null).ToList();
+
+				_images = GetVm(items);
+			}
+
+			if (_form != null) _form.State = BlazorNinjaComponentState.WaitingForInput;
 		}
 
-		if (_form != null) _form.State = BlazorNinjaComponentState.WaitingForInput;
-	}
-
-	public async Task OnImagesAdded(ImageForm.ImagesAddedEventArgs args)
-	{
-		_form.State = BlazorNinjaComponentState.Working;
-
-		foreach (var value in args.Images)
+		public async Task OnImagesAdded(ImageForm.ImagesAddedEventArgs args)
 		{
-			var owl = new GenericIdDataObject();
-			owl = await _owlProxy.CreateAsync(owl);
+			_form.State = BlazorNinjaComponentState.Working;
 
-			var content = new Content
+			foreach (var value in args.Images)
 			{
-				Id = owl.Id,
-				ContentType = value.Item1
+				var owl = new GenericIdDataObject();
+				owl = await _owlProxy.CreateAsync(owl);
+
+				var content = new Content
+				{
+					Id = owl.Id,
+					ContentType = value.Item1
+				};
+
+				content = await _owlPhotoProxy.CreateAsync(content);
+				await _owlPhotoProxy.AppendDataAsync(content.Id, value.Item2);
+
+				await ProcessPhotoAsync(content.Id);
+
+				content = await _owlPhotoProxy.GetAsync(content.Id);
+
+				var vm = GetVm(content);
+				_images.Add(vm);
+				StateHasChanged();
+			}
+
+			_form.State = BlazorNinjaComponentState.WaitingForInput;
+		}
+
+		public async Task OnImageRemoved(string id)
+		{
+			_form.State = BlazorNinjaComponentState.Working;
+
+			await _owlProxy.DeleteAsync(id);
+
+			await _owlPhotoProxy.DeleteAsync(id);
+
+			await _owlPhotoProxy.DeleteAsync(id + "xw100");
+
+			_images.RemoveAll(it => it.Id == id);
+
+			_form.State = BlazorNinjaComponentState.WaitingForInput;
+
+			await InvokeAsync(StateHasChanged);
+		}
+
+		private List<ImageVm> GetVm(List<Content> items)
+		{
+			if (items == null) throw new ArgumentException();
+
+			return items.Select(GetVm).ToList();
+		}
+
+		private ImageVm GetVm(Content item)
+		{
+			if (item == null) return null;
+
+			var vm = new ImageVm
+			{
+				Id = item.Id,
+				Url = item.Url,
+				PreviewUrl = item.Url + "xw100"
 			};
 
-			content = await _owlPhotoProxy.CreateAsync(content);
-			await _owlPhotoProxy.AppendDataAsync(content.Id, value.Item2);
+			if (item.MetaData.TryGetValue("Width", out var temp))
+			{
+				if (double.TryParse(temp, out var width)) vm.Width = width;
+			}
 
-			await ProcessPhotoAsync(content.Id);
+			if (item.MetaData.TryGetValue("Height", out temp))
+			{
+				if (double.TryParse(temp, out var height)) vm.Height = height;
+			}
 
-			content = await _owlPhotoProxy.GetAsync(content.Id);
-
-			var vm = GetVm(content);
-			_images.Add(vm);
-			StateHasChanged();
+			return vm;
 		}
 
-		_form.State = BlazorNinjaComponentState.WaitingForInput;
-	}
-
-	public async Task OnImageRemoved(string id)
-	{
-		_form.State = BlazorNinjaComponentState.Working;
-
-		await _owlProxy.DeleteAsync(id);
-
-		await _owlPhotoProxy.DeleteAsync(id);
-
-		await _owlPhotoProxy.DeleteAsync(id + "xw100");
-
-		_images.RemoveAll(it => it.Id == id);
-
-		_form.State = BlazorNinjaComponentState.WaitingForInput;
-
-		await InvokeAsync(StateHasChanged);
-	}
-
-	private List<ImageVm> GetVm(List<Content> items)
-	{
-		if (items == null) throw new ArgumentException();
-
-		return items.Select(GetVm).ToList();
-	}
-
-	private ImageVm GetVm(Content item)
-	{
-		if (item == null) return null;
-
-		var vm = new ImageVm
+		private async Task ProcessPhotoAsync(string id)
 		{
-			Id = item.Id,
-			Url = item.Url,
-			PreviewUrl = item.Url + "xw100"
-		};
-
-		if (item.MetaData.TryGetValue("Width", out var temp))
-		{
-			if (double.TryParse(temp, out var width)) vm.Width = width;
+			var client = new HttpClient { BaseAddress = new Uri(NavigationManager.BaseUri) };
+			await client.PostAsync<Response>($"owlphoto/{id}", new JsonContentFactory(), new object(), default);
 		}
-
-		if (item.MetaData.TryGetValue("Height", out temp))
-		{
-			if (double.TryParse(temp, out var height)) vm.Height = height;
-		}
-
-		return vm;
 	}
-
-	private async Task ProcessPhotoAsync(string id)
-	{
-		var client = new HttpClient { BaseAddress = new Uri(NavigationManager.BaseUri) };
-		await client.PostAsync<Response>($"owlphoto/{id}", new JsonContentFactory(), new object(), default);
-	}
-}
 
 
