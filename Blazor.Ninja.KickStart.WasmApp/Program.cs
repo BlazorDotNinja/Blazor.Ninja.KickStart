@@ -22,7 +22,7 @@ namespace Blazor.Ninja.KickStart.WasmApp
 			var apiUrl = "https://api.blazor.ninja";
 
 			// TODO Paste your app token below
-			var appToken = "eyJ0eXAiOiJDU1AiLCAiZW5jIjoiUlNBX09BRVAifQ.AKlw3OJSfuEPNSzGT72CL0QQWhUQe2iLyMEv7F-q6j9M6_LLcXYNgA5b5Xl2p-6lOQUq-GAF3peBSyXR_f5ANpHinydE_MKROfrz39xiOXDO9duhVNJHUiQ6BoPzrop-nTATO5O331HDepU-pd1EzaLkUbtj8YRg2CIRhHKydaM.Q9pYG1eESeStPAq3.t1PGIguzLp7_j76FaTgR5bO4RUvslSk5eJYcGbxvLn9yj5sWqpAWYBOA_-26Xw.sJ9wUdLl8vS6uXwStXdbgA";
+			var appToken = "[AppToken]";
 
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
