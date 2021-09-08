@@ -1,0 +1,90 @@
+﻿@page "/content/custom"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page">
+	@*TODO Allowed file types are images, pdf, csv*@
+	@*TODO Render the list of items by showing a preview and the title for each item*@
+	@*TODO Users should be able to open in a new tab, download or delete any of the items*@
+	@*TODO Users should be able to upload new items (show most recently uploaded first)*@
+	@*TODO Users should be able to add title to each uploaded file*@
+</div>
+
+@code {
+
+	private IContentProxy _proxy;
+
+	private List<Content> _items;
+
+	private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+		_proxy = ProxyFactory.GetContentProxy("OwlPhoto", token);
+
+		_items = await LoadAsync();
+
+		_state = BlazorNinjaComponentState.WaitingForInput;
+	}
+
+	private async Task<List<Content>> LoadAsync()
+	{
+		// TODO Replace the code below with a paging call (not yet available in the sdk)
+		var ids = new List<string>()
+		{
+			"2beb1b36-4dc1-42b7-8e39-2c1f36c6d100",
+			"42b81806-2264-4771-b530-91c09428bf09",
+			"4cfd42f8-82bf-4f73-8061-abdfd25af615",
+			"a41cc06a-c029-4c29-a4af-bf57c034addf"
+		};
+
+		return await _proxy.GetAsync(ids);
+	}
+
+	private async Task OnCreateAsync(
+		string contentType,
+		byte[] data, 
+		string title)
+	{
+		_state = BlazorNinjaComponentState.Working;
+
+		var content = new Content
+		{
+			ContentType = contentType
+		};
+		content.MetaData.Add("Title", title);
+		content = await _proxy.CreateAsync(content);
+
+		// TODO Upload it by using 100 KB chunks
+		await _proxy.AppendDataAsync(content.Id, data);
+
+		_items = await LoadAsync();
+
+		_state = BlazorNinjaComponentState.WaitingForInput;
+	}
+
+	private async Task OnDeleteAsync(string id)
+	{
+		_state = BlazorNinjaComponentState.Working;
+
+		await _proxy.DeleteAsync(id);
+
+		_items = await LoadAsync();
+
+		_state = BlazorNinjaComponentState.WaitingForInput;
+	}
+
+	private async Task OnDownloadAsync(string id)
+	{
+		_state = BlazorNinjaComponentState.Working;
+
+		// TODO Upload it by using 100 KB chunks
+		await _proxy.DownloadDataAsync(id, 0, int.MaxValue);
+
+		_state = BlazorNinjaComponentState.WaitingForInput;
+	}
+
+}
