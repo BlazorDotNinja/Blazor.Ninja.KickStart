@@ -1,0 +1,91 @@
+﻿@page  "/content/addcontent"
+@layout UserContextLayout
+@using Syncfusion.Blazor.Inputs
+@inherits BlazorNinjaComponent
+@using Blazor.Ninja.Common.Net.Http
+@inject NavigationManager _NavigationManager
+
+
+<div class="blazor-ninja-page">
+    <div class="blazor-ninja-form-container">
+        <EditForm OnValidSubmit="() =>AddNewItem()" Model="@fileData">
+            <DataAnnotationsValidator />
+
+            
+            <InputText @bind-Value="fileData.Title" placeholder="Title"/>
+            <ValidationMessage For="@(() => fileData.Title)" />
+
+            
+            <InputFile type="file" class="form-control"
+                       FilterByExtension="true"
+                       FileTooLargeMessage="File is too large to upload"
+                       OnChange="HandleSelection" />
+            <ValidationMessage For="@(() => fileData.file)" />
+
+          
+            <button type="submit" class="btn btn-primary">
+                Create
+            </button>
+          
+        </EditForm>
+    </div>
+</div>
+
+@code{
+
+    public FileUpload fileData = new FileUpload();
+
+    private IContentProxy _proxy;
+
+    private List<Content> _items = new List<Content>();
+
+    private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await base.OnInitializedAsync();
+
+        var token = await GetContextTokenAsync();
+        _proxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+
+    }
+
+    public async Task AddNewItem()
+    {
+
+        await OnCreateAsync(fileData.ContentType, fileData.file, fileData.Title);
+        _NavigationManager.NavigateTo("/content/custom");
+
+    }
+
+    private async Task OnCreateAsync(
+     string contentType,
+     byte[] data,
+     string title)
+    {
+        _state = BlazorNinjaComponentState.Working;
+
+        var content = new Content
+        {
+            ContentType = contentType
+        };
+        content.MetaData.Add("Title", title);
+        content = await _proxy.CreateAsync(content);
+
+        // TODO Upload it by using 100 KB chunks
+        await _proxy.AppendDataAsync(content.Id, data);
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+
+    private async Task HandleSelection(InputFileChangeEventArgs eventArgs)
+    {
+        fileData.file = new byte[eventArgs.File.Size];
+        fileData.ContentType = eventArgs.File.ContentType;
+
+    }
+}

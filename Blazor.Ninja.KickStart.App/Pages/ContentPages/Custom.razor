@@ -1,90 +1,194 @@
 ﻿@page "/content/custom"
 @layout UserContextLayout
 @inherits BlazorNinjaComponent
+@using Syncfusion.Blazor.Inputs
+@using Blazor.Ninja.Common.Net.Http
+@using Syncfusion.Blazor.Popups
+@inject IJSRuntime jsRunTime
+
+
 
 <div class="blazor-ninja-page">
-	@*TODO Allowed file types are images, pdf, csv*@
-	@*TODO Render the list of items by showing a preview and the title for each item*@
-	@*TODO Users should be able to open in a new tab, download or delete any of the items*@
-	@*TODO Users should be able to upload new items (show most recently uploaded first)*@
-	@*TODO Users should be able to add title to each uploaded file*@
+    <div class="blazor-ninja-form-container kickstart-project-form">
+
+        @*<button class="btn btn-primary">Add New</button>*@
+        <a href="/Content/AddContent" class="btn btn-primary">Add New Content
+        </a>
+    </div>
+
+    @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
+    {
+        <div class="blazor-ninja-flashing"></div>
+    }
+
+    <div class="blazor-ninja-theme-form-container">
+        @foreach (var item in _items)
+        {
+            var titleKey = item.MetaData.Where(x => x.Key == "Title").FirstOrDefault();
+            var title = titleKey.Value ?? string.Empty;
+        
+            <div class="theme">
+                <div class="img_holder">
+                    @if (item.ContentType == "application/pdf")
+                    {
+                        <img src="_content/Blazor.Ninja.KickStart.App/images/pdf-image.png" />
+                    }
+                    else if (item.ContentType == "application/octet-stream")
+                    {
+                    <img src="_content/Blazor.Ninja.KickStart.App/images/export-csv.png" />
+                    }
+                    else 
+                    { 
+                    <img src="@item.Url" />
+                    }                    
+                </div>
+                <input type="text"
+                       required="required"
+                       id="@item.Id"
+                       @bind-value="@title"
+                       @oninput="@((ChangeEventArgs e) => OnUpdateEnterAsync(e,title, item))"
+                       disabled="@(!IsWaitingForInput(item.Id))" style="margin:60px" />
+                <div class="blazor-ninja-theme-form-container btn-section">
+                    <button hidden="@(!CheckUpdateBtnVisibility(item))" class="btn btn-primary" @onclick="(async () => await OnUpdateAsync(item))" style="margin-right: 33px;">Update</button>
+
+                    <button hidden="@(CheckUpdateBtnVisibility(item))" class="btn btn-primary" @onclick="(async () => await OnEditAsync(item))" style="margin-right: 33px;">Edit</button>
+                    <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        
+        }
+    </div>
 </div>
+
+
+
+
+
+
 
 @code {
 
-	private IContentProxy _proxy;
+    public FileUpload fileData = new FileUpload();
 
-	private List<Content> _items;
+    public Boolean showPopup = false;
 
-	private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+    private IContentProxy _proxy;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
+    private List<Content> _items = new List<Content>();
 
-		var token = await GetContextTokenAsync();
-		_proxy = ProxyFactory.GetContentProxy("OwlPhoto", token);
+    private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
-		_items = await LoadAsync();
+    bool updateBtnVisibility = true;
 
-		_state = BlazorNinjaComponentState.WaitingForInput;
-	}
+    private string _currentItemId;
 
-	private async Task<List<Content>> LoadAsync()
-	{
-		// TODO Replace the code below with a paging call (not yet available in the sdk)
-		var ids = new List<string>()
-		{
-			"2beb1b36-4dc1-42b7-8e39-2c1f36c6d100",
-			"42b81806-2264-4771-b530-91c09428bf09",
-			"4cfd42f8-82bf-4f73-8061-abdfd25af615",
-			"a41cc06a-c029-4c29-a4af-bf57c034addf"
-		};
+    protected override async Task OnInitializedAsync()
+    {
 
-		return await _proxy.GetAsync(ids);
-	}
+        await base.OnInitializedAsync();
 
-	private async Task OnCreateAsync(
-		string contentType,
-		byte[] data, 
-		string title)
-	{
-		_state = BlazorNinjaComponentState.Working;
+        var token = await GetContextTokenAsync();
+        _proxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
 
-		var content = new Content
-		{
-			ContentType = contentType
-		};
-		content.MetaData.Add("Title", title);
-		content = await _proxy.CreateAsync(content);
+        _items = await LoadAsync();
 
-		// TODO Upload it by using 100 KB chunks
-		await _proxy.AppendDataAsync(content.Id, data);
+        _state = BlazorNinjaComponentState.WaitingForInput;
 
-		_items = await LoadAsync();
+    }
 
-		_state = BlazorNinjaComponentState.WaitingForInput;
-	}
 
-	private async Task OnDeleteAsync(string id)
-	{
-		_state = BlazorNinjaComponentState.Working;
+    private async Task<List<Content>> LoadAsync()
+    {
+        // TODO Replace the code below with a paging call (not yet available in the sdk)
+        var ids = new List<string>()
+{
+             "2beb1b36-4dc1-42b7-8e39-2c1f36c6d100",
+             "42b81806-2264-4771-b530-91c09428bf09",
+             "4cfd42f8-82bf-4f73-8061-abdfd25af615",
+             "9abbfffb-350e-4d2e-9e7b-2eef7ab535d6",
+             "7fce2080-9b71-48c7-8069-fc5cb55f58ec",
+             "ea9b2e94-dadf-4c1b-8a55-12da5d454b26",
+             "6dd35117-46dc-4ca5-8bb7-d94f63cefd67",
+             "9dfb05ab-3948-4a07-b453-c6817f20e27b"
 
-		await _proxy.DeleteAsync(id);
+         };
 
-		_items = await LoadAsync();
+        return await _proxy.GetAsync(ids);
+        //return await _proxy.GetAsync();
 
-		_state = BlazorNinjaComponentState.WaitingForInput;
-	}
+    }
 
-	private async Task OnDownloadAsync(string id)
-	{
-		_state = BlazorNinjaComponentState.Working;
 
-		// TODO Upload it by using 100 KB chunks
-		await _proxy.DownloadDataAsync(id, 0, int.MaxValue);
 
-		_state = BlazorNinjaComponentState.WaitingForInput;
-	}
+
+    private async Task OnDeleteAsync(string id)
+    {
+        _state = BlazorNinjaComponentState.Working;
+
+        await _proxy.DeleteAsync(id);
+
+        _items = await LoadAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+    private async Task OnDownloadAsync(string id)
+    {
+        _state = BlazorNinjaComponentState.Working;
+
+        // TODO Upload it by using 100 KB chunks
+        await _proxy.DownloadDataAsync(id, 0, int.MaxValue);
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+
+
+
+    private string GetEditButtonText(string id)
+    {
+        if (id != _currentItemId) return "Edit";
+
+        return "Update";
+    }
+
+    private bool IsWaitingForInput(string id = default)
+    {
+        if (id == default) return _state == BlazorNinjaComponentState.WaitingForInput;
+
+        return id == _currentItemId && _state == BlazorNinjaComponentState.WaitingForInput;
+    }
+
+    public async Task OnUpdateEnterAsync(ChangeEventArgs e, string title, Content content)
+    {
+        content.MetaData["Title"] = e.Value.ToString();
+
+    }
+
+    private async Task OnUpdateAsync(Content content)
+    {
+
+        await _proxy.UpdateAsync(content);
+
+
+        _items = await LoadAsync();
+
+        _currentItemId = default;
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+    private async Task OnEditAsync(Content content)
+    {
+        if(content.Id != _currentItemId) {
+            updateBtnVisibility = false;
+            _currentItemId = content.Id;
+        }
+    }
+    private bool CheckUpdateBtnVisibility(Content content)
+    {
+        return _currentItemId != null ? (content.Id == _currentItemId) : false;
+
+    }
 
 }

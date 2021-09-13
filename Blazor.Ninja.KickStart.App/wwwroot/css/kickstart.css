@@ -128,3 +128,69 @@
 
 .sf-license-warning {
   display: none !important; }
+
+/* content/custom Page*/
+.btn {
+    width: 50%;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.blazor-ninja-theme-form-container {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    max-width: 1170px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.blazor-ninja-form-container input[type=file] {
+    display:block !important;
+}
+
+.btn-section {
+    flex-wrap: nowrap;
+}
+
+.blazor-ninja-theme-form-container .theme {
+    margin: 0;
+    width: 33%;
+    margin-top: 10px;
+    margin-right: .3%;
+}
+
+.img_holder {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    width: 100%;
+    background: #565656;
+}
+
+    .img_holder img {
+        height: 100%;
+        width: auto;
+    }
+
+@media (max-width:991px) {
+    .blazor-ninja-theme-form-container .theme {
+        margin: 0;
+        width: 49.33%;
+        margin-top: 10px;
+        margin-right: .3%;
+    }
+}
+
+@media (max-width:500px) {
+    .blazor-ninja-theme-form-container .theme {
+        margin: 0;
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0px !important;
+    }
+}
