@@ -19,6 +19,7 @@
 
 		var item = new NavigationItemVm
 		{
+			Id = Guid.NewGuid().ToString(),
 			IconCssClass = "fa fa-dashboard fa-sm",
 			Label = "Dashboard",
 			TargetUrl = "/dashboard",
@@ -26,8 +27,10 @@
 		items.Add(item);
 
 		// Projects
+		var projectsId = Guid.NewGuid().ToString();
 		item = new NavigationItemVm
 		{
+			Id = projectsId,
 			IconCssClass = "fa fa-object-group fa-sm",
 			Label = "Projects"
 		};
@@ -36,7 +39,7 @@
 		item = new NavigationItemVm
 		{
 			IconCssClass = "fa fa-tasks fa-sm",
-			ParentLabel = "Projects",
+			ParentId = projectsId,
 			Label = "Manage",
 			TargetUrl = "/projects",
 			//IsSelected = true
@@ -46,7 +49,7 @@
 		item = new NavigationItemVm
 		{
 			IconCssClass = "fa fa-user-plus fa-sm",
-			ParentLabel = "Projects",
+			ParentId = projectsId,
 			Label = "Invite",
 			TargetUrl = "/invite"
 		};
@@ -55,7 +58,7 @@
 		item = new NavigationItemVm
 		{
 			IconCssClass = "fa fa-bar-chart fa-sm",
-			ParentLabel = "Projects",
+			ParentId = projectsId,
 			Label = "Reports",
 			TargetUrl = "/reports"
 		};
