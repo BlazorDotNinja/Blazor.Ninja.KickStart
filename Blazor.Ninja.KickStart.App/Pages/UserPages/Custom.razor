@@ -2,37 +2,134 @@
 @layout UserContextLayout
 @inherits BlazorNinjaComponent
 
+
+
+
+<div class="blazor-ninja-page">
+    @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
+    {
+        <div class="blazor-ninja-flashing"></div>
+    }
+    <div class="blazor-ninja-theme-form-container">
+        @foreach (var item in customUserLists)
+        {
+            <div class="flex_row">
+                <div class="user_pro">
+                    <img src="@item.PhotoUrl" />
+                </div>
+                <div class="user_details">
+                    <label>@item.FirstName @item.LastName</label>
+                    @{
+                        <label>Followers @item.Followers</label>
+                    }
+
+                    @{
+                        <label>Following @item.Following</label>
+                    }
+                </div>
+                <div class="follow_btn">
+                    @{
+                        isFollow = getUserFollow?.Following?.Any(x => x == item.Id) ?? false;
+                        if (isFollow)
+                        {
+                            <button @onclick="(async () => await RemoveFollower(item.Id))" class="btn btn-primary">UnFollow</button>
+                        }
+                        else
+                        {
+                            <button @onclick="(async () => await AddFollower(item.Id))" class="btn btn-primary">Follow</button>
+                        }
+                    }
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
 @code {
 
-	// TODO Move this type to .Common project
-	public class CustomUser : User
-	{
-	}
+    private IUserProxy<User> _proxy;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
+    private List<User> _userList = new List<User>();
 
-		var token = await GetContextTokenAsync();
 
-		var proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
+    private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
-		var filter = Builders<CustomUser>.Filter.Empty;
-		var pageNumber = 0;
-		var pageSize = int.MaxValue;
-		var sortOrder = Builders<CustomUser>.Sort.Empty;
-		var userPage = await proxy.GetPageAsync(filter, pageNumber, pageSize, sortOrder);
+    private User currentUser = new User();
 
-		var users = userPage.Items;
+    private UserFollow getUserFollow = new UserFollow();
 
-		userPage = await proxy.GetPageAsync("role-id", pageNumber, pageSize);
+    bool isFollow;
 
-		users = userPage.Items;
+    public List<CustomUser> customUserLists = new List<CustomUser>();
 
-		await proxy.FollowAsync("user-id", "target-user-id");
 
-		await proxy.GetFollowersAsync("user-id");
 
-		await proxy.GetFollowingAsync("user-id");
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var token = await GetContextTokenAsync();
+        _proxy = ProxyFactory.GetUserProxy<User>(token);
+
+        currentUser = await _proxy.GetAsync();
+
+        getUserFollow = await _proxy.GetFollowDataAsync(currentUser.Id);
+
+        customUserLists = await LoadAsync();
+
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+    private async Task<List<CustomUser>> LoadAsync()
+    {
+        var getUsersList = await _proxy.GetPageAsync(Filter<User>.Empty, 0, 10000, SortOrder<User>.Empty);
+        _userList = getUsersList.Items;
+
+        var customUserList = await Task.WhenAll(_userList.Select(async x => new CustomUser
+        {
+            Id= x.Id,
+            PhotoUrl = x.PhotoUrl,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            Followers = await _proxy.GetFollowersAsync(x.Id),
+            Following = await _proxy.GetFollowingAsync(x.Id)
+
+        }));
+
+
+        return customUserList.ToList();
+    }
+
+
+
+    private async Task AddFollower(string id)
+    {
+
+        _state = BlazorNinjaComponentState.Working;
+
+        await _proxy.FollowAsync(currentUser.Id, id);
+
+        await OnInitializedAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+
+    }
+
+    private async Task RemoveFollower(string id)
+    {
+        _state = BlazorNinjaComponentState.Working;
+        await _proxy.UnfollowAsync(currentUser.Id, id);
+
+        await OnInitializedAsync();
+
+        _state = BlazorNinjaComponentState.WaitingForInput;
+    }
+
+
 }
