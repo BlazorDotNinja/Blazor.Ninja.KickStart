@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
 	<script type="text/javascript">
 		function setTheme(cssClass) {
 			var body = document.body;
@@ -35,7 +36,21 @@
 			}
 		}
 
-		var theme = window.localStorage.getItem("Theme");
+		function getTheme() {
+			const cookies = decodeURIComponent(document.cookie).split(";");
+			for (let i = 0; i < cookies.length; i++) {
+				let cookie = cookies[i];
+				while (cookie.charAt(0) === " ") {
+					cookie = cookie.substring(1);
+				}
+				if (cookie.indexOf("Theme=") === 0) {
+					return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
+				}
+			}
+			return "";
+		}
+
+		var theme = getTheme();
 		if (theme) {
 			theme = theme.replace(/"/g, '');
 			setTheme(theme);
