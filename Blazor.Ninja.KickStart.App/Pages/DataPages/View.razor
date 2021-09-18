@@ -4,25 +4,30 @@
 @attribute [UserContextRequired]
 
 <div class="blazor-ninja-page">
-	<DataView NamespaceLabel="Project"
-	          ItemId=@_itemId
-	          FieldGroups="@GetFieldGroups()">
-	</DataView>
+	@if (!string.IsNullOrEmpty(_itemId))
+	{
+		<DataView NamespaceLabel="Project"
+				  ItemId=@_itemId
+				  FieldGroups="@GetFieldGroups()">
+		</DataView>
+	}
 </div>
 
 @code
 {
-	private string _itemId = "c714240d-762b-43cc-82af-201fc45246ff";
-	//private string _itemId = default;
+	private string _itemId;
 
-	private GenericIdDataObject GetItem()
+	protected override async Task OnInitializedAsync()
 	{
-		var item = new GenericIdDataObject();
-		item.Set("Text", "Project 2");
-		item.Set("Email", "project2@oriosnwave.com");
-		item.Set("Date", new DateTime(2023, 11, 11));
+		await base.OnInitializedAsync();
 
-		return item;
+		var token = await GetContextTokenAsync();
+
+		var projectProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Project");
+
+		var projectPage = await projectProxy.GetPageAsync(Filter<GenericIdDataObject>.Empty, 0, int.MaxValue, SortOrder<GenericIdDataObject>.Empty);
+
+		if (projectPage.Items.Any()) _itemId = projectPage.Items.First().Id;
 	}
 
 	private List<FieldGroup> GetFieldGroups()
