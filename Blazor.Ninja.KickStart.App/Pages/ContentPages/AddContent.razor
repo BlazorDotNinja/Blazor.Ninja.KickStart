@@ -8,32 +8,25 @@
 
 <div class="blazor-ninja-page">
     <div class="blazor-ninja-form-container">
-        <EditForm OnValidSubmit="() =>AddNewItem()" Model="@fileData">
+        <EditForm OnValidSubmit="() =>AddNewItem()" Model="@FileData">
             <DataAnnotationsValidator />
-
-            
-            <InputText @bind-Value="fileData.Title" placeholder="Title"/>
-            <ValidationMessage For="@(() => fileData.Title)" />
-
-            
+            <InputText @bind-Value="FileData.Title" placeholder="Title"/>
+            <ValidationMessage For="@(() => FileData.Title)" />
             <InputFile type="file" class="form-control"
                        FilterByExtension="true"
                        FileTooLargeMessage="File is too large to upload"
                        OnChange="HandleSelection" />
-            <ValidationMessage For="@(() => fileData.file)" />
-
-          
+            <ValidationMessage For="@(() => FileData.file)" />
             <button type="submit" class="btn btn-primary">
                 Create
             </button>
-          
         </EditForm>
     </div>
 </div>
 
 @code{
 
-    public FileUpload fileData = new FileUpload();
+    public FileUpload FileData = new FileUpload();
 
     private IContentProxy _proxy;
 
@@ -41,25 +34,20 @@
 
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
-
     protected override async Task OnInitializedAsync()
     {
-
         await base.OnInitializedAsync();
 
         var token = await GetContextTokenAsync();
         _proxy = ProxyFactory.GetContentProxy(token, "OwlPhoto");
 
         _state = BlazorNinjaComponentState.WaitingForInput;
-
     }
 
     public async Task AddNewItem()
     {
-
-        await OnCreateAsync(fileData.ContentType, fileData.file, fileData.Title);
+        await OnCreateAsync(FileData.ContentType, FileData.file, FileData.Title);
         _NavigationManager.NavigateTo("/content/custom");
-
     }
 
     private async Task OnCreateAsync(
@@ -81,11 +69,9 @@
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
-
     private async Task HandleSelection(InputFileChangeEventArgs eventArgs)
     {
-        fileData.file = new byte[eventArgs.File.Size];
-        fileData.ContentType = eventArgs.File.ContentType;
-
+        FileData.file = new byte[eventArgs.File.Size];
+        FileData.ContentType = eventArgs.File.ContentType;
     }
 }

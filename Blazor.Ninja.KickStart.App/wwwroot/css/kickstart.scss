@@ -165,3 +165,70 @@
 .sf-license-warning {
 	display: none !important;
 }
+
+/* content/custom Page*/
+.blazor-ninja-page .blazor-ninja-form-container kickstart-project-form .btn {
+	width: 50%;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container {
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	max-width: 1170px;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.blazor-ninja-page .blazor-ninja-form-container input[type=file] {
+	display: block !important;
+}
+
+.blazor-ninja-theme-form-container .btn-section {
+	flex-wrap: nowrap;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .theme {
+	margin: 0;
+	width: 33%;
+	margin-top: 10px;
+	margin-right: .3%;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .theme .img-holder {
+	height: 240px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	justify-content: center;
+	width: 100%;
+	background: #565656;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .theme .img-holder img {
+	height: 100%;
+	width: auto;
+}
+
+@media (max-width:991px) {
+	.blazor-ninja-theme-form-container .theme {
+		margin: 0;
+		width: 49.33%;
+		margin-top: 10px;
+		margin-right: .3%;
+	}
+}
+
+@media (max-width:500px) {
+	.blazor-ninja-theme-form-container .theme {
+		margin: 0;
+		width: 100%;
+		margin-top: 10px;
+		margin-right: 0px !important;
+	}
+}

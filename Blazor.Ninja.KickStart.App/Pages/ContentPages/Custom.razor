@@ -6,41 +6,36 @@
 @using Syncfusion.Blazor.Popups
 @inject IJSRuntime jsRunTime
 
-
-
 <div class="blazor-ninja-page">
     <div class="blazor-ninja-form-container kickstart-project-form">
-
-        @*<button class="btn btn-primary">Add New</button>*@
-        <a href="/Content/AddContent" class="btn btn-primary">Add New Content
+        <a href="/Content/AddContent" class="btn btn-primary">
+            Add New Content
         </a>
     </div>
-
     @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
     {
         <div class="blazor-ninja-flashing"></div>
     }
-
     <div class="blazor-ninja-theme-form-container">
         @foreach (var item in _items)
         {
             var titleKey = item.MetaData.Where(x => x.Key == "Title").FirstOrDefault();
             var title = titleKey.Value ?? string.Empty;
-        
+
             <div class="theme">
-                <div class="img_holder">
+                <div class="img-holder">
                     @if (item.ContentType == "application/pdf")
                     {
                         <img src="_content/Blazor.Ninja.KickStart.App/images/pdf-image.png" />
                     }
                     else if (item.ContentType == "application/octet-stream")
                     {
-                    <img src="_content/Blazor.Ninja.KickStart.App/images/export-csv.png" />
+                        <img src="_content/Blazor.Ninja.KickStart.App/images/export-csv.png" />
                     }
-                    else 
-                    { 
-                    <img src="@item.Url" />
-                    }                    
+                    else
+                    {
+                        <img src="@item.Url" />
+                    }
                 </div>
                 <input type="text"
                        required="required"
@@ -55,22 +50,12 @@
                     <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
                 </div>
             </div>
-        
+
         }
     </div>
 </div>
 
-
-
-
-
-
-
 @code {
-
-    public FileUpload fileData = new FileUpload();
-
-    public Boolean showPopup = false;
 
     private IContentProxy _proxy;
 
@@ -84,7 +69,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         await base.OnInitializedAsync();
 
         var token = await GetContextTokenAsync();
@@ -93,33 +77,22 @@
         _items = await LoadAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
-
     }
-
 
     private async Task<List<Content>> LoadAsync()
     {
         // TODO Replace the code below with a paging call (not yet available in the sdk)
         var ids = new List<string>()
-{
+        {
              "2beb1b36-4dc1-42b7-8e39-2c1f36c6d100",
              "42b81806-2264-4771-b530-91c09428bf09",
              "4cfd42f8-82bf-4f73-8061-abdfd25af615",
-             "9abbfffb-350e-4d2e-9e7b-2eef7ab535d6",
              "7fce2080-9b71-48c7-8069-fc5cb55f58ec",
              "ea9b2e94-dadf-4c1b-8a55-12da5d454b26",
-             "6dd35117-46dc-4ca5-8bb7-d94f63cefd67",
              "9dfb05ab-3948-4a07-b453-c6817f20e27b"
-
-         };
-
+        };
         return await _proxy.GetAsync(ids);
-        //return await _proxy.GetAsync();
-
     }
-
-
-
 
     private async Task OnDeleteAsync(string id)
     {
@@ -142,9 +115,6 @@
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
-
-
-
     private string GetEditButtonText(string id)
     {
         if (id != _currentItemId) return "Edit";
@@ -162,14 +132,11 @@
     public async Task OnUpdateEnterAsync(ChangeEventArgs e, string title, Content content)
     {
         content.MetaData["Title"] = e.Value.ToString();
-
     }
 
     private async Task OnUpdateAsync(Content content)
     {
-
         await _proxy.UpdateAsync(content);
-
 
         _items = await LoadAsync();
 
@@ -180,7 +147,8 @@
 
     private async Task OnEditAsync(Content content)
     {
-        if(content.Id != _currentItemId) {
+        if (content.Id != _currentItemId)
+        {
             updateBtnVisibility = false;
             _currentItemId = content.Id;
         }
@@ -188,7 +156,6 @@
     private bool CheckUpdateBtnVisibility(Content content)
     {
         return _currentItemId != null ? (content.Id == _currentItemId) : false;
-
     }
 
 }
