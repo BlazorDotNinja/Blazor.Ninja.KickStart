@@ -2,22 +2,19 @@
 @layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-
-
-
 <div class="blazor-ninja-page">
     @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
     {
         <div class="blazor-ninja-flashing"></div>
     }
     <div class="blazor-ninja-theme-form-container">
-        @foreach (var item in customUserLists)
+        @foreach (var item in CustomUserLists)
         {
-            <div class="flex_row">
-                <div class="user_pro">
+            <div class="flex-row">
+                <div class="user-pro">
                     <img src="@item.PhotoUrl" />
                 </div>
-                <div class="user_details">
+                <div class="user-details">
                     <label>@item.FirstName @item.LastName</label>
                     @{
                         <label>Followers @item.Followers</label>
@@ -27,9 +24,9 @@
                         <label>Following @item.Following</label>
                     }
                 </div>
-                <div class="follow_btn">
+                <div class="follow-btn">
                     @{
-                        isFollow = getUserFollow?.Following?.Any(x => x == item.Id) ?? false;
+                        isFollow = _userFollow?.Following?.Any(x => x == item.Id) ?? false;
                         if (isFollow)
                         {
                             <button @onclick="(async () => await RemoveFollower(item.Id))" class="btn btn-primary">UnFollow</button>
@@ -47,27 +44,21 @@
 </div>
 
 
-
-
-
 @code {
 
     private IUserProxy<User> _proxy;
 
     private List<User> _userList = new List<User>();
 
-
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
-    private User currentUser = new User();
+    private User _currentUser = new User();
 
-    private UserFollow getUserFollow = new UserFollow();
+    private UserFollow _userFollow = new UserFollow();
 
     bool isFollow;
 
-    public List<CustomUser> customUserLists = new List<CustomUser>();
-
-
+    public List<CustomUser> CustomUserLists = new List<CustomUser>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,11 +67,11 @@
         var token = await GetContextTokenAsync();
         _proxy = ProxyFactory.GetUserProxy<User>(token);
 
-        currentUser = await _proxy.GetAsync();
+        _currentUser = await _proxy.GetAsync();
 
-        getUserFollow = await _proxy.GetFollowDataAsync(currentUser.Id);
+        _userFollow = await _proxy.GetFollowDataAsync(_currentUser.Id);
 
-        customUserLists = await LoadAsync();
+        CustomUserLists = await LoadAsync();
 
 
         _state = BlazorNinjaComponentState.WaitingForInput;
@@ -102,18 +93,15 @@
 
         }));
 
-
         return customUserList.ToList();
     }
-
-
 
     private async Task AddFollower(string id)
     {
 
         _state = BlazorNinjaComponentState.Working;
 
-        await _proxy.FollowAsync(currentUser.Id, id);
+        await _proxy.FollowAsync(_currentUser.Id, id);
 
         await OnInitializedAsync();
 
@@ -124,12 +112,11 @@
     private async Task RemoveFollower(string id)
     {
         _state = BlazorNinjaComponentState.Working;
-        await _proxy.UnfollowAsync(currentUser.Id, id);
+        await _proxy.UnfollowAsync(_currentUser.Id, id);
 
         await OnInitializedAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
-
 
 }
