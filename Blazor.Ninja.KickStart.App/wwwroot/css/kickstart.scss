@@ -239,6 +239,14 @@
 	margin: 0;
 }
 
+.blazor-ninja-page .pagination {
+	display: flex;
+}
+
+.blazor-ninja-page .disable-btn {
+	pointer-events: none;
+}
+
 @media (max-width:991px) {
 	.user-pro {
 		margin-right: 20px;
