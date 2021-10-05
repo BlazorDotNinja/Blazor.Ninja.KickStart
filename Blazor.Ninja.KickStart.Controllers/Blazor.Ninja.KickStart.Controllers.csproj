@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Blazor.Ninja.Client.Http" Version="1.13.6" />
-    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.13.6" />
+    <PackageReference Include="Blazor.Ninja.Client.Http" Version="1.13.25" />
+    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.13.25" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 

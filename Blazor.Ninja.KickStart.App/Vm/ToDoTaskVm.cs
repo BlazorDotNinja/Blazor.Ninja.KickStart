@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Meta;
 using Blazor.Ninja.Sdk.Vm;
@@ -8,6 +9,15 @@ namespace Blazor.Ninja.KickStart.App.Vm
 {
 	public abstract class ToDoTaskVm : BlazorNinjaComponentVm
 	{
+		protected TicketFeature _feature;
+
+		public override async Task LoadAsync()
+		{
+			await base.LoadAsync();
+
+			_feature = await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>();
+		}
+
 		public string GetDateLabel(DateTime? value)
 		{
 			if (!value.HasValue) return "";
@@ -25,14 +35,12 @@ namespace Blazor.Ninja.KickStart.App.Vm
 		{
 			if (string.IsNullOrWhiteSpace(statusId)) throw new ArgumentException(nameof(statusId));
 
-			var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
-
-			var status = feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
+			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
 			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
 
 			if (string.Equals(status.Label, "open", StringComparison.InvariantCultureIgnoreCase))
 			{
-				var inverseStatus = feature.StatusConfigurations.FirstOrDefault(
+				var inverseStatus = _feature.StatusConfigurations.FirstOrDefault(
 					it => it.Label.ToLowerInvariant() == "resolved");
 				if (inverseStatus == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
 
@@ -41,7 +49,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 
 			if (string.Equals(status.Label, "resolved", StringComparison.InvariantCultureIgnoreCase))
 			{
-				var inverseStatus = feature.StatusConfigurations.FirstOrDefault(
+				var inverseStatus = _feature.StatusConfigurations.FirstOrDefault(
 					it => it.Label.ToLowerInvariant() == "open");
 				if (inverseStatus == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
 
@@ -51,11 +59,19 @@ namespace Blazor.Ninja.KickStart.App.Vm
 			throw new NotImplementedException();
 		}
 
+		public string GetStatusId(string label)
+		{
+			if (string.IsNullOrWhiteSpace(label)) throw new ArgumentException(nameof(label));
+
+			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Label.ToLowerInvariant() == label);
+			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
+
+			return status.Id;
+		}
+
 		public bool IsOpen(string statusId)
 		{
-			var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
-
-			var status = feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
+			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
 			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
 
 			return string.Equals(status.Label, "open", StringComparison.InvariantCultureIgnoreCase);
@@ -63,9 +79,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 
 		public bool IsResolved(string statusId)
 		{
-			var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
-
-			var status = feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
+			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
 			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
 
 			return string.Equals(status.Label, "resolved", StringComparison.InvariantCultureIgnoreCase);
