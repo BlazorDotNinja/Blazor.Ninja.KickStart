@@ -60,7 +60,8 @@
 	private async void OnMapPreferencesChangedAsync(
 		MapPreferences preferences)
 	{
-		await LocalStorage.SetItem("MapPreferences", preferences);
+		// TODO Finish this
+		// await LocalStorage.SetItem("MapPreferences", preferences);
 	}
 
 	private static List<MapFeatureConfig> GetFeatureConfigs()
@@ -124,7 +125,8 @@
 		MapPreferences preferences = null;
 		try
 		{
-			preferences = await LocalStorage.GetItem<MapPreferences>("MapPreferences");
+			// TODO Finish this
+			// preferences = await LocalStorage.GetItem<MapPreferences>("MapPreferences");
 		}
 		catch
 		{

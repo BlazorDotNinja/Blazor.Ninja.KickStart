@@ -43,6 +43,8 @@ namespace Blazor.Ninja.KickStart.App.Vm
 		{
 			try
 			{
+				await base.LoadAsync();
+
 				State = BlazorNinjaComponentState.Loading;
 
 				var userProxy = ProxyFactory.GetUserProxy<GenericUser>(_authentication);
@@ -52,14 +54,11 @@ namespace Blazor.Ninja.KickStart.App.Vm
 				// Get context user
 				ContextUser = await userProxy.GetAsync();
 
-				var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
-
-				var openStatus = feature.StatusConfigurations.FirstOrDefault(it => it.Label.ToLowerInvariant() == "open");
-				if (openStatus == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
+				var openStatusId = GetStatusId("open");
 
 				// Get tickets
 				var filter = Builders<ToDoTask>.Filter.Eq(it => it.OwnerId, ContextUser.Id)
-					& Builders<ToDoTask>.Filter.Eq(it => it.StatusId, openStatus.Id);
+					& Builders<ToDoTask>.Filter.Eq(it => it.StatusId, openStatusId);
 				var sort = Builders<ToDoTask>.Sort.Ascending(it => it.DueDate);
 
 				var proxy = ProxyFactory.GetTicketProxy<ToDoTask>(_authentication);
@@ -101,24 +100,21 @@ namespace Blazor.Ninja.KickStart.App.Vm
 				var item = Items.FirstOrDefault(it => it.Id == ticketId);
 				if (item == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "item");
 
-				var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
-
-				var openStatus = feature.StatusConfigurations.FirstOrDefault(it => it.Label.ToLowerInvariant() == "open");
-				if (openStatus == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
+				var openStatusId = GetStatusId("open");
 
 				var ticketProxy = ProxyFactory.GetTicketProxy<ToDoTask>(_authentication);
 				await ticketProxy.UpdateStatusAsync(ticketId, statusId);
 
 				item.StatusId = statusId;
 
-				if (item.StatusId != openStatus.Id)
+				if (item.StatusId != openStatusId)
 				{
 					Items.Remove(item);
 
 					if (Items.Count == Limit - 1)
 					{
 						var filter = Builders<ToDoTask>.Filter.Eq(it => it.OwnerId, ContextUser.Id)
-						             & Builders<ToDoTask>.Filter.Eq(it => it.StatusId, openStatus.Id);
+						             & Builders<ToDoTask>.Filter.Eq(it => it.StatusId, openStatusId);
 						var sort = Builders<ToDoTask>.Sort.Descending(it => it.Created);
 						var frameResult = await ticketProxy.GetFrameAsync(filter, Items.Count, 1, sort);
 

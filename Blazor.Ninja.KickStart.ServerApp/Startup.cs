@@ -1,4 +1,4 @@
-using Blazor.Extensions.Storage;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -30,8 +30,6 @@ namespace Blazor.Ninja.KickStart.ServerApp
 
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
-
-			services.AddStorage();
 
 			services.AddSingleton(Program.ProxyFactory);
 

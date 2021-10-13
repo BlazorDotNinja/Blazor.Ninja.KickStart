@@ -1,0 +1,38 @@
+﻿@page "/user/custom"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+@code {
+
+	// TODO Move this type to .Common project
+	public class CustomUser : User
+	{
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		var token = await GetContextTokenAsync();
+
+		var proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
+
+		var filter = Builders<CustomUser>.Filter.Empty;
+		var pageNumber = 0;
+		var pageSize = int.MaxValue;
+		var sortOrder = Builders<CustomUser>.Sort.Empty;
+		var userPage = await proxy.GetPageAsync(filter, pageNumber, pageSize, sortOrder);
+
+		var users = userPage.Items;
+
+		userPage = await proxy.GetPageAsync("role-id", pageNumber, pageSize);
+
+		users = userPage.Items;
+
+		await proxy.FollowAsync("user-id", "target-user-id");
+
+		await proxy.GetFollowersAsync("user-id");
+
+		await proxy.GetFollowingAsync("user-id");
+	}
+}

@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Blazor.Ninja.Common.Data;
-using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Meta;
 using Blazor.Ninja.KickStart.Common;
 using Blazor.Ninja.Sdk.Vm;
@@ -31,6 +29,8 @@ namespace Blazor.Ninja.KickStart.App.Vm
 		{
 			try
 			{
+				await base.LoadAsync();
+
 				State = BlazorNinjaComponentState.Loading;
 
 				var userProxy = ProxyFactory.GetUserProxy<GenericUser>(_authentication);
@@ -40,20 +40,14 @@ namespace Blazor.Ninja.KickStart.App.Vm
 
 				if (string.IsNullOrWhiteSpace(_itemId))
 				{
-					var feature = ProxyFactory.GetConfigurationProxy().GetFeature<TicketFeature>();
 					Item = new ToDoTask
 					{
 						OwnerId = _contextUser.Id,
-						TypeId = feature.GetDefaultTypeId(),
-						PriorityId = feature.GetDefaultPriorityId(),
-						DueDate = DateTime.UtcNow.Date
+						TypeId = _feature.GetDefaultTypeId(),
+						PriorityId = _feature.GetDefaultPriorityId(),
+						DueDate = DateTime.UtcNow.Date,
+						StatusId = GetStatusId("open")
 					};
-
-					var status = feature.StatusConfigurations.FirstOrDefault(
-						it => string.Equals(it.Label, "open", StringComparison.InvariantCultureIgnoreCase));
-					if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
-
-					Item.StatusId = status.Id;
 				}
 				else
 				{
@@ -95,13 +89,6 @@ namespace Blazor.Ninja.KickStart.App.Vm
 
 				RaiseFailed(ex);
 			}
-		}
-
-		public string GetDateLabel()
-		{
-			if (Item == null) throw new InvalidOperationException();
-
-			return GetDateLabel(Item.DueDate);
 		}
 	}
 }

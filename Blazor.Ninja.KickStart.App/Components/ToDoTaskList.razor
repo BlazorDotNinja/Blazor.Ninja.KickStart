@@ -46,7 +46,7 @@
 							       checked="@Model.IsResolved(task.StatusId)" 
 							       name="@task.Id" 
 								   disabled="@(Model.IsNotWaitingForInput)"
-							       @onchange="@(() => ChangedStatusAsync(task.Id, inverseStatusId))"/>
+							       @onchange="@(async () => await ChangedStatusAsync(task.Id, inverseStatusId))"/>
 							<label for="@task.Id" title="@task.Body">@task.Title</label>
 						}
 					</Template>
