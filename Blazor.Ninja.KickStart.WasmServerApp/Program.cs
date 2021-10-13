@@ -20,7 +20,7 @@ namespace Blazor.Ninja.KickStart.WasmServerApp
 			var apiUrl = "https://api.blazor.ninja";
 
 			// TODO Paste your app token below
-			var appToken = "[AppToken]";
+			var appToken = "eyJ0eXAiOiJDU1AiLCAiZW5jIjoiUlNBX09BRVAifQ.TmEud0Nny4EKUQfgNusnmVeDdciaAD5ZpJF-nXwU-rvoVWUCNdzDBgpJT9W4xOBTLZf76BgqDNaf4zrrW-BEukzyjyn-XkhHhK14Zkcq0joQJfWx0VL90KWEswO-p-WSsZS5kFxp3Tm6rGZY1zucg97B1CTb_cm5V8PrlSHUJ_A.Q9pYG1eESeStPAq3.t1PGIguzLp7_j76FaTgR5bO4RUvslSk5eJYcGbxvLn9yj5sWqpAWYBOA_-26Xw.6TL9tC-cf-pqOiIeUfFrsg";
 
 			ProxyFactory = new HttpProxyFactory(apiUrl, appToken);
 

@@ -11,9 +11,9 @@ using Blazor.Ninja.Common;
 using Blazor.Ninja.Common.Data;
 using Blazor.Ninja.Common.Factories;
 using Blazor.Ninja.Common.Meta;
-using Blazor.Ninja.Sdk.AspNetCore.Components;
 
 using Blazor.Ninja.KickStart.Common;
+using Blazor.Ninja.Sdk.Vm;
 
 namespace Blazor.Ninja.KickStart.Controllers
 {

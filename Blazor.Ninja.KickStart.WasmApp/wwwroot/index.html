@@ -9,11 +9,12 @@
 	<base href="/" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
 	<link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
-	<link rel="stylesheet" href="_content/Blazor.Ninja.KickStart.App/css/kickstart.css?v=0.1" />
+	<link rel="stylesheet" href="_content/Blazor.Ninja.KickStart.App/css/kickstart.css?v=0.2" />
 	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
 </head>
 
 <body>
+
 	<script type="text/javascript">
 		function setTheme(cssClass) {
 			var body = document.body;
@@ -35,20 +36,32 @@
 			}
 		}
 
-		var theme = window.localStorage.getItem("Theme");
+		function getTheme() {
+			const cookies = decodeURIComponent(document.cookie).split(";");
+			for (let i = 0; i < cookies.length; i++) {
+				let cookie = cookies[i];
+				while (cookie.charAt(0) === " ") {
+					cookie = cookie.substring(1);
+				}
+				if (cookie.indexOf("Theme=") === 0) {
+					return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
+				}
+			}
+			return "";
+		}
+
+		var theme = getTheme();
 		if (theme) {
 			theme = theme.replace(/"/g, '');
 			setTheme(theme);
 		}
 		setTheme(theme);
 	</script>
-	<app>
-		<div class="blazor-ninja-app">
-			<div class="blazor-ninja-page">
-				<div class="blazor-ninja-flashing"></div>
-			</div>
+	<div id="app" class="blazor-ninja-app">
+		<div class="blazor-ninja-page">
+			<div class="blazor-ninja-flashing"></div>
 		</div>
-	</app>
+	</div>
 	<script src="_framework/blazor.webassembly.js"></script>
 
 	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
