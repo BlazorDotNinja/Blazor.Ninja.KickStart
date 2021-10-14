@@ -168,73 +168,73 @@
 
 /*User/Custom Page*/
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-pro {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-pro {
 	height: 180px;
 	width: 180px;
 	border-radius: 100%;
 	overflow: hidden;
 	background: #4672c4;
-	margin-right: 30px;
+	margin-right: 1.875rem;
 	min-width: 180px;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-pro img {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-pro img {
 	max-width: 100%;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	width: 100%;
-	padding: 10px;
+	padding: 0.625rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details {
 	margin: 0 -10px;
 	min-width: 400px;
 	max-width: 400px;
 	display: flex;
 	flex-wrap: wrap;
-	padding-top: 25px;
+	padding-top: 1.563rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details label {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details label {
 	display: flex;
 	background: #fff;
 	color: #222;
 	border: 1px solid #ccc;
-	margin: 0 0 15px;
+	margin: 0 0 0.938rem;
 	text-align: center;
 	height: 40px;
 	align-items: center;
 	justify-content: center;
-	font-size: 14px;
+	font-size: 0.875rem;
 	border-radius: 5px;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details > label {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details > label {
 	width: calc(50% - 20px );
-	margin: 0 10px 10px;
+	margin: 0 0.625rem 0.625rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details > label:first-child {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details > label:first-child {
 	width: calc(100% - 20px );
 }
 
 .blazor-ninja-page .blazor-ninja-theme-form-container .follow-btn {
-	margin-left: 30px;
-	padding-top: 25px;
+	margin-left: 1.875rem;
+	padding-top: 1.563rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .follow-btn .btn.btn-primary {
+.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .follow-btn .btn.btn-primary {
 	height: 40px;
 	white-space: nowrap;
 	display: inline-flex;
 	width: auto;
 	align-items: center;
 	justify-content: center;
-	font-size: 14px;
+	font-size: 0.875rem;
 	min-width: 150px;
 	margin: 0;
 }
@@ -245,15 +245,16 @@
 
 .blazor-ninja-page .disable-btn {
 	pointer-events: none;
+	background-color: #dddddd;
 }
 
 @media (max-width:991px) {
 	.user-pro {
-		margin-right: 20px;
+		margin-right: 1.25rem;
 	}
 
 	.follow-btn {
-		margin-left: 20px;
+		margin-left: 1.25rem;
 	}
 
 	.follow-btn .btn.btn-primary {
@@ -267,7 +268,7 @@
 }
 
 @media (max-width:767px) {
-	.flex-row {
+	.box-wrap{
 		flex-wrap: wrap;
 	}
 
@@ -275,13 +276,13 @@
 		min-width: 100%;
 		max-width: 100%;
 		flex-wrap: wrap;
-		padding-top: 25px;
+		padding-top: 1.563rem;
 		width: 100%;
 	}
 
 	.user-details > label {
 		width: calc(50% - 10px );
-		margin: 0 5px 20px;
+		margin: 0 0.313rem 1.25rem;
 	}
 
 	.user-details > label:first-child {
@@ -290,6 +291,6 @@
 
 	.follow-btn {
 		margin-left: 0;
-		padding-top: 10px;
+		padding-top: 0.625rem;
 	}
 }
