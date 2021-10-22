@@ -167,40 +167,44 @@
 }
 
 /* content/custom Page*/
-.blazor-ninja-page .blazor-ninja-form-container kickstart-project-form .btn {
-	width: 50%;
+.blazor-ninja-page .ninja-kick-start-app-container .content {
+	width: 100%;
 }
 
 [hidden] {
 	display: none !important;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container {
+.blazor-ninja-page .ninja-kick-start-app-container {
 	display: flex;
 	flex-flow: row;
 	flex-wrap: wrap;
-	margin-top: 20px;
-	max-width: 1170px;
+	margin-top: 1.25rem;
+	max-width: 73.125rem;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.blazor-ninja-page .blazor-ninja-form-container input[type=file] {
+.blazor-ninja-page .ninja-kick-start-app-container input[type=file] {
 	display: block !important;
 }
 
-.blazor-ninja-theme-form-container .btn-section {
+.ninja-kick-start-app-container .btn-section {
 	flex-wrap: nowrap;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .theme {
+.ninja-kick-start-app-container .btn-section .mr_33 {
+	margin-right: 2.063rem;
+}
+
+.blazor-ninja-page .ninja-kick-start-app-container .theme {
 	margin: 0;
 	width: 33%;
-	margin-top: 10px;
+	margin-top: 0.625rem;
 	margin-right: .3%;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .theme .img-holder {
+.blazor-ninja-page .ninja-kick-start-app-container .theme .img-holder {
 	height: 240px;
 	display: flex;
 	align-items: center;
@@ -208,27 +212,33 @@
 	justify-content: center;
 	width: 100%;
 	background: #565656;
+	cursor: pointer;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .theme .img-holder img {
+.blazor-ninja-page .ninja-kick-start-app-container .theme .img-holder img {
 	height: 100%;
 	width: auto;
 }
 
+.blazor-ninja-page .ninja-kick-start-app-container .theme .mr_60 {
+	margin: 1.875rem;
+	text-align: center;
+}
+	
 @media (max-width:991px) {
-	.blazor-ninja-theme-form-container .theme {
+	.ninja-kick-start-app-container .theme {
 		margin: 0;
 		width: 49.33%;
-		margin-top: 10px;
+		margin-top: 0.625rem;
 		margin-right: .3%;
 	}
 }
 
 @media (max-width:500px) {
-	.blazor-ninja-theme-form-container .theme {
+	.ninja-kick-start-app-container .theme {
 		margin: 0;
 		width: 100%;
-		margin-top: 10px;
+		margin-top: 0.625px;
 		margin-right: 0px !important;
 	}
 }

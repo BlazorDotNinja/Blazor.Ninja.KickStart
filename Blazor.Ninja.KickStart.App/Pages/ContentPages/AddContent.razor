@@ -1,22 +1,19 @@
 ﻿@page  "/content/addcontent"
 @layout UserContextLayout
-@using Syncfusion.Blazor.Inputs
 @inherits BlazorNinjaComponent
-@using Blazor.Ninja.Common.Net.Http
-@inject NavigationManager _NavigationManager
-
+@inject NavigationManager _navigationManager
+@using System.IO
 
 <div class="blazor-ninja-page">
-    <div class="blazor-ninja-form-container">
+    <div class="ninja-kick-start-app-container">
         <EditForm OnValidSubmit="() =>AddNewItem()" Model="@FileData">
             <DataAnnotationsValidator />
-            <InputText @bind-Value="FileData.Title" placeholder="Title"/>
+            <InputText @bind-Value="FileData.Title" placeholder="Title" />
             <ValidationMessage For="@(() => FileData.Title)" />
             <InputFile type="file" class="form-control"
                        FilterByExtension="true"
-                       FileTooLargeMessage="File is too large to upload"
-                       OnChange="HandleSelection" />
-            <ValidationMessage For="@(() => FileData.file)" />
+                       OnChange="OnFileUpload" />
+            <ValidationMessage For="@(() => FileData.File)" />
             <button type="submit" class="btn btn-primary">
                 Create
             </button>
@@ -30,9 +27,9 @@
 
     private IContentProxy _proxy;
 
-    private List<Content> _items = new List<Content>();
-
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+
+    private long _maxFileSize = 16777216;
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,14 +43,16 @@
 
     public async Task AddNewItem()
     {
-        await OnCreateAsync(FileData.ContentType, FileData.file, FileData.Title);
-        _NavigationManager.NavigateTo("/content/custom");
+        await OnCreateAsync(FileData.ContentType, FileData.File, FileData.Title, FileData.FileName);
+
+        _navigationManager.NavigateTo("/content/custom");
     }
 
     private async Task OnCreateAsync(
      string contentType,
-     byte[] data,
-     string title)
+     byte[] filedata,
+     string title,
+     string fileName)
     {
         _state = BlazorNinjaComponentState.Working;
 
@@ -62,16 +61,58 @@
             ContentType = contentType
         };
         content.MetaData.Add("Title", title);
+
+        content.MetaData.Add("FileName", fileName);
+
         content = await _proxy.CreateAsync(content);
 
-        // TODO Upload it by using 100 KB chunks
-        await _proxy.AppendDataAsync(content.Id, data);
+        int chunksSize = Convert.ToInt32(filedata.Length / 1000000); // chunks per size;
+
+        int startNumber = 0;
+
+        for (int i = 0; i <= chunksSize; i++)
+        {
+            if (i == chunksSize)
+            {
+                byte[] chunkArray = new byte[filedata.Length - startNumber];
+
+                Array.Copy(filedata, startNumber, chunkArray, 0, chunkArray.Length);
+
+                _proxy.AppendDataAsync(content.Id, chunkArray);
+            }
+            else
+            {
+                byte[] chunkArray = new byte[1000000];
+
+                Array.Copy(filedata, startNumber, chunkArray, 0, 1000000);
+
+                _proxy.AppendDataAsync(content.Id, chunkArray);
+
+            }
+            startNumber = startNumber + 1000000;
+        }
+
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
-    private async Task HandleSelection(InputFileChangeEventArgs eventArgs)
+    private async Task OnFileUpload(InputFileChangeEventArgs eventArgs)
     {
-        FileData.file = new byte[eventArgs.File.Size];
-        FileData.ContentType = eventArgs.File.ContentType;
+        try
+        {
+            using (var ms = new MemoryStream())
+            {
+                await eventArgs.File.OpenReadStream(_maxFileSize).CopyToAsync(ms);
+
+                FileData.File = ms.ToArray();
+            }
+            FileData.ContentType = eventArgs.File.ContentType;
+
+            FileData.FileName = eventArgs.File.Name;
+        }
+        catch (Exception ex)
+        {
+            throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.ExecutionFailed, ex);
+        }
     }
+
 }

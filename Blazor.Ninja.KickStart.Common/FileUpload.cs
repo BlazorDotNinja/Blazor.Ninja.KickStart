@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Blazor.Ninja.KickStart.Common
 {
-    public class FileUpload : IdDataObject
+    public class FileUpload
     {
         [Required(ErrorMessage = "Please Enter Title")]
         public string Title { get; set; }
         public string ContentType { get; set; }
 
         [Required(ErrorMessage = "Please Select File")]
-        public byte[] file {get; set;}
-
+        public byte[] File {get; set;}
+        public string FileName { get; set; }
 
     }
 }
