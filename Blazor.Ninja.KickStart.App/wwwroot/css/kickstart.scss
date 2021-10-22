@@ -168,7 +168,7 @@
 
 /*User/Custom Page*/
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-pro {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-pro {
 	height: 180px;
 	width: 180px;
 	border-radius: 100%;
@@ -178,11 +178,11 @@
 	min-width: 180px;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-pro img {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-pro img {
 	max-width: 100%;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
@@ -190,7 +190,7 @@
 	padding: 0.625rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-details {
 	margin: 0 -10px;
 	min-width: 400px;
 	max-width: 400px;
@@ -199,7 +199,7 @@
 	padding-top: 1.563rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details label {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-details label {
 	display: flex;
 	background: #fff;
 	color: #222;
@@ -213,21 +213,21 @@
 	border-radius: 5px;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details > label {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-details > label {
 	width: calc(50% - 20px );
 	margin: 0 0.625rem 0.625rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .user-details > label:first-child {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .user-details > label:first-child {
 	width: calc(100% - 20px );
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .follow-btn {
+.blazor-ninja-page .ninja-user-content-app-container .follow-btn {
 	margin-left: 1.875rem;
 	padding-top: 1.563rem;
 }
 
-.blazor-ninja-page .blazor-ninja-theme-form-container .box-wrap .follow-btn .btn.btn-primary {
+.blazor-ninja-page .ninja-user-content-app-container .box-wrap .follow-btn .btn.btn-primary {
 	height: 40px;
 	white-space: nowrap;
 	display: inline-flex;

@@ -7,9 +7,9 @@
     {
         <div class="blazor-ninja-flashing"></div>
     }
-    <div class="blazor-ninja-theme-form-container">
+    <div class="ninja-user-content-app-container">
 
-        @foreach (var item in _customUserLists)
+        @foreach (var item in _customUsers)
         {
             <div class="box-wrap">
                 <div class="user-pro">
@@ -27,8 +27,8 @@
                 </div>
                 <div class="follow-btn">
                     @{
-                       var _isFollow = _userFollow?.Following?.Any(x => x == item.Id) ?? false;
-                        if (_isFollow)
+                        var isFollow = _userFollow?.Following?.Any(x => x == item.Id) ?? false;
+                        if (isFollow)
                         {
                             <button @onclick="(async () => await UnfollowAsync(item.Id))" class="btn btn-primary">UnFollow</button>
                         }
@@ -44,13 +44,13 @@
     <div class="pagination">
         @if (_totalRecords != 0)
         {
-            <button class="btn btn-primary @(_currentPage==1?"disable-btn":"")" @onclick=@(async ()=>await NavigateToPage("previous"))>Prev</button>
+            <button class="btn btn-primary @(_currentPage==1?"disable-btn":"")" @onclick=@(async ()=>await NavigateBack())>Prev</button>
             @for (int p = 1; p <= (int)Math.Ceiling(_totalRecords / (decimal)_pageSize); p++)
             {
-                var curPage = p;
-                <button type="button" class="@(_currentPage==curPage?"btn btn-primary":"")" @onclick="(async ()=>await HandleChangePage(curPage))">@curPage</button>
+                var currentPage = p;
+                <button type="button" class="@(_currentPage==currentPage?"btn btn-primary":"")" @onclick="(async ()=>await OnPageChange(currentPage))">@currentPage</button>
             }
-            <button class="btn btn-primary @(_currentPage==(int)Math.Ceiling(_totalRecords / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateToPage("next"))>Next</button>
+            <button class="btn btn-primary @(_currentPage==(int)Math.Ceiling(_totalRecords / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
         }
     </div>
 </div>
@@ -59,15 +59,13 @@
 @code {
     private IUserProxy<User> _proxy;
 
-    private List<User> _userList = new List<User>();
-
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
     private User _currentUser = new User();
 
     private UserFollow _userFollow = new UserFollow();
 
-    private List<CustomUser> _customUserLists = new List<CustomUser>();
+    private List<CustomUser> _customUsers = new List<CustomUser>();
 
     private long _totalRecords;
 
@@ -87,22 +85,20 @@
 
         await GetFollowDataAsync();
 
-        _customUserLists = await LoadAsync();
+        _customUsers = await LoadAsync();
 
-        var usersList = await _proxy.GetCountAsync(Filter<User>.Empty);
-
-        _totalRecords = usersList;
+        _totalRecords = await _proxy.GetCountAsync(Filter<User>.Empty);
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
     private async Task<List<CustomUser>> LoadAsync()
     {
-        var getUsersList = await _proxy.GetPageAsync(Filter<User>.Empty, _pageNumber, _pageSize, SortOrder<User>.Empty);
+        var userPage = await _proxy.GetPageAsync(Filter<User>.Empty, _pageNumber, _pageSize, SortOrder<User>.Empty);
 
-        _userList = getUsersList.Items;
+        var users = userPage.Items;
 
-        var customUserList = await Task.WhenAll(_userList.Select(async x => new CustomUser
+        var customUserList = await Task.WhenAll(users.Select(async x => new CustomUser
         {
             Id = x.Id,
             PhotoUrl = x.PhotoUrl,
@@ -124,7 +120,7 @@
 
         await GetFollowDataAsync();
 
-        _customUserLists = await LoadAsync();
+        _customUsers = await LoadAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
@@ -137,35 +133,37 @@
 
         await GetFollowDataAsync();
 
-        _customUserLists = await LoadAsync();
+        _customUsers = await LoadAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
-    public async Task NavigateToPage(string direction)
+    public async Task NavigateForward()
     {
-        if (direction == "next")
-        {
-            _currentPage += 1;
+        _currentPage += 1;
 
-            _pageNumber = _currentPage - 1;
-        }
-        else if (direction == "previous")
-        {
-            _currentPage -= 1;
-            _pageNumber = _pageNumber - 1;
-        }
+        _pageNumber = _currentPage - 1;
 
-        _customUserLists = await LoadAsync();
+        _customUsers = await LoadAsync();
     }
 
-    public async Task HandleChangePage(int page)
+    public async Task NavigateBack()
+    {
+        _currentPage -= 1;
+
+        _pageNumber = _pageNumber - 1;
+
+        _customUsers = await LoadAsync();
+    }
+
+
+    public async Task OnPageChange(int page)
     {
         _currentPage = page;
 
         _pageNumber = page - 1;
 
-        _customUserLists = await LoadAsync();
+        _customUsers = await LoadAsync();
     }
 
     private async Task GetFollowDataAsync()
