@@ -42,15 +42,15 @@
         }
     </div>
     <div class="pagination">
-        @if (_totalRecords != 0)
+        @if (_userCounts != 0)
         {
             <button class="btn btn-primary @(_currentPage==1?"disable-btn":"")" @onclick=@(async ()=>await NavigateBack())>Prev</button>
-            @for (int p = 1; p <= (int)Math.Ceiling(_totalRecords / (decimal)_pageSize); p++)
+            @for (int p = 1; p <= (int)Math.Ceiling(_userCounts / (decimal)_pageSize); p++)
             {
                 var currentPage = p;
                 <button type="button" class="@(_currentPage==currentPage?"btn btn-primary":"")" @onclick="(async ()=>await OnPageChange(currentPage))">@currentPage</button>
             }
-            <button class="btn btn-primary @(_currentPage==(int)Math.Ceiling(_totalRecords / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
+            <button class="btn btn-primary @(_currentPage==(int)Math.Ceiling(_userCounts / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
         }
     </div>
 </div>
@@ -67,7 +67,7 @@
 
     private List<CustomUser> _customUsers = new List<CustomUser>();
 
-    private long _totalRecords;
+    private long _userCounts;
 
     private int _currentPage = 1;
 
@@ -87,7 +87,7 @@
 
         _customUsers = await LoadAsync();
 
-        _totalRecords = await _proxy.GetCountAsync(Filter<User>.Empty);
+        _userCounts = await _proxy.GetCountAsync(Filter<User>.Empty);
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
@@ -98,7 +98,7 @@
 
         var users = userPage.Items;
 
-        var customUserList = await Task.WhenAll(users.Select(async x => new CustomUser
+        var customUsers = await Task.WhenAll(users.Select(async x => new CustomUser
         {
             Id = x.Id,
             PhotoUrl = x.PhotoUrl,
@@ -109,7 +109,7 @@
 
         }));
 
-        return customUserList.ToList();
+        return customUsers.ToList();
     }
 
     private async Task FollowAsync(string id)
