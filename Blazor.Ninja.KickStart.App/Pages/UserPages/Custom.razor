@@ -7,9 +7,9 @@
     {
         <div class="blazor-ninja-flashing"></div>
     }
-    <div class="ninja-user-content-app-container">
+    <div class="ninja-user-content-container">
 
-        @foreach (var item in _customUsers)
+        @foreach (var item in _users)
         {
             <div class="box-wrap">
                 <div class="user-pro">
@@ -44,32 +44,30 @@
     <div class="pagination">
         @if (_userCounts != 0)
         {
-            <button class="btn btn-primary @(_currentPage==1?"disable-btn":"")" @onclick=@(async ()=>await NavigateBack())>Prev</button>
-            @for (int p = 1; p <= (int)Math.Ceiling(_userCounts / (decimal)_pageSize); p++)
+            <button class="btn btn-primary @(_pageNumber==0?"disable-btn":"")" @onclick=@(async ()=>await NavigateBack())>Prev</button>
+            @for (var index = 0; index < (int)Math.Ceiling(_userCounts / (decimal)_pageSize); index++)
             {
-                var currentPage = p;
-                <button type="button" class="@(_currentPage==currentPage?"btn btn-primary":"")" @onclick="(async ()=>await OnPageChange(currentPage))">@currentPage</button>
+                var currentIndex = index;
+                <button type="button" class="@(_pageNumber==index?"btn btn-primary":"")" @onclick="(async ()=>await OnPageChange(currentIndex))">@(index + 1)</button>
             }
-            <button class="btn btn-primary @(_currentPage==(int)Math.Ceiling(_userCounts / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
+            <button class="btn btn-primary @((_pageNumber+1)==(int)Math.Ceiling(_userCounts / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
         }
     </div>
 </div>
 
 
 @code {
-    private IUserProxy<User> _proxy;
+    private IUserProxy<CustomUser> _proxy;
 
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
 
-    private User _currentUser = new User();
+    private CustomUser _currentUser = new CustomUser();
 
     private UserFollow _userFollow = new UserFollow();
 
-    private List<CustomUser> _customUsers = new List<CustomUser>();
+    private List<CustomUser> _users = new List<CustomUser>();
 
     private long _userCounts;
-
-    private int _currentPage = 1;
 
     private int _pageSize = 3;
 
@@ -81,20 +79,20 @@
 
         var token = await GetContextTokenAsync();
 
-        _proxy = ProxyFactory.GetUserProxy<User>(token);
+        _proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
 
         await GetFollowDataAsync();
 
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
 
-        _userCounts = await _proxy.GetCountAsync(Filter<User>.Empty);
+        _userCounts = await _proxy.GetCountAsync(Filter<CustomUser>.Empty);
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
     private async Task<List<CustomUser>> LoadAsync()
     {
-        var userPage = await _proxy.GetPageAsync(Filter<User>.Empty, _pageNumber, _pageSize, SortOrder<User>.Empty);
+        var userPage = await _proxy.GetPageAsync(Filter<CustomUser>.Empty, _pageNumber, _pageSize, SortOrder<CustomUser>.Empty);
 
         var users = userPage.Items;
 
@@ -120,7 +118,7 @@
 
         await GetFollowDataAsync();
 
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
@@ -133,44 +131,38 @@
 
         await GetFollowDataAsync();
 
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
 
     public async Task NavigateForward()
     {
-        _currentPage += 1;
+        _pageNumber += 1;
 
-        _pageNumber = _currentPage - 1;
-
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
     }
 
     public async Task NavigateBack()
     {
-        _currentPage -= 1;
+        _pageNumber -= 1;
 
-        _pageNumber = _pageNumber - 1;
-
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
     }
 
 
     public async Task OnPageChange(int page)
     {
-        _currentPage = page;
+        _pageNumber = page;
 
-        _pageNumber = page - 1;
-
-        _customUsers = await LoadAsync();
+        _users = await LoadAsync();
     }
 
     private async Task GetFollowDataAsync()
     {
         var token = await GetContextTokenAsync();
 
-        _proxy = ProxyFactory.GetUserProxy<User>(token);
+        _proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
 
         _currentUser = await _proxy.GetAsync();
 
