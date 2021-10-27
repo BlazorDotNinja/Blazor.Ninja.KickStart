@@ -4,8 +4,8 @@
 @inject NavigationManager _navigationManager
 @using System.IO
 
-<div class="blazor-ninja-page">
-    <div class="ninja-kick-start-app-container">
+<div class="kickstart-content-page-container">
+    <div class="kickstart-content-form-container">
         <EditForm OnValidSubmit="() =>AddNewItem()" Model="@FileData">
             <DataAnnotationsValidator />
             <InputText @bind-Value="FileData.Title" placeholder="Title" />

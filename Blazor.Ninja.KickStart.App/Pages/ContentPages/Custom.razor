@@ -2,37 +2,34 @@
 @layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-<div class="blazor-ninja-page">
-    <div class="ninja-kick-start-app-container">
+<div class="kickstart-content-page-container">
+    <div class="header text-center">
         <a href="/Content/AddContent" class="btn btn-primary content">
             Add New Content
         </a>
     </div>
     @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
     {
-        <div class="blazor-ninja-flashing"></div>
+        <div class="loader_parent"><div class="blazor-ninja-flashing"></div></div>
     }
-    <div class="ninja-kick-start-app-container">
+    <div class="kickstart-content-form-container">
         @foreach (var item in _contents)
         {
-            var titleKey = item.MetaData.FirstOrDefault(x => x.Key == "Title");
-            var title = titleKey.Value ?? string.Empty;
-
-            var fileNameKey = item.MetaData.FirstOrDefault(x => x.Key == "FileName");
-            var fileName = fileNameKey.Value ?? string.Empty;
+            var title = item.MetaData.FirstOrDefault(x => x.Key == "Title").Value ?? string.Empty;
+            var fileName = item.MetaData.FirstOrDefault(x => x.Key == "FileName").Value ?? string.Empty;
             <div class="theme">
                 <div class="img-holder">
-                    <img @onclick="(async () => await OnDownloadAsync(item.Id,item.ContentType,fileName))" src="@GetContentType(item)" />
+                    <img @onclick="(async () => await OnDownloadAsync(item.Id, item.ContentType,fileName))" src="@GetIconUrl(item)" />
                 </div>
                 <input type="text"
                        required="required"
                        id="@item.Id"
                        @bind-value="@title"
                        @oninput="@((ChangeEventArgs e) => OnUpdateEnterAsync(e,title, item))"
-                       disabled="@(!IsWaitingForInput(item.Id))" class="mr_60" />
-                <div class="ninja-kick-start-app-container btn-section">
-                    <button hidden="@(!CheckUpdateBtnVisibility(item.Id))" class="btn btn-primary mr_33" @onclick="(async () => await OnUpdateAsync(item))">Update</button>
-                    <button hidden="@(CheckUpdateBtnVisibility(item.Id))" class="btn btn-primary mr_33" @onclick="(async () => OnEditAsync(item.Id))">Edit</button>
+                       disabled="@(!IsWaitingForInput(item.Id))" class="input" />
+                <div class="kickstart-content-form-container btn-section">
+                    <button hidden="@(!IsUpdateBtnVisible(item.Id))" class="btn btn-primary btn" @onclick="(async () => await OnUpdateAsync(item))">Update</button>
+                    <button hidden="@(IsUpdateBtnVisible(item.Id))" class="btn btn-primary btn" @onclick="(async () => OnEditAsync(item.Id))">Edit</button>
                     <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
                 </div>
             </div>
@@ -47,8 +44,6 @@
     private List<Content> _contents = new List<Content>();
 
     private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
-
-    private bool _isUpdateButtonVisible = true;
 
     private string _currentItemId;
 
@@ -72,23 +67,23 @@
         _contents = contentPage.Items;
     }
 
-    private string GetContentType(Content content)
+    private string GetIconUrl(Content content)
     {
-        string _imgUrl;
+        string imgUrl;
 
         if (content.ContentType == "application/pdf")
         {
-            _imgUrl = "_content/Blazor.Ninja.KickStart.App/images/pdf-image.png";
+            imgUrl = "_content/Blazor.Ninja.KickStart.App/images/pdf-image.png";
         }
         else if (content.ContentType == "application/octet-stream")
         {
-            _imgUrl = "_content/Blazor.Ninja.KickStart.App/images/export-csv.png";
+            imgUrl = "_content/Blazor.Ninja.KickStart.App/images/export-csv.png";
         }
         else
         {
-            _imgUrl = content.Url;
+            imgUrl = content.Url;
         }
-        return _imgUrl;
+        return imgUrl;
     }
 
     private async Task OnDeleteAsync(string id)
@@ -109,12 +104,10 @@
         var byteData = await _proxy.DownloadDataAsync(id, 0, int.MaxValue);
 
         await JSRuntime.InvokeVoidAsync(
-"downloadFile", fileName, contentType, byteData);
+            "downloadFile", fileName, contentType, byteData);
 
         _state = BlazorNinjaComponentState.WaitingForInput;
     }
-
-
 
     private bool IsWaitingForInput(string id = default)
     {
@@ -125,8 +118,7 @@
 
     public void OnUpdateEnterAsync(ChangeEventArgs e, string title, Content content)
     {
-        if (e.Value != null)
-            content.MetaData["Title"] = e.Value.ToString();
+        if (e.Value != null) content.MetaData["Title"] = e.Value.ToString();
     }
 
     private async Task OnUpdateAsync(Content content)
@@ -140,15 +132,11 @@
 
     private void OnEditAsync(string id)
     {
-        if (id != _currentItemId)
-        {
-            _isUpdateButtonVisible = false;
-            _currentItemId = id;
-        }
+        _currentItemId = id;
     }
 
-    private bool CheckUpdateBtnVisibility(string id)
+    private bool IsUpdateBtnVisible(string id)
     {
-        return _currentItemId != null ? (id == _currentItemId) : false;
+        return id == _currentItemId;
     }
 }
