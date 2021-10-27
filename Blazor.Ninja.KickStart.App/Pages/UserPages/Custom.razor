@@ -2,12 +2,13 @@
 @layout UserContextLayout
 @inherits BlazorNinjaComponent
 
-<div class="blazor-ninja-page">
+
+<div class="kickstart-user-page-container blazor-ninja-page">
     @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
     {
         <div class="blazor-ninja-flashing"></div>
     }
-    <div class="ninja-user-content-container">
+    <div class="kickstart-user-form-container">
 
         @foreach (var item in _users)
         {
@@ -54,6 +55,7 @@
         }
     </div>
 </div>
+
 
 
 @code {
