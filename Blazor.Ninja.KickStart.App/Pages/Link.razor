@@ -1,6 +1,7 @@
 @page "/link"
+x@inherits BlazorNinjaComponent
 @layout UserContextLayout
-@inherits BlazorNinjaComponent
+@attribute [UserContextRequired]
 
 <div class="blazor-ninja-page">
 	<LinkForm Values=@_values
