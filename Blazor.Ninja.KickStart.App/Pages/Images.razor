@@ -1,7 +1,8 @@
 @page "/images"
-@layout UserContextLayout
 @using Blazor.Ninja.Common.Net.Http
 @inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
 
 	<div class="blazor-ninja-page">
 		<ImageForm @ref=@_form

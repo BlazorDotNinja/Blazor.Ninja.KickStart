@@ -1,5 +1,7 @@
 ﻿@page "/todotask"
 @inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
 @using Microsoft.AspNetCore.WebUtilities
 
 <div class="blazor-ninja-page">
