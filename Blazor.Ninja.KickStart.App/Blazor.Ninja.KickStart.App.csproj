@@ -22,14 +22,14 @@
 
 
 	<ItemGroup>
-		<Content Update="wwwroot\css\kickstart.css">
+		<Content Update="wwwroot\css\app.css">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>kickstart.scss</DependentUpon>
+			<DependentUpon>app.scss</DependentUpon>
 		</Content>
-		<Content Update="wwwroot\css\kickstart.scss">
+		<Content Update="wwwroot\css\app.scss">
 			<Generator>SassTranspiler</Generator>
-			<LastGenOutput>kickstart.css</LastGenOutput>
+			<LastGenOutput>app.css</LastGenOutput>
 		</Content>
 	</ItemGroup>
 
