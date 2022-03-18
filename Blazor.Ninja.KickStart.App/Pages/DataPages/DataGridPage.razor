@@ -1,0 +1,87 @@
+﻿@page "/datagrid/"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page user-context-page">
+    <DataGrid @ref="_dataGrid"
+               T="GenericIdDataObject"
+               NamespaceLabel="Project"
+               Skip="0"
+               Limit="5"
+               SortOrder=@(Builders<GenericIdDataObject>.Sort.Descending("Text"))
+               Projection=@(Builders<GenericIdDataObject>.Projection.Exclude("Password"))
+               FetchDataCallback="FetchDataAsync"
+               ReferenceValueCallback="GetReferenceValueAsync"
+               DeleteButtonText="Delete">
+        <DataGridFieldColumn FieldLabel="Text" EnableSorting="true" />
+        <DataGridFieldColumn FieldLabel="ProjectCategoryId" HeaderText="Category" />
+        <DataGridFieldColumn FieldLabel="Email" HeaderText="Email" EnableSorting="true">
+            <i class="fa fa-send"></i>
+            <FieldView Field="@context"></FieldView>
+        </DataGridFieldColumn>
+        <DataGridCustomColumn T="GenericIdDataObject" HeaderText="Details">
+            <a href="/dataview/@(context.Id)">View</a>
+        </DataGridCustomColumn>
+    </DataGrid>
+</div>
+
+@code {
+    private DataGrid<GenericIdDataObject> _dataGrid;
+
+    private List<GenericIdDataObject> _categories;
+
+    [Parameter]
+    public string Value { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var token = await GetContextTokenAsync();
+
+        var proxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "ProjectCategory");
+
+        var frame = await proxy.GetFrameAsync(
+            Filter<GenericIdDataObject>.Empty,
+            0,
+            int.MaxValue,
+            Builders<GenericIdDataObject>.Sort.Ascending(it => it.Created));
+
+        _categories = frame.Items;
+    }
+
+    public async Task<(FrameResult<GenericIdDataObject>, long)> FetchDataAsync(
+        Filter<GenericIdDataObject> filter,
+        int skip,
+        int limit,
+        SortOrder<GenericIdDataObject> sortOrder, 
+        Projection<GenericIdDataObject> projection)
+    {
+        var token = await GetContextTokenAsync();
+
+        var proxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Project");
+
+        var frame = await proxy.GetFrameAsync(
+            filter,
+            skip,
+            limit,
+            sortOrder,
+            projection);
+
+        var totalCount = await proxy.GetCountAsync(_dataGrid.Filter);
+
+        return (frame, totalCount);
+    }
+
+    public async Task<GenericIdDataObject> GetReferenceValueAsync(
+        string fieldLabel,
+        string id)
+    {
+        await Task.Delay(0);
+
+        if (fieldLabel == "ProjectCategoryId") return _categories.FirstOrDefault(it => it.Id == id);
+
+        throw new NotImplementedException();
+    }
+}

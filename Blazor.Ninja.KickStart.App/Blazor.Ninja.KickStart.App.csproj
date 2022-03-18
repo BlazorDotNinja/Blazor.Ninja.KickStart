@@ -22,11 +22,6 @@
 
 
 	<ItemGroup>
-		<Content Update="wwwroot\css\kickstart.css">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>kickstart.scss</DependentUpon>
-		</Content>
 		<Content Update="wwwroot\css\kickstart.scss">
 			<Generator>SassTranspiler</Generator>
 			<LastGenOutput>kickstart.css</LastGenOutput>

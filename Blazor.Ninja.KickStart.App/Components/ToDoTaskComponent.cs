@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Blazor.Ninja.Common.Data.System;
 using Blazor.Ninja.Common.Meta;
-using Blazor.Ninja.Sdk.Vm;
+using Blazor.Ninja.Sdk.AspNetCore;
 
-namespace Blazor.Ninja.KickStart.App.Vm
+namespace Blazor.Ninja.KickStart.App.Components
 {
-	public abstract class ToDoTaskVm : BlazorNinjaComponentVm
+	public abstract class ToDoTaskComponent : BlazorNinjaComponent
 	{
-		protected TicketFeature _feature;
+		private TicketFeature _feature;
+		protected TicketFeature Feature => _feature;
 
-		public override async Task LoadAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			await base.LoadAsync();
+			await base.OnInitializedAsync();
 
 			_feature = await ProxyFactory.GetConfigurationProxy().GetFeatureAsync<TicketFeature>();
 		}
 
-		public string GetDateLabel(DateTime? value)
+		protected string GetDateLabel(DateTime? value)
 		{
 			if (!value.HasValue) return "";
 
@@ -31,7 +33,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 			return value.Value.ToLocalTime().Date.ToString("MMMM d, yyyy");
 		}
 
-		public string GetInverseStatusId(string statusId)
+		protected string GetInverseStatusId(string statusId)
 		{
 			if (string.IsNullOrWhiteSpace(statusId)) throw new ArgumentException(nameof(statusId));
 
@@ -59,7 +61,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 			throw new NotImplementedException();
 		}
 
-		public string GetStatusId(string label)
+		protected string GetStatusId(string label)
 		{
 			if (string.IsNullOrWhiteSpace(label)) throw new ArgumentException(nameof(label));
 
@@ -69,7 +71,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 			return status.Id;
 		}
 
-		public bool IsOpen(string statusId)
+		protected bool IsOpen(string statusId)
 		{
 			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
 			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");
@@ -77,7 +79,7 @@ namespace Blazor.Ninja.KickStart.App.Vm
 			return string.Equals(status.Label, "open", StringComparison.InvariantCultureIgnoreCase);
 		}
 
-		public bool IsResolved(string statusId)
+		protected bool IsResolved(string statusId)
 		{
 			var status = _feature.StatusConfigurations.FirstOrDefault(it => it.Id == statusId);
 			if (status == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "status");

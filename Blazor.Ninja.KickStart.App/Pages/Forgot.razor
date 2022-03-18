@@ -1,29 +1,42 @@
 @page "/forgot"
-@layout UserContextLayout
+@layout AppLayout
+@using Microsoft.AspNetCore.WebUtilities
 @inherits BlazorNinjaComponent
 
 <div class="blazor-ninja-page">
-	<h3>Need help with your password?</h3>
-	<ForgotForm Done=@OnDone></ForgotForm>
+    <h3>Need help with your password?</h3>
+    <ForgotPasswordForm
+        PrimaryFieldValue="@_primaryFieldValue"
+        Done=@OnDone></ForgotPasswordForm>
 </div>
 
 @code{
 
-	private void OnDone(bool wasUserInputNeeded)
-	{
-		var uri = "/";
+    private string _primaryFieldValue;
 
-		var values = new Dictionary<string, object>
-	{
-			{ "header", "Loading" },
-			{ "text", "You have changed your password! We're now loading the home view for you." },
-			{ "wasUserInputNeeded", wasUserInputNeeded }
-		};
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
 
-		uri = NavigationManager.AddQueryStringParams(uri, values);
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        QueryHelpers.ParseQuery(uri.Query).TryGetValue("value", out var temp);
 
-		NavigationManager.NavigateTo(uri);
-	}
+        _primaryFieldValue = temp;
+    }
+
+    private void OnDone(bool wasUserInputNeeded)
+    {
+        var uri = "/";
+
+        var values = new Dictionary<string, object>
+        {
+            { "header", "Loading" },
+            { "text", "You have changed your password! We're now loading the home view for you." },
+            { "wasUserInputNeeded", wasUserInputNeeded }
+        };
+
+        uri = NavigationManager.AddQueryStringParams(uri, values);
+
+        NavigationManager.NavigateTo(uri);
+    }
 }
-
-

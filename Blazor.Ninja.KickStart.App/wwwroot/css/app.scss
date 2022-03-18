@@ -1,0 +1,304 @@
+﻿.blazor-ninja-flashing {
+	margin-top: 1rem;
+}
+
+.blazor-ninja-page {
+	min-height: 100%;
+	height: unset;
+}
+
+///////////////////////////////////////////////////////////
+// Dashboard page
+///////////////////////////////////////////////////////////
+.dashboard {
+	flex-direction: row;
+	flex-wrap: wrap;
+	max-width: 600px;
+}
+
+.dashboard a {
+	color: var(--text-color);
+	border: 1px solid var(--border-color);
+	text-decoration: none;
+	text-transform: lowercase;
+	padding: 1rem;
+	margin: 1rem;
+	min-width: 150px;
+	border-radius: 0.5rem;
+}
+
+.dashboard a:hover {
+	border-color: var(--highlight-border-color);
+}
+
+///////////////////////////////////////////////////////////
+// Menu page
+///////////////////////////////////////////////////////////
+.menu-page {
+	justify-content: start;
+}
+
+.menu-page a {
+	display: inline-block;
+	width: 100%;
+	padding: 0.8rem;
+	text-decoration: none;
+	border-bottom: 1px solid var(--link-border-color);
+	line-height: var(--element-line-height);
+	font-weight: 500;
+}
+
+// Data
+.kickstart-project-form {
+	flex-direction: row;
+}
+
+.kickstart-project-form > input {
+	margin-bottom: unset;
+	text-align: left;
+	font-size: 0.9rem;
+}
+
+.kickstart-project-form > button {
+	margin-bottom: 0;
+	margin-left: 1rem;
+	margin-top: 0;
+	font-size: 0.9rem;
+	max-width: 100px;
+}
+
+.kickstart-project-list-container {
+	width: 100%;
+	max-width: var(--form-max-width);
+}
+
+.kickstart-project-list-container > div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-top: 1rem;
+}
+
+.kickstart-project-list-container > div > input {
+	margin-bottom: unset;
+	text-align: left;
+	font-size: 0.9rem;
+}
+
+.kickstart-project-list-container > div > button {
+	font-size: 0.9rem;
+	margin-left: 1rem;
+	max-width: 100px;
+}
+
+// ToDo List
+.kickstart-todo-task-list-page-container {
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.kickstart-todo-task-list-page-container > .header > a {
+	text-decoration: none;
+	max-width: 262px;
+	min-width: 252px;
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-list-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.kickstart-todo-task-list-container .e-gridheader {
+	display: none;
+}
+
+.kickstart-todo-task-list-container .e-gridcontent input {
+	display: inline-block;
+	width: unset;
+	margin: unset;
+	line-height: 1rem;
+}
+
+.kickstart-todo-task-list-container .e-gridcontent label {
+	display: inline-block;
+	width: unset;
+	margin: unset;
+	line-height: 1rem;
+}
+
+.kickstart-todo-task-list-container .e-gridcontent .past-due {
+	color: var(--error-text-color);
+}
+
+// ToDo Page
+.kickstart-todo-task-form-page-container {
+}
+
+.kickstart-todo-task-form-container {
+	width: 100%;
+	max-width: 600px;
+}
+
+.kickstart-todo-task-form-container > form > input {
+	text-align: left;
+}
+
+.kickstart-todo-task-form-container > form > textarea {
+	text-align: left;
+}
+
+.kickstart-todo-task-form-container > form > .date {
+	margin: var(--element-margin);
+}
+
+.kickstart-todo-task-form-container > form > input {
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-form-container > form > textarea {
+	font-size: 0.9rem;
+}
+
+.kickstart-todo-task-form-container > form > button {
+	font-size: 0.9rem;
+	max-width: 262px;
+}
+
+// Syncfusion
+.sf-license-warning {
+	display: none !important;
+}
+
+/*User/Custom Page*/
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-pro {
+	height: 180px;
+	width: 180px;
+	border-radius: 100%;
+	overflow: hidden;
+	background: #4672c4;
+	margin-right: 30px;
+	min-width: 180px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-pro img {
+	max-width: 100%;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	width: 100%;
+	padding: 10px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details {
+	margin: 0 -10px;
+	min-width: 400px;
+	max-width: 400px;
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: 25px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details label {
+	display: flex;
+	background: #fff;
+	color: #222;
+	border: 1px solid #ccc;
+	margin: 0 0 15px;
+	text-align: center;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details > label {
+	width: calc(50% - 20px );
+	margin: 0 10px 10px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .user-details > label:first-child {
+	width: calc(100% - 20px );
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .follow-btn {
+	margin-left: 30px;
+	padding-top: 25px;
+}
+
+.blazor-ninja-page .blazor-ninja-theme-form-container .flex-row .follow-btn .btn.btn-primary {
+	height: 40px;
+	white-space: nowrap;
+	display: inline-flex;
+	width: auto;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	min-width: 150px;
+	margin: 0;
+}
+
+.blazor-ninja-page .pagination {
+	display: flex;
+}
+
+.blazor-ninja-page .disable-btn {
+	pointer-events: none;
+}
+
+@media (max-width:991px) {
+	.user-pro {
+		margin-right: 20px;
+	}
+
+	.follow-btn {
+		margin-left: 20px;
+	}
+
+	.follow-btn .btn.btn-primary {
+		min-width: 130px;
+	}
+
+	.user-details {
+		min-width: 370px;
+		max-width: 370px;
+	}
+}
+
+@media (max-width:767px) {
+	.flex-row {
+		flex-wrap: wrap;
+	}
+
+	.user-details {
+		min-width: 100%;
+		max-width: 100%;
+		flex-wrap: wrap;
+		padding-top: 25px;
+		width: 100%;
+	}
+
+	.user-details > label {
+		width: calc(50% - 10px );
+		margin: 0 5px 20px;
+	}
+
+	.user-details > label:first-child {
+		width: calc(100% - 10px );
+	}
+
+	.follow-btn {
+		margin-left: 0;
+		padding-top: 10px;
+	}
+}
