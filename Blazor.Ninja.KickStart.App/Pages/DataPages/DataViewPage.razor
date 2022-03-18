@@ -1,0 +1,113 @@
+﻿@page "/dataview/"
+@page "/dataview/{ItemId}"
+
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+
+	@if (!string.IsNullOrWhiteSpace(_projectId))
+	{
+		<DataView NamespaceLabel="Project"
+				  T=@GenericIdDataObject
+				  ItemId=@_projectId
+				  FieldGroups="@GetFieldGroups()"
+				  ReferenceValueCallback="GetReferenceValueAsync">
+		</DataView>
+	}
+</div>
+
+@code
+{
+	[Parameter]
+	public string ItemId { get; set; }
+
+	private string _projectId;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await base.OnParametersSetAsync();
+
+		_projectId = ItemId;
+
+		if (string.IsNullOrEmpty(_projectId))
+		{
+			var token = await GetContextTokenAsync();
+
+			var projectProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Project");
+
+			var projectPage = await projectProxy.GetPageAsync(Filter<GenericIdDataObject>.Empty, 0, int.MaxValue, SortOrder<GenericIdDataObject>.Empty);
+
+			if (projectPage.Items.Any()) _projectId = projectPage.Items.First().Id;
+		}
+	}
+
+
+	private List<FieldGroup> GetFieldGroups()
+	{
+		var groups = new List<FieldGroup>();
+
+		var group = new FieldGroup
+		{
+			Label = "Group0",
+			FieldLabels = new List<string> { "ProjectCategoryId" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Group1",
+			FieldLabels = new List<string> { "Email", "Password", "Phone" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Group2",
+			FieldLabels = new List<string> { "Text", "Url", "Paragraph" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Group3",
+			FieldLabels = new List<string> { "Boolean", "Integer", "Double" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Group4",
+			FieldLabels = new List<string> { "Date", "Time", "DateTime" }
+		};
+		groups.Add(group);
+
+		group = new FieldGroup
+		{
+			Label = "Group5",
+			FieldLabels = new List<string> { "Option" }
+		};
+		groups.Add(group);
+
+		return groups;
+	}
+
+	private async Task<GenericIdDataObject> GetReferenceValueAsync(
+		string fieldLabel,
+		string id)
+	{
+		await Task.Delay(0);
+
+		if (fieldLabel == "ProjectCategoryId")
+		{
+			var token = await GetContextTokenAsync();
+
+			var proxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "ProjectCategory");
+
+			return await proxy.GetAsync(id);
+		}
+
+		throw new NotImplementedException();
+	}
+}

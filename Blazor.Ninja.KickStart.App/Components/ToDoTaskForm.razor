@@ -1,92 +1,62 @@
-@inherits BlazorNinjaComponent
+@inherits ToDoTaskComponent
 
 <div class="blazor-ninja-form-container kickstart-todo-task-form-container">
 
-	@if (Model == null || Model.State == BlazorNinjaComponentState.Loading)
-	{
-		<div class="blazor-ninja-flashing"></div>
-	}
-	else if (Model.State == BlazorNinjaComponentState.LoadFailed)
-	{
-		@if (HasMessage)
-		{
-			<div class="blazor-ninja-error-center">
-				@Message
-			</div>
-		}
-		<button type="button"
-				class="btn-secondary"
-				@onclick="@OnRetryClickedAsync">
-			Retry
-		</button>
-	}
-	else
-	{
-		<EditForm Model="@Model" OnValidSubmit="@Model.SaveAsync">
+    <Spinner Show="IsLoadingOrWorking"></Spinner>
 
-			<InputText id="title"
-					   @bind-Value="Model.Item.Title"
-					   placeholder="Enter to-do title"
-					   autofocus="@true"
-					   disabled="@Model.IsNotWaitingForInput" />
+    @if (State == BlazorNinjaComponentState.Failed)
+    {
+        @if (HasMessage)
+        {
+            <div class="blazor-ninja-error-center">
+                @Message
+            </div>
+        }
+        <button type="button"
+                class="btn-secondary"
+                @onclick="@OnRetryClickedAsync">
+            Retry
+        </button>
+    }
 
-			<textarea @bind="@Model.Item.Body"
-					  placeholder="Enter to-do description"
-					  rows=5
-					  disabled="@Model.IsNotWaitingForInput">
-			</textarea>
+    @if (_item != default)
+    {
+        <EditForm Model="@_item" OnValidSubmit="@SaveAsync">
 
-			<div class="date">
-				<SfDatePicker TValue="DateTime?" @bind-Value="@Model.Item.DueDate" Placeholder="Choose a Date">
-				</SfDatePicker>
-			</div>
+            <InputText id="title"
+                   @bind-Value="_item.Title"
+                   placeholder="Enter to-do title"
+                   autofocus="@true"
+                   disabled="@IsNotWaitingForInput" />
 
-			@if (Model.State == BlazorNinjaComponentState.Working)
-			{
-				<div class="blazor-ninja-flashing-form"></div>
-			}
+            <textarea @bind="@_item.Body"
+                  placeholder="Enter to-do description"
+                  rows=5
+                  disabled="@IsNotWaitingForInput">
+                </textarea>
 
-			@if (HasMessage)
-			{
-				<div class="blazor-ninja-error-form">
-					@Message
-				</div>
-			}
+            <div class="date">
+                <SfDatePicker TValue="DateTime?" @bind-Value="@_item.DueDate" Placeholder="Choose a Date">
+                </SfDatePicker>
+            </div>
 
-			<button type="submit" class="btn-primary">
-				Save
-			</button>
+            @if (State == BlazorNinjaComponentState.Working)
+            {
+                <div class="blazor-ninja-flashing-form"></div>
+            }
 
-		</EditForm>
-	}
+            @if (HasMessage)
+            {
+                <div class="blazor-ninja-error-form">
+                    @Message
+                </div>
+            }
+
+            <button type="submit" class="btn-primary">
+                Save
+            </button>
+
+        </EditForm>
+    }
 
 </div>
-
-@code {
-
-	private ToDoTaskFormVm Model
-	{
-		get => SuperModel as ToDoTaskFormVm;
-		set => SuperModel = value;
-	}
-
-	[Parameter]
-	public string ItemId { get; set; }
-
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-
-		var token = await GetContextTokenAsync();
-
-		Model = new ToDoTaskFormVm(token);
-		Model.Done += OnDone;
-
-		await Model.LoadAsync();
-	}
-
-	private void OnDone(object sender, Tuple<bool, ToDoTask> args)
-	{
-		RaiseDone(args.Item1);
-	}
-}

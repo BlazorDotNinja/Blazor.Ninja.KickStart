@@ -1,4 +1,13 @@
-﻿.dashboard {
+﻿.blazor-ninja-flashing {
+  margin-top: 1rem;
+}
+
+.blazor-ninja-page {
+  min-height: 100%;
+  height: unset;
+}
+
+.dashboard {
   flex-direction: row;
   flex-wrap: wrap;
   max-width: 600px;
@@ -49,10 +58,6 @@
   margin-top: 0;
   font-size: 0.9rem;
   max-width: 100px;
-}
-
-.blazor-ninja-flashing {
-  margin-top: 1rem;
 }
 
 .kickstart-project-list-container {
