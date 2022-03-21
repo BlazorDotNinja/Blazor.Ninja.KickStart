@@ -1,0 +1,46 @@
+﻿@page "/content"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page kickstart-content-list-page">
+
+    <a href="/content/new" class="btn btn-primary">
+        + New
+    </a>
+
+    <Spinner Show="IsLoadingOrWorking"></Spinner>
+
+    <div>
+        @foreach (var item in _contents)
+        {
+            var title = item.MetaData.FirstOrDefault(x => x.Key == "Title").Value ?? string.Empty;
+            var fileName = item.MetaData.FirstOrDefault(x => x.Key == "FileName").Value ?? string.Empty;
+
+            <div>
+
+                <img src="@GetIconUrl(item)"
+                 @onclick="(async () => await OnDownloadAsync(item.Id, item.ContentType, fileName))" />
+
+                <input type="text"
+                   id="@item.Id"
+                   required="required"
+                   @bind-value="@title"
+                   @oninput="@(args => OnUpdateEnterAsync(args, title, item))"
+                   disabled="@(!(item.Id == _currentItemId && IsWaitingForInput))" />
+
+                <div>
+                    @{
+                        var display = IsUpdateBtnVisible(item.Id) ? "inline" : "none";
+                    }
+                    <button @onclick="(async () => await OnUpdateAsync(item))" class="btn btn-primary" style="display:@display">Update</button>
+                    @{
+                        display = IsEditBtnVisible(item.Id) ? "inline" : "none";
+                    }
+                    <button @onclick="(() => OnEditAsync(item.Id))" class="btn btn-primary btn" style="display:@display">Edit</button>
+                    <button @onclick="(async () => await OnDeleteAsync(item.Id))" class="btn btn-primary">Delete</button>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

@@ -287,3 +287,64 @@
     padding-top: 10px;
   }
 }
+.kickstart-content-list-page > a {
+  width: 6rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.kickstart-content-list-page > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+.kickstart-content-list-page > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+.kickstart-content-list-page > div > div > img {
+  width: 18rem;
+}
+.kickstart-content-list-page > div > div > input {
+  margin-top: 0.5rem;
+  width: 18rem;
+  margin-bottom: unset;
+  font-size: 0.9rem;
+}
+.kickstart-content-list-page > div > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.kickstart-content-list-page > div > div > div button {
+  margin-top: 0.5rem;
+  width: 6rem;
+  font-size: 0.9rem;
+}
+.kickstart-content-list-page > div > div:first-child {
+  margin-left: unset;
+}
+
+.kickstart-content-item-page > input {
+  margin-top: 0.5rem;
+  width: 18rem;
+  margin-bottom: unset;
+  font-size: 0.9rem;
+}
+.kickstart-content-item-page > img {
+  width: 18rem;
+}
+.kickstart-content-item-page > button {
+  margin-top: 0.5rem;
+  width: 6rem;
+  font-size: 0.9rem;
+}
