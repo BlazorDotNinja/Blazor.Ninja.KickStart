@@ -1,146 +1,59 @@
-@inherits BlazorNinjaComponent
+@inherits ToDoTaskComponent
 
 <div class="blazor-ninja-form-container kickstart-todo-task-list-container">
 
-	@if (Model == null || Model.State == BlazorNinjaComponentState.Loading)
-	{
-		<div class="blazor-ninja-flashing"></div>
-	}
-	else if (Model.State == BlazorNinjaComponentState.LoadFailed)
-	{
-		if (HasMessage)
-		{
-			<div class="blazor-ninja-error-center">
-				@Message
-			</div>
-		}
+    <Spinner Show="IsLoadingOrWorking"></Spinner>
 
-		<button type="button"
-				class="btn-secondary"
-				@onclick="@OnRetryClickedAsync">
-			Retry
-		</button>
-	}
-	else
-	{
-		@if (Model.State == BlazorNinjaComponentState.Working)
-		{
-			<div class="blazor-ninja-flashing-form"></div>
-		}
+    @if (State == BlazorNinjaComponentState.Failed)
+    {
+        @if (HasMessage)
+        {
+            <div class="blazor-ninja-error-center">
+                @Message
+            </div>
+        }
+        <button type="button"
+            class="btn-secondary"
+            @onclick="@OnRetryClickedAsync">
+            Retry
+        </button>
+    }
 
-		if (HasMessage)
-		{
-			<div class="blazor-ninja-error-form">
-				@Message
-			</div>
-		}
+    @if (_items != default && _items.Any())
+    {
+        <SfGrid @ref="_grid" DataSource="@_items">
+            <GridColumns>
+                <GridColumn>
+                    <Template>
+                        @{
+                        var task = (ToDoTask)context;
+                        var inverseStatusId = GetInverseStatusId(task.StatusId);
+                        <input type="checkbox"
+                           checked="@IsResolved(task.StatusId)"
+                           name="@task.Id"
+                           disabled="@(IsNotWaitingForInput)"
+                               @onchange="@(async () => await ChangedStatusAsync(task.Id, inverseStatusId))" />
+                        <label for="@task.Id" title="@task.Body">@task.Title</label>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn TextAlign="TextAlign.Right" Width="20%">
+                <Template>
+                    @{
+                        var task = (ToDoTask)context;
+                        <span class="@GetDueDateCssClass(task.DueDate)">@GetDateLabel(task.DueDate)</span>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
 
-		<SfGrid @ref="_grid" DataSource="@Model.Items">
-			<GridColumns>
-				<GridColumn>
-					<Template>
-						@{
-							var task = (ToDoTask)context;
-							var inverseStatusId = Model.GetInverseStatusId(task.StatusId);
-							<input type="checkbox" 
-							       checked="@Model.IsResolved(task.StatusId)" 
-							       name="@task.Id" 
-								   disabled="@(Model.IsNotWaitingForInput)"
-							       @onchange="@(async () => await ChangedStatusAsync(task.Id, inverseStatusId))"/>
-							<label for="@task.Id" title="@task.Body">@task.Title</label>
-						}
-					</Template>
-				</GridColumn>
-				<GridColumn TextAlign="TextAlign.Right" Width="20%">
-					<Template>
-						@{
-							var task = (ToDoTask)context;
-							<span class="@GetDueDateCssClass(task.DueDate)">@Model.GetDateLabel(task.DueDate)</span>
-						}
-					</Template>
-				</GridColumn>
-			</GridColumns>
-		</SfGrid>
-
-		@if (Model.HasMore)
-		{
-			<button type="button" @onclick="@OnMoreClickedAsync" disabled="@Model.IsNotWaitingForInput">
-				More
-			</button>
-		}
-	}
+        @if (_hasMore)
+        {
+            <button type="button" @onclick="@OnMoreClickedAsync" disabled="@IsNotWaitingForInput">
+                More
+            </button>
+        }
+    }
 
 </div>
-
-@code {
-
-	private SfGrid<ToDoTask> _grid;
-
-	private ToDoTaskListVm Model
-	{
-		get => SuperModel as ToDoTaskListVm;
-		set => SuperModel = value;
-	}
-
-	[Parameter]
-	public int Limit { get; set; }
-
-	[Parameter]
-	public int RefreshInterval { get; set; }
-
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-
-		var token = await GetContextTokenAsync();
-		Model = new ToDoTaskListVm(token, Limit, RefreshInterval);
-
-		await Model.LoadAsync();
-	}
-
-	private void OnClicked(string taskId)
-	{
-		if (string.IsNullOrWhiteSpace(taskId)) throw new ArgumentException(nameof(taskId));
-
-		var item = Model.Items.FirstOrDefault(it => it.Id == taskId);
-		if (item == null) throw ExceptionBuilder.GetInstance(BlazorNinjaStatusCode.NotFound, "item");
-
-		//if (item.HasTargetUrl) NavigationManager.NavigateTo(item.TargetUrl);
-
-		//var _ = Task.Run(async () =>
-		//{
-		//	if (item.HasTargetUrl) await Task.Delay(1 * 1000);
-		//	if (item.Status.Code != MessageStatusCode.Read) await Model.MarkAsReadAsync(messageId);
-		//	await InvokeAsync(StateHasChanged);
-		//});
-	}
-
-	private async void OnDeleteClickedAsync(string taskId)
-	{
-		if (string.IsNullOrWhiteSpace(taskId)) throw new ArgumentException(nameof(taskId));
-
-		await Model.DeleteAsync(taskId);
-	}
-
-	private async void OnMoreClickedAsync()
-	{
-		await Model.LoadMoreAsync();
-	}
-
-	private string GetDueDateCssClass(DateTime? dueDate)
-	{
-		if (!dueDate.HasValue) return default;
-
-		if (dueDate.Value.Date >= DateTime.Now.Date) return default;
-
-		return "past-due";
-	}
-
-	private async Task ChangedStatusAsync(string taskId, string statusId)
-	{
-		await Model.UpdateStatusAsync(taskId, statusId);
-
-		_grid.Refresh();
-	}
-
-}

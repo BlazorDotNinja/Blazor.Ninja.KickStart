@@ -1,0 +1,22 @@
+﻿@page "/content/new"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page kickstart-content-item-page">
+
+    <input type="text"
+           @bind-value=@_label
+           disabled="@IsNotWaitingForInput" />
+
+    <InputFile OnChange="OnFileSelectedAsync"
+               disabled="@IsNotWaitingForInput" />
+               
+    <Spinner Show="IsLoadingOrWorking"></Spinner>
+
+    <button type="submit"
+            class="btn-primary"
+            disabled="@IsNotWaitingForInput"
+            @onclick=@OnCreateClickedAsync>
+        Save
+    </button>
+</div>

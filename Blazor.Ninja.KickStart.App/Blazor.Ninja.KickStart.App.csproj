@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.13.25" />
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.14.29" />
 		<PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
 	</ItemGroup>
 
@@ -22,11 +22,6 @@
 
 
 	<ItemGroup>
-		<Content Update="wwwroot\css\kickstart.css">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>kickstart.scss</DependentUpon>
-		</Content>
 		<Content Update="wwwroot\css\kickstart.scss">
 			<Generator>SassTranspiler</Generator>
 			<LastGenOutput>kickstart.css</LastGenOutput>

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31005.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Ninja.KickStart.ServerApp", "Blazor.Ninja.KickStart.ServerApp\Blazor.Ninja.KickStart.ServerApp.csproj", "{2E254092-DD0A-490E-97DA-B5EFF16973DD}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Ninja.KickStart.Common", "Blazor.Ninja.KickStart.Common\Blazor.Ninja.KickStart.Common.csproj", "{09D3CF2F-AAAC-44AA-B426-B6E068F6C21B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Ninja.KickStart.WasmServerApp", "Blazor.Ninja.KickStart.WasmServerApp\Blazor.Ninja.KickStart.WasmServerApp.csproj", "{08757609-0E03-4940-B524-68F3F26BA1CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Ninja.KickStart.MAUI", "Blazor.Ninja.KickStart.MAUI\Blazor.Ninja.KickStart.MAUI.csproj", "{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,11 @@ Global
 		{08757609-0E03-4940-B524-68F3F26BA1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08757609-0E03-4940-B524-68F3F26BA1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08757609-0E03-4940-B524-68F3F26BA1CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F3DD1B8-C743-496C-8CBD-9599BB2FF831}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

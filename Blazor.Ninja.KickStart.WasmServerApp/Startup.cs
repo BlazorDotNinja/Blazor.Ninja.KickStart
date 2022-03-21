@@ -21,7 +21,7 @@ namespace Blazor.Ninja.KickStart.WasmServerApp
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var assembly = typeof(GeoFeatureGroupController).Assembly;
+			var assembly = typeof(OwlPhotoController).Assembly;
 
 			services.AddControllers()
 				.PartManager.ApplicationParts.Add(new AssemblyPart(assembly));

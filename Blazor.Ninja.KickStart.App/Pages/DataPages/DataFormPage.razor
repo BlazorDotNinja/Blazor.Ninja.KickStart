@@ -1,0 +1,138 @@
+﻿@page "/dataform"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+    @if (_isInitialized)
+    {
+        <DataForm @ref=_dataForm
+                  T=@GenericIdDataObject
+                  NamespaceLabel="Project"
+                  ItemId=@_projectId
+                  FieldLabels=@(new List<string> {
+			                      "ProjectCategoryId",
+			                      "Text",
+                                  "Email",
+                                  "Password",
+                                  "Phone",
+                                  "Url",
+                                  "Paragraph",
+                                  "Integer",
+                                  "Double",
+                                  "Boolean",
+                                  "Date",
+                                  "Time",
+                                  "DateTime",
+                                  "Option" })
+                  ValueChanged=@(OnValueChanged)
+                  OptionValueCallback="GetOptionValuesAsync"
+                  ReferenceValueCallback="GetReferenceValueAsync"
+                  ReferenceValueClickedCallback="OnReferenceValueClickedAsync"
+                  ReferenceSearchValueChangedCallback="OnReferenceSearchValueChangedAsync">
+        </DataForm>
+    }
+</div>
+
+@code
+{
+    private bool _isInitialized;
+
+    private DataForm<GenericIdDataObject> _dataForm;
+
+    private string _projectId;
+
+    private List<GenericIdDataObject> _categories;
+
+    private GenericIdDataObject GetItem()
+    {
+        var item = new GenericIdDataObject();
+        item.Set("Text", "Project 2");
+        item.Set("Email", "project2@oriosnwave.com");
+        item.Set("Date", new DateTime(2023, 11, 11));
+
+        return item;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var token = await GetContextTokenAsync();
+
+        var categoryProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "ProjectCategory");
+
+        var categoryPage = await categoryProxy.GetPageAsync(
+            Filter<GenericIdDataObject>.Empty,
+            0,
+            int.MaxValue,
+            SortOrder<GenericIdDataObject>.Empty);
+
+        _categories = categoryPage.Items;
+
+        var projectProxy = ProxyFactory.GetDataProxyForNamespace<GenericIdDataObject>(token, "Project");
+
+        var project = await projectProxy.GetOneAsync(Filter<GenericIdDataObject>.Empty);
+
+        _projectId = project?.Id;
+
+        _isInitialized = true;
+    }
+
+    private async Task<List<GenericIdDataObject>> OnReferenceValueClickedAsync(
+        string fieldLabel)
+    {
+        await Task.Delay(0);
+
+        if (fieldLabel == "ProjectCategoryId") return _categories;
+
+        throw new NotImplementedException();
+    }
+
+    private async Task<List<GenericIdDataObject>> OnReferenceSearchValueChangedAsync(
+        string fieldLabel,
+        string value)
+    {
+        await Task.Delay(0);
+
+        if (fieldLabel == "ProjectCategoryId") return _categories?.Where(it => it.Get<string>("Label").StartsWith(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+        throw new NotImplementedException();
+    }
+
+    private async Task<GenericIdDataObject> GetReferenceValueAsync(
+        string fieldLabel,
+        string id)
+    {
+        await Task.Delay(0);
+
+        if (fieldLabel == "ProjectCategoryId") return _categories?.FirstOrDefault(it => it.Id == id);
+
+        throw new NotImplementedException();
+    }
+
+    private async Task<Dictionary<string, string>> GetOptionValuesAsync(
+        string fieldLabel)
+    {
+        await Task.Delay(0);
+
+        if (fieldLabel == "Option")
+            return new Dictionary<string, string>
+    {
+                {"One", "One"},
+                {"Two", "Two"},
+                {"Three", "Three"},
+            };
+
+        throw new NotImplementedException();
+    }
+
+    private void OnValueChanged(
+        object sender,
+        string fieldLabel)
+    {
+        var item = _dataForm.Item;
+
+        if (fieldLabel == "ProjectCategoryId") _dataForm.SetValue("Text", default);
+    }
+}
