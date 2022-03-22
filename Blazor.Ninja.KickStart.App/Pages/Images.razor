@@ -1,6 +1,8 @@
 @page "/images"
-@layout AppLayout
+@layout UserContextLayout
 @inherits BlazorNinjaComponent
+@attribute [UserContextRequired]
+
 @using Blazor.Ninja.Common.Net.Http
 
 <div class="blazor-ninja-page">
