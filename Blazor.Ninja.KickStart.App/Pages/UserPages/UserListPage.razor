@@ -3,55 +3,66 @@
 @inherits BlazorNinjaComponent
 
 
-<div class="kickstart-user-page-container blazor-ninja-page">
-    @if (_state == BlazorNinjaComponentState.Loading || _state == BlazorNinjaComponentState.Working)
+<div class="blazor-ninja-page kickstart-user-page-container">
+
+    <Spinner Show="IsLoadingOrWorking"></Spinner>
+
+    @if (State == BlazorNinjaComponentState.Failed)
     {
-        <div class="blazor-ninja-flashing"></div>
-    }
-    <div class="kickstart-user-form-container">
-
-        @foreach (var item in _users)
+        @if (HasMessage)
         {
-            <div class="box-wrap">
-                <div class="user-pro">
-                    <img src="@item.PhotoUrl" />
-                </div>
-                <div class="user-details">
-                    <label>@item.FirstName @item.LastName</label>
-                    @{
-                        <label>Followers @item.Followers</label>
-                    }
-
-                    @{
-                        <label>Following @item.Following</label>
-                    }
-                </div>
-                <div class="follow-btn">
-                    @{
-                        var isFollow = _userFollow?.Following?.Any(x => x == item.Id) ?? false;
-                        if (isFollow)
-                        {
-                            <button @onclick="(async () => await UnfollowAsync(item.Id))" class="btn btn-primary">UnFollow</button>
-                        }
-                        else
-                        {
-                            <button @onclick="(async () => await FollowAsync(item.Id))" class="btn btn-primary">Follow</button>
-                        }
-                    }
-                </div>
+            <div class="blazor-ninja-error-center">
+                @Message
             </div>
         }
-    </div>
-    <div class="pagination">
-        @if (_userCounts != 0)
-        {
-            <button class="btn btn-primary @(_pageNumber==0?"disable-btn":"")" @onclick=@(async ()=>await NavigateBack())>Prev</button>
-            @for (var index = 0; index < (int)Math.Ceiling(_userCounts / (decimal)_pageSize); index++)
+        <button type="button"
+            class="btn-secondary"
+            @onclick="@OnRetryClickedAsync">
+            Retry
+        </button>
+    }
+
+    @if (_users != default)
+    {
+        <div class="users-container">
+
+            @foreach (var item in _users)
             {
-                var currentIndex = index;
-                <button type="button" class="@(_pageNumber==index?"btn btn-primary":"")" @onclick="(async ()=>await OnPageChange(currentIndex))">@(index + 1)</button>
+                <div>
+                    <img src="@item.PhotoUrl" />
+
+                    <div>
+                        <label>@GetName(item)</label>
+                        <div>
+                            <label>Followers @GetFollowers(item.Id)</label>
+                            <label>Following @GetFollowing(item.Id)</label>
+                        </div>
+                    </div>
+
+                    @if (IsFollowing(item.Id))
+                    {
+                        <button @onclick="(async () => await UnfollowAsync(item.Id))" class="btn btn-primary">Unfollow</button>
+                    }
+                    else
+                    {
+                        <button @onclick="(async () => await FollowAsync(item.Id))" class="btn btn-primary">Follow</button>
+                    }
+
+                </div>
             }
-            <button class="btn btn-primary @((_pageNumber+1)==(int)Math.Ceiling(_userCounts / (decimal)_pageSize)?"disable-btn":"")" @onclick=@(async ()=>await NavigateForward())>Next</button>
-        }
-    </div>
+        </div>
+        <div class="paging-container">
+            @if (_total > 0)
+            {
+                <button class="btn btn-primary @(_pageNumber==0?"disable-btn":"")" @onclick=@(async ()=>await OnPreviousClickedAsync())>Prev</button>
+                @for (var index = 0; index < (int)Math.Ceiling(_total / (decimal)PageSize); index++)
+                {
+                    var currentIndex = index;
+                    <button type="button" class="@(_pageNumber==index?"btn btn-primary":"")" @onclick="(async ()=>await OnPageClickedAsync(currentIndex))">@(index + 1)</button>
+                }
+                <button class="btn btn-primary @((_pageNumber+1)==(int)Math.Ceiling(_total / (decimal)PageSize)?"disable-btn":"")" @onclick=@(async ()=>await OnNextClickedAsync())>Next</button>
+            }
+        </div>
+    }
+
 </div>

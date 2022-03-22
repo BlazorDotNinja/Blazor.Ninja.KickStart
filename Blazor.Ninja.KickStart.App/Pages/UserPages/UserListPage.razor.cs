@@ -1,126 +1,177 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Blazor.Ninja.Common.Client;
 using Blazor.Ninja.Common.Data;
-using Blazor.Ninja.KickStart.Common;
 using Blazor.Ninja.Sdk.AspNetCore;
 
 namespace Blazor.Ninja.KickStart.App.Pages.UserPages
 {
     public partial class UserListPage
     {
-        private IUserProxy<CustomUser> _proxy;
+	    private const int PageSize = 3;
 
-        private BlazorNinjaComponentState _state = BlazorNinjaComponentState.Loading;
+        private IUserProxy<GenericUser> _proxy;
 
-        private CustomUser _currentUser = new CustomUser();
+        private GenericUser _currentUser = new();
+        private UserFollow _currentUserFollowData = new();
 
-        private UserFollow _userFollow = new UserFollow();
-
-        private List<CustomUser> _users = new List<CustomUser>();
-
-        private long _userCounts;
-
-        private int _pageSize = 3;
-
-        private int _pageNumber = 0;
+        private int _pageNumber;
+        private List<GenericUser> _users = new();
+        private long _total;
+        private List<Tuple<string, long, long>> _map;
 
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
 
-            var token = await GetContextTokenAsync();
-
-            _proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
-
-            await GetFollowDataAsync();
-
-            _users = await LoadAsync();
-
-            _userCounts = await _proxy.GetCountAsync(Filter<CustomUser>.Empty);
-
-            _state = BlazorNinjaComponentState.WaitingForInput;
-        }
-
-        private async Task<List<CustomUser>> LoadAsync()
-        {
-            var userPage = await _proxy.GetPageAsync(Filter<CustomUser>.Empty, _pageNumber, _pageSize, SortOrder<CustomUser>.Empty);
-
-            var users = userPage.Items;
-
-            var customUsers = await Task.WhenAll(users.Select(async x => new CustomUser
+            try
             {
-                Id = x.Id,
-                PhotoUrl = x.PhotoUrl,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Followers = await _proxy.GetFollowersAsync(x.Id),
-                Following = await _proxy.GetFollowingAsync(x.Id)
+	            State = BlazorNinjaComponentState.Loading;
 
-            }));
+                var token = await GetContextTokenAsync();
 
-            return customUsers.ToList();
+	            _proxy = ProxyFactory.GetUserProxy<GenericUser>(token);
+
+	            _currentUser = await _proxy.GetAsync();
+
+                await LoadAsync();
+
+	            State = BlazorNinjaComponentState.WaitingForInput;
+            }
+            catch (Exception ex)
+            {
+	            State = BlazorNinjaComponentState.Failed;
+
+	            await HandleExceptionAsync(ex);
+            }
         }
 
-        private async Task FollowAsync(string id)
+        protected override async Task LoadAsync()
         {
-            _state = BlazorNinjaComponentState.Working;
+	        var filter = Builders<GenericUser>.Filter.Ne(it => it.Id, _currentUser.Id);
 
-            await _proxy.FollowAsync(_currentUser.Id, id);
+            var userPage = await _proxy.GetPageAsync(
+	            filter, 
+	            _pageNumber, 
+	            PageSize, 
+	            SortOrder<GenericUser>.Empty);
 
-            await GetFollowDataAsync();
+            _users = userPage.Items;
 
-            _users = await LoadAsync();
+            _map = new List<Tuple<string, long, long>>();
 
-            _state = BlazorNinjaComponentState.WaitingForInput;
+            foreach (var user in _users)
+            {
+	            var followers = await _proxy.GetFollowersAsync(user.Id);
+	            var following = await _proxy.GetFollowingAsync(user.Id);
+	            var tuple = new Tuple<string, long, long>(user.Id, followers, following);
+                _map.Add(tuple);
+            }
+
+            _currentUserFollowData = await _proxy.GetFollowDataAsync(_currentUser.Id);
+
+            _total = await _proxy.GetCountAsync(Filter<GenericUser>.Empty);
         }
 
-        private async Task UnfollowAsync(string id)
+        private static string GetName(
+	        IUser user)
         {
-            _state = BlazorNinjaComponentState.Working;
+	        var name = $"{user.FirstName} {user.LastName}";
 
-            await _proxy.UnfollowAsync(_currentUser.Id, id);
+	        if (!string.IsNullOrWhiteSpace(name)) return name;
 
-            await GetFollowDataAsync();
+	        if (!string.IsNullOrWhiteSpace(user.Username)) return user.Username;
 
-            _users = await LoadAsync();
+            if (!string.IsNullOrWhiteSpace(user.Email)) return user.Email;
 
-            _state = BlazorNinjaComponentState.WaitingForInput;
+            if (!string.IsNullOrWhiteSpace(user.Phone)) return user.Phone;
+
+            return user.Id;
         }
 
-        public async Task NavigateForward()
+        private long GetFollowers(
+	        string userId)
+        {
+	        return _map.First(it => it.Item1 == userId).Item2;
+        }
+
+        private long GetFollowing(
+	        string userId)
+        {
+	        return _map.First(it => it.Item1 == userId).Item3;
+        }
+
+        private bool IsFollowing(
+	        string userId)
+        {
+	        return _currentUserFollowData.Following.Any(x => x == userId);
+        }
+
+        private async Task FollowAsync(
+	        string userId)
+        {
+	        try
+            {
+	            State = BlazorNinjaComponentState.Working;
+
+	            await _proxy.FollowAsync(_currentUser.Id, userId);
+
+	            await LoadAsync();
+
+	            State = BlazorNinjaComponentState.WaitingForInput;
+            }
+            catch (Exception ex)
+            {
+	            State = BlazorNinjaComponentState.WaitingForInput;
+
+	            await HandleExceptionAsync(ex);
+            }
+        }
+
+        private async Task UnfollowAsync(
+	        string userId)
+        {
+	        try
+            {
+	            State = BlazorNinjaComponentState.Working;
+
+	            await _proxy.UnfollowAsync(_currentUser.Id, userId);
+
+                await LoadAsync();
+
+	            State = BlazorNinjaComponentState.WaitingForInput;
+            }
+            catch (Exception ex)
+            {
+	            State = BlazorNinjaComponentState.WaitingForInput;
+
+	            await HandleExceptionAsync(ex);
+            }
+        }
+
+        private async Task OnNextClickedAsync()
         {
             _pageNumber += 1;
 
-            _users = await LoadAsync();
+            await LoadAsync();
         }
 
-        public async Task NavigateBack()
+        private async Task OnPreviousClickedAsync()
         {
             _pageNumber -= 1;
 
-            _users = await LoadAsync();
+            await LoadAsync();
         }
 
-
-        public async Task OnPageChange(int page)
+        private async Task OnPageClickedAsync(
+	        int page)
         {
             _pageNumber = page;
 
-            _users = await LoadAsync();
-        }
-
-        private async Task GetFollowDataAsync()
-        {
-            var token = await GetContextTokenAsync();
-
-            _proxy = ProxyFactory.GetUserProxy<CustomUser>(token);
-
-            _currentUser = await _proxy.GetAsync();
-
-            _userFollow = await _proxy.GetFollowDataAsync(_currentUser.Id);
+            await LoadAsync();
         }
     }
 }
