@@ -1,0 +1,16 @@
+﻿@page "/dialog"
+@inherits BlazorNinjaComponent
+@layout UserContextLayout
+@attribute [UserContextRequired]
+
+<div class="blazor-ninja-page">
+    <button class="btn btn-primary" @onclick="@NinjaCallback(OnButtonClicked)">Click me!</button>
+</div>
+
+<DialogBox @ref=@_dialog
+           SubmitButtonText="Yes"
+           CloseButtonText="No">
+    <div>
+        <span>Are you sure you want to click me?</span>
+    </div>
+</DialogBox>
