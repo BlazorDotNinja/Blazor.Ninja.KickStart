@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.14.29" />
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.14.34" />
 		<PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
 	</ItemGroup>
 

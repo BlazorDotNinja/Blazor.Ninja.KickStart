@@ -8,7 +8,7 @@
 			   Images=@_images
 			   Columns=3
 			   ImagesAdded=@OnImagesAdded
-			   ImageRemoved=@OnImageRemoved>
+			   ImagesRemoved=@OnImagesRemoved>
 	</ImageForm>
 </div>
 
@@ -72,17 +72,20 @@
 		}
 	}
 
-	public async Task OnImageRemoved(string id)
+    public async Task OnImagesRemoved(ImageForm.ImagesRemovedEventArgs args)
 	{
-		await _owlProxy.DeleteAsync(id);
+        foreach (var id in args.ImageIds)
+        {
+            await _owlProxy.DeleteAsync(id);
 
-		await _owlPhotoProxy.DeleteAsync(id);
+            await _owlPhotoProxy.DeleteAsync(id);
 
-		await _owlPhotoProxy.DeleteAsync(id + "xw100");
+            await _owlPhotoProxy.DeleteAsync(id + "xw100");
 
-		_images.RemoveAll(it => it.Id == id);
+            _images.RemoveAll(it => it.Id == id);
+        }
 
-		await InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
 	}
 
 	private List<ImageVm> GetVm(List<Content> items)
