@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Blazor.Ninja.Client.Http" Version="1.15.1" />
-    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.15.1" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="Blazor.Ninja.Client.Http" Version="1.16.0-preview.2" />
+    <PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.16.0-preview.2" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -59,6 +59,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />
+	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\Blazor.Ninja.KickStart.App\Blazor.Ninja.KickStart.App.csproj" />
 	</ItemGroup>
 

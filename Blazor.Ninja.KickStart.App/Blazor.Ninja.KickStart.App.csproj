@@ -1,31 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<RootNamespace>Blazor.Ninja.KickStart.App</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="GeoFeatureGroupController.cs" />
-		<Compile Remove="OwlPhotoController.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.15.1" />
-		<PackageReference Include="Syncfusion.Blazor" Version="19.1.0.54" />
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.16.0-preview.2" />
+		<PackageReference Include="Syncfusion.Blazor" Version="20.1.0.50" />
 	</ItemGroup>
 
 
 	<ItemGroup>
 		<ProjectReference Include="..\Blazor.Ninja.KickStart.Common\Blazor.Ninja.KickStart.Common.csproj" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-		<Content Update="wwwroot\css\kickstart.scss">
-			<Generator>SassTranspiler</Generator>
-			<LastGenOutput>kickstart.css</LastGenOutput>
-		</Content>
 	</ItemGroup>
 
 </Project>
