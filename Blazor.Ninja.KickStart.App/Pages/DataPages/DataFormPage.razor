@@ -29,7 +29,8 @@
                   OptionValueCallback="GetOptionValuesAsync"
                   ReferenceValueCallback="GetReferenceValueAsync"
                   ReferenceValueClickedCallback="OnReferenceValueClickedAsync"
-                  ReferenceSearchValueChangedCallback="OnReferenceSearchValueChangedAsync">
+                  ReferenceSearchValueChangedCallback="OnReferenceSearchValueChangedAsync"
+                  FieldConfigCallback="FieldConfigCallback">
         </DataForm>
     }
 </div>
@@ -134,5 +135,25 @@
         var item = _dataForm.Item;
 
         if (fieldLabel == "ProjectCategoryId") _dataForm.SetValue("Text", default);
+    }
+
+    private FieldConfig FieldConfigCallback(string fieldLabel)
+    {
+        if (fieldLabel == "ProjectCategoryId")
+        {
+            return new FieldConfig { Enabled = false };
+        }
+
+        if (fieldLabel == "Text")
+        {
+            return new FieldConfig { Visible = false };
+        }
+
+        if (fieldLabel == "Password")
+        {
+            return new FieldConfig { Placeholder = "Password 2" };
+        }
+
+        return default;
     }
 }
