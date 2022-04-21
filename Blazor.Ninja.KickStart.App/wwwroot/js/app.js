@@ -47,3 +47,25 @@ window.canGoBack = function() {
 	return history.length > 1;
 };
 
+function downloadFile(filename, contentType, data) {
+	// Convert base64 string to numbers array.
+	const numberArray = atob(data).split('').map(c => c.charCodeAt(0));
+	// Convert numbers array to Uint8Array object.
+	const uint8Array = new Uint8Array(numberArray);
+	// Wrap it by Blob object.
+	const blob = new Blob([uint8Array], { type: contentType });
+	// Create "object URL" that is linked to the Blob object.
+	const url = URL.createObjectURL(blob);
+
+	downloadFromUrl(url, filename);
+	// At last, release unused resources.
+	URL.revokeObjectURL(url);
+}
+
+function downloadFromUrl(url, fileName) {
+	const anchorElement = document.createElement('a');
+	anchorElement.href = url;
+	anchorElement.download = fileName ?? '';
+	anchorElement.click();
+	anchorElement.remove();
+}

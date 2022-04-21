@@ -2,99 +2,79 @@
 @namespace Blazor.Ninja.KickStart.ServerApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-	Layout = null;
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<title>KickStart App</title>
-	<base href="~/" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
-	<link rel="stylesheet" href="_content/Blazor.Ninja.KickStart.App/css/app.css?v=0.2" />
-	<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>KickStart App</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="_content/Blazor.Ninja.Sdk.AspNetCore/css/blazor-ninja.css" />
+    <link rel="stylesheet" href="_content/Blazor.Ninja.KickStart.App/css/app.css?v=0.2" />
+    <link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap4.css" />
 </head>
 <body>
-<script type="text/javascript">
-		function setTheme(cssClass) {
-			var body = document.body;
+    <script type="text/javascript">
+        function setTheme(cssClass) {
+            var body = document.body;
 
-			body.classList = [];
-			if (cssClass) body.classList.add(cssClass);
+            body.classList = [];
+            if (cssClass) body.classList.add(cssClass);
 
-			if (cssClass === "dark") {
-				const head = document.getElementsByTagName("HEAD")[0];
+            if (cssClass === "dark") {
+                const head = document.getElementsByTagName("HEAD")[0];
 
-				const link = document.createElement("link");
+                const link = document.createElement("link");
 
-				link.rel = "stylesheet";
+                link.rel = "stylesheet";
 
-				link.type = "text/css";
-				link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
+                link.type = "text/css";
+                link.href = "_content/Syncfusion.Blazor/styles/bootstrap-dark.css";
 
-				head.appendChild(link);
-			}
-		}
+                head.appendChild(link);
+            }
+        }
 
-		function getTheme() {
-			const cookies = decodeURIComponent(document.cookie).split(";");
-			for (let i = 0; i < cookies.length; i++) {
-				let cookie = cookies[i];
-				while (cookie.charAt(0) === " ") {
-					cookie = cookie.substring(1);
-				}
-				if (cookie.indexOf("Theme=") === 0) {
-					return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
-				}
-			}
-			return "";
-		}
+        function getTheme() {
+            const cookies = decodeURIComponent(document.cookie).split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i];
+                while (cookie.charAt(0) === " ") {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf("Theme=") === 0) {
+                    return cookie.substring(cookie.indexOf("=") + 1, cookie.length);
+                }
+            }
+            return "";
+        }
 
-		var theme = getTheme();
-		if (theme) {
-			theme = theme.replace(/"/g, '');
-			setTheme(theme);
-		}
-	setTheme(theme);
+        var theme = getTheme();
+        if (theme) {
+            theme = theme.replace(/"/g, '');
+            setTheme(theme);
+        }
 
-    function downloadFile(filename, contentType, data) {
-        // Convert base64 string to numbers array.
-        const numberArray = atob(data).split('').map(c => c.charCodeAt(0));
-        // Convert numbers array to Uint8Array object.
-        const uint8Array = new Uint8Array(numberArray);
-        // Wrap it by Blob object.
-        const blob = new Blob([uint8Array], { type: contentType });
-        // Create "object URL" that is linked to the Blob object.
-		const url = URL.createObjectURL(blob);
+        setTheme(theme);
 
-        downloadFromUrl(url,filename);
-        // At last, release unused resources.
-        URL.revokeObjectURL(url);
-	}
-	function downloadFromUrl(url, fileName) {
-        const anchorElement = document.createElement('a');
-        anchorElement.href = url;
-        anchorElement.download = fileName ?? '';
-        anchorElement.click();
-        anchorElement.remove();
-    }
-	</script>
+    </script>
 
-	<component type="typeof(App)" render-mode="Server" />
+    <component type="typeof(App)" render-mode="Server" />
 
-	<script src="_framework/blazor.server.js"></script>
-	
+    <script src="_framework/blazor.server.js"></script>
+
     <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.common.js"></script>
     <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.image.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.navigation.js"></script>
-	<script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.cookie.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.imageform.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.suggestion.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.navigation.js"></script>
+    <script src="_content/Blazor.Ninja.Sdk.AspNetCore/js/blazor.ninja.cookie.js"></script>
 
-	<script src="_content/Blazor.Ninja.KickStart.App/js/app.js"></script>
+    <script src="_content/Blazor.Ninja.KickStart.App/js/app.js"></script>
 </body>
 </html>
