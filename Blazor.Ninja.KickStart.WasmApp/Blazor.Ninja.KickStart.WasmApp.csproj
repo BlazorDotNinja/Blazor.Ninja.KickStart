@@ -14,4 +14,9 @@
     <ProjectReference Include="..\Blazor.Ninja.KickStart.App\Blazor.Ninja.KickStart.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Properties\ServiceDependencies\" />
+  </ItemGroup>
+
 </Project>
