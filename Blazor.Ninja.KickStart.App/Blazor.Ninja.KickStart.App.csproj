@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.16.0-preview.2" />
+		<PackageReference Include="Blazor.Ninja.Sdk.AspNetCore" Version="1.17.0-preview.10" />
 		<PackageReference Include="Syncfusion.Blazor" Version="20.1.0.50" />
 	</ItemGroup>
 
