@@ -1,0 +1,33 @@
+﻿@page "/dataform2"
+@layout UserContextLayout
+@inherits BlazorNinjaComponent
+
+<div class="blazor-ninja-page">
+    @if (_isInitialized)
+    {
+        <DataForm @ref=_dataForm
+              T=@GenericIdDataObject
+              ItemId=@_projectId
+              FieldLabels=@(new List<string> {
+                  "ProjectCategoryId",
+                  "Text",
+                  })
+              Fields=@(new List<DataField>{
+                  new DataField{
+                      Label = "ProjectCategoryId",
+                      Type = DataFieldType.Reference,
+                      Required = true
+                  },
+                  new DataField{
+                      Label = "Text",
+                      Type = DataFieldType.Text,
+                      Required = true
+                  }})
+              ButtonLabel="Search"
+              ValueChanged=@(OnValueChanged)
+              ReferenceValueCallback="GetReferenceValueAsync"
+              ReferenceValueClickedCallback="OnReferenceValueClickedAsync"
+              ReferenceSearchValueChangedCallback="OnReferenceSearchValueChangedAsync">
+        </DataForm>
+    }
+</div>
