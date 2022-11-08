@@ -9,8 +9,18 @@
 
 @code{
 
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "redirectTo")]
+    public string RedirectTo { get; set; }
+
 	private void OnDone(bool wasUserInputNeeded)
 	{
+	    if (!string.IsNullOrWhiteSpace(RedirectTo))
+	    {
+	        NavigationManager.NavigateTo(RedirectTo);
+	        return;
+	    }
+
 		var uri = "/";
 
 		var values = new Dictionary<string, object>
