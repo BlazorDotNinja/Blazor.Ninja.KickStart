@@ -51,7 +51,11 @@
 	{
 		await base.OnInitializedAsync();
 
-		if (!await HasUserAsync()) return;
+	    if (!await HasUserAsync())
+	    {
+	        NavigationManager.NavigateTo($"login?redirectTo={NavigationManager.Uri}");
+	        return;
+	    }
 
 		var contextUser = await GetUserAsync();
 
